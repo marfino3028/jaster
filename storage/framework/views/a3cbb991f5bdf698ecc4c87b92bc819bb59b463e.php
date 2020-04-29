@@ -1,20 +1,20 @@
-@section('title', 'Add Order')
+<?php $__env->startSection('title', 'Add Order'); ?>
 
-@section('csslibraries')
-@parent
-<link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/jquery-selectric/selectric.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
+<?php $__env->startSection('csslibraries'); ?>
+##parent-placeholder-7b1b790aaa0be695520f3372cd9a85443b6faa1f##
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-daterangepicker/daterangepicker.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/select2/dist/css/select2.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/jquery-selectric/selectric.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/summernote/summernote-bs4.css')); ?>">
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@extends('backend.master')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="section-header"> <!-- done -->
         <h1>Add Order</h1>
         <div class="section-header-breadcrumb">
@@ -26,7 +26,7 @@
       <div class="section-body">
         <h2 class="section-title">Add Order</h2>
         <p class="section-lead">Tambahkan Ordernya dibawah</p>
-        <form method="post" action="{{ route('addOrder') }}" class="needs-validation" novalidate="">
+        <form method="post" action="<?php echo e(route('addOrder')); ?>" class="needs-validation" novalidate="">
 
 
             <!-- table kiri atas -->
@@ -38,7 +38,7 @@
               </div>
               <div class="card-body col-md-12">
                    <div class="row">
-                    @csrf
+                    <?php echo csrf_field(); ?>
                     <div class="col-6" style="margin-right: -80px;">
                         <div class="form-group" >
                         <label>Nama </label>
@@ -109,7 +109,7 @@
             </div>
             <div class="card-body col-md-10">
                  <div class="row">
-                  @csrf
+                  <?php echo csrf_field(); ?>
                   <div class="col-4" style="margin-right: -100px;">
                       <div class="form-group" >
                       <label>Nama </label>
@@ -326,21 +326,21 @@
       </div>
     </section>
   </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('jslibraries')
-@parent
+<?php $__env->startSection('jslibraries'); ?>
+##parent-placeholder-ffd66c5dac17be6451cca4afe8a4549aa7aad85f##
 
-<script src="{{ asset('assets/modules/cleave-js/dist/cleave.min.js') }}"></script>
-<script src="{{ asset('assets/modules/cleave-js/dist/addons/cleave-phone.us.js') }}"></script>
-<script src="{{ asset('assets/modules/jquery-pwstrength/jquery.pwstrength.min.js') }}"></script>
-<script src="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
-<script src="{{ asset('assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-<script src="{{ asset('assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
-<script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('assets/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
-<script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
+<script src="<?php echo e(asset('assets/modules/cleave-js/dist/cleave.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/cleave-js/dist/addons/cleave-phone.us.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/jquery-pwstrength/jquery.pwstrength.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/select2/dist/js/select2.full.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/jquery-selectric/jquery.selectric.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/summernote/summernote-bs4.js')); ?>"></script>
 <script>
 
     $(".colorpickerinput").colorpicker({
@@ -349,4 +349,6 @@
     });
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/pages/add-order.blade.php ENDPATH**/ ?>

@@ -1,6 +1,5 @@
-@extends('backend.master')
-@section('title', 'Dashboard')
-@section('content')
+<?php $__env->startSection('title', 'Dashboard'); ?>
+<?php $__env->startSection('content'); ?>
 <div class="section-header">
     <h1>Dashboard</h1>
     <div class="section-header-breadcrumb">
@@ -19,16 +18,16 @@
                   </div>
                   <div class="card-body">
                     <div id="accordion">
-                    @foreach ($listNotes as $catat)
+                    <?php $__currentLoopData = $listNotes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $catat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div class="accordion">
-                        <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-{{ $catat->id }}" aria-expanded="false">
-                          <span>Dari <b>{{ $catat->name }}</b></span>
+                        <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-<?php echo e($catat->id); ?>" aria-expanded="false">
+                          <span>Dari <b><?php echo e($catat->name); ?></b></span>
                         </div>
-                        <div class="accordion-body collapse" id="panel-body-{{ $catat->id }}" data-parent="#accordion">
-                        @php echo($catat->catatan) @endphp
+                        <div class="accordion-body collapse" id="panel-body-<?php echo e($catat->id); ?>" data-parent="#accordion">
+                        <?php echo($catat->catatan) ?>
                         </div>
                       </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                   </div>
 
@@ -50,9 +49,9 @@
 
       </div>
 </div>
-@endsection
-@section('puter')
-<script src="{{ asset('assets/modules/chart.min.js') }}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('puter'); ?>
+<script src="<?php echo e(asset('assets/modules/chart.min.js')); ?>"></script>
 <script>
 $(function () {
 
@@ -101,4 +100,6 @@ $(function () {
         });
 });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/dashboard.blade.php ENDPATH**/ ?>
