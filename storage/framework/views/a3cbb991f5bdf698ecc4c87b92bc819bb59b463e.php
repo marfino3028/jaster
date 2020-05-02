@@ -2,50 +2,7 @@
 
 <?php $__env->startSection('csslibraries'); ?>
 ##parent-placeholder-7b1b790aaa0be695520f3372cd9a85443b6faa1f##
-<style>
-.total{
-    position: relative;
-width: 312px;
-height: 27px;
-left: 46px;
-top: -80px;
-font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 27px;
-color: #F4F4F4;
 
-}
-.login100-form-btn {
-
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  padding: 0 5px;
-  width: 100px;
-  height: 30px;
-  top: 35px;
-background-color: #FFF73E;
-  border-radius: 5px;
-
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 12px;
-  color: #000000;
-  line-height: 0.8;
-
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-
-}
-.login100-form-btn:hover {
-  background-color: #DCD305;
-
-}
-</style>
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-daterangepicker/daterangepicker.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/select2/dist/css/select2.min.css')); ?>">
@@ -74,9 +31,9 @@ background-color: #FFF73E;
 
 
             <!-- table kiri atas -->
-        <div class="row">
+        <div class="row" >
             <div class="col-5 col-md-5 col-lg-5">
-                <div class="card col-md-12 col-lg-12">
+                <div class="card col-md-12 col-lg-12 rounded-right rounded-left rounded-top rounded-bottom">
                   <div class="card-header" style="margin-bottom: -20px;">
                     <font color="white" weight="bold"><h3>Personal Company</h3> </font>
                   </div>
@@ -150,7 +107,7 @@ background-color: #FFF73E;
 
     <!-- tabel kanan atas -->
         <div class="col-7 col-md-7 col-lg-7">
-          <div class="card ">
+          <div class="card rounded-right rounded-left rounded-top rounded-bottom">
             <div class="card-header" style="margin-bottom: -20px;">
               <font color="white" weight="bold"><h3>For Website</h3> </font>
             </div>
@@ -245,8 +202,8 @@ background-color: #FFF73E;
 
 <!-- table bawah -->
 
-          <div class="col-12">
-            <div class="card">
+          <div class="col-12 rounded-left rounded-top rounded-bottom">
+            <div class="card rounded-right rounded-left rounded-top rounded-bottom" >
                 <div class="card-header" style="margin-bottom: -20px;">
                   <font color="white" weight="bold"><h3>Detail Order</h3> </font>
                 </div>
@@ -260,10 +217,11 @@ background-color: #FFF73E;
                             <div class="invalid-feedback">
                                 Input paket bosz!
                             </div>
+
                             </div>
                         </div>
                         <div class="col-4" style="margin-right: -290px;">
-                        <div class="form-group">
+                        <div class="form-group rounded">
                             <label>Quantity </label>
                             <input type="text" class="form-control col-md-5" name="quantity">
                             <div class="invalid-feedback">
@@ -339,8 +297,13 @@ background-color: #FFF73E;
               </div>
       </div>
       </div>
-      <div class="total">Total Order</div>
-      </form>
+      <div class="total">Total Order :</div>
+      <table class="table1">
+		<tr>
+			<th>Rp. <?php echo e(number_format(5000000,0,',','.')); ?>-,</th>
+		</tr>
+	</table>
+        </form>
     </section>
   </div>
 <?php $__env->stopSection(); ?>
