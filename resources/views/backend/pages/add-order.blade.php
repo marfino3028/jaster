@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
-
+<link rel="stylesheet" type="text/css" href="{{asset('assets/button_ic/css/normalize.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('assets/button_ic/css/vicons-font.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('assets/button_ic/css/buttons.css')}}" />
 @endsection
 
 @extends('backend.master')
@@ -237,7 +239,7 @@
                                 <div class="invalid-feedback">
                                     Input Nama usaha!
                                 </div>
-
+                                <br><br><br>
                             </div>
                      </div>
                      <div class="col-1" style="margin-right: 80px;">
@@ -245,7 +247,6 @@
                         <button class="login100-form-btn">
                             <i class="fas fa-plus-circle"></i>&nbsp; Add Row
                         </button><br><br><br>
-
                     </div>
                 </div>
 
@@ -302,7 +303,8 @@
 		<tr>
 			<th>Rp. {{ number_format(5000000,0,',','.') }}-,</th>
 		</tr>
-	</table>
+    </table>
+    <button class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
         </form>
     </section>
   </div>
@@ -322,14 +324,11 @@
 <script src="{{ asset('assets/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
 <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
 <script>
-
     $(".colorpickerinput").colorpicker({
         format: 'hex',
         component: '.input-group-append',
     });
-
 </script>
 <script>
-
 </script>
 @endsection

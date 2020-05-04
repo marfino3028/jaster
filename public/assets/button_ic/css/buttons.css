@@ -1,0 +1,95 @@
+@font-face { font-family: 'vicons'; font-weight: bold; font-style: normal; src: url('../fonts/vicons/vicons.eot?1u5j7r'); src: url('../fonts/vicons/vicons.eot?#iefix1u5j7r') format('embedded-opentype'), url('../fonts/vicons/vicons.woff?1u5j7r') format('woff'), url('../fonts/vicons/vicons.ttf?1u5j7r') format('truetype'), url('../fonts/vicons/vicons.svg?1u5j7r#vicons') format('svg'); }
+.icon { font-family: 'vicons'; font-size: 22px; font-weight: normal; font-style: normal; line-height: inherit; position: relative; display: inline-block; transform: translate(0, 0); vertical-align: middle; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.icon::before { display: inline-block; width: 100%; }
+
+.icon-cart:before { content: '\e625'; }
+
+
+/* Common button styles */
+.button {
+
+	min-width: 390px;
+	max-width: 550px;
+	display: block;
+	margin: 1em;
+	padding: 1em 2em;
+	border: none;
+	background: none;
+	color: inherit;
+	vertical-align: middle;
+    position: relative;
+    left: 370px;
+    top: -160px;
+	z-index: 1;
+	-webkit-backface-visibility: hidden;
+	-moz-osx-font-smoothing: grayscale;
+}
+.button:focus {
+	outline: none;
+}
+.button > span {
+	vertical-align: middle;
+}
+
+
+.button--size-l {
+	font-size: 22px;
+}
+
+/* Typography and Roundedness */
+.button--text-thick {
+	font-weight: bold;
+}
+.button--round-l {
+	border-radius: 40px;
+}
+
+.button--border-thick {
+	border: 3px solid;
+}
+
+/* Shikoba */
+.button.button--shikoba {
+	padding: 0.6em 50px 0.6em 50px;
+	overflow: hidden;
+	background: #fff;
+	color: #FFF845;
+	border-color: #37474f;
+	-webkit-transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+	transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+.button--shikoba.button--inverted {
+	color: #000000;
+	background: #FFF845;
+}
+.button--shikoba > span {
+	display: inline-block;
+	-webkit-transform: translate3d(-10px, 0, 0);
+	transform: translate3d(-10px, 0, 0);
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+	-webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+	transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button--shikoba .button__icon {
+	position: absolute;
+    left: 45px;
+    top:  5px;
+	font-size: 22px;
+	-webkit-transform: translate3d(-40px, 2.5em, 0);
+	transform: translate3d(-40px, 2.5em, 0);
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.2s;
+	-webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+	transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button--shikoba:hover .button__icon,
+.button--shikoba:hover > span {
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+.button--shikoba:hover {
+	background: #5C5A14;
+	border-color: rgb(138, 134, 16);
+	color: #fff;
+}
