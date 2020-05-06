@@ -22,7 +22,7 @@
 <div class="section-body">
     <div class="row">
         <div class="col-6">
-            <h2 class="section-title"><b><?php echo e($showOrder->nama_order); ?></b> Progress</h2>
+            <h2 class="section-title"><b><?php echo e($showOrder->brand); ?></b> Progress</h2>
             <p class="section-lead">This page is just an example for you to create your own page.</p>
         </div>
         <div class="col-6">
@@ -111,7 +111,7 @@
                         <div class="form-group">
                             <h5>Web Pesaing</h5>
                             <div class="form-group" id="webpesaingnya">
-    
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -128,7 +128,7 @@
                     <div class="col-6">
                         <h5>Detail Order</h5>
                         <div class="form-group" id="detailOrder">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                 success: function (datanotes) {
                     // console.log(datanotes[0].notes)
                     $('#notes').html(datanotes[0].notes);
-                    $('#detailOrder').append('<div class="form-group"> <label>Nama Paket</label> <input type="text" class="form-control" readonly="" value="'+ datanotes[0].nama_paket +'"> </div> <div class="form-group"> <label>Tipe Post</label> <input type="text" class="form-control" readonly="" value="'+ datanotes[0].tipe_post +'"> </div> <div class="form-group"> <label>Warna</label> <input type="text" class="form-control" readonly="" value="'+ datanotes[0].warna +'"> </div>');
+                    $('#detailOrder').append('<div class="form-group"> <label>Nama Paket</label> <input type="text" class="form-control" readonly="" value="'+ datanotes[0].paket +'"> </div> <div class="form-group"> <label>Tipe Post</label> <input type="text" class="form-control" readonly="" value="'+ datanotes[0].tipe_post +'"> </div> <div class="form-group"> <label>Warna</label> <input type="text" class="form-control" readonly="" value="'+ datanotes[0].warna +'"> </div>');
                     $('#lihatNotes').append(datanotes[0].notes);
                     $('#requestnya').append(datanotes[0].request);
                     $('#webpesaingnya').append(datanotes[0].web_pesaing);

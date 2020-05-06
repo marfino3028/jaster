@@ -27,25 +27,28 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>                                 
+                        <thead>
                           <tr>
-                            <th>#</th>
-                            <th>Nama Order</th>
-                            <th>Nama Paket</th>
+                            <th>No</th>
+                            <th>Order</th>
+                            <th>Project</th>
+                            <th>Tanggal Order</th>
                             <th>Deadline</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             <?php $no = 1; ?>
-                            <?php $__empty_1 = true; $__currentLoopData = $order; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>                              
+                            <?php $__empty_1 = true; $__currentLoopData = $order; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                           <tr>
-                            <td><?php echo e($no++); ?></td>
-                            <td><?php echo e($row->nama_order); ?></td>
-                            <td><?php echo e($row->nama_paket); ?></td>
-                            <td><?php echo e($row->deadline); ?></td>
-                            <td>
+                            <td align="center"><?php echo e($no++); ?></td>
+                            <td align="center">JWT-<?php echo e($row->order_id); ?></td>
+                            <td align="center"><?php echo e($row->brand); ?></td>
+                            <td align="center"><?php echo e($row->tanggal_order); ?></td>
+                            <td align="center"><?php echo e($row->deadline); ?></td>
+                            <td align="center">
                                 <a href="<?php echo e(route('editOrder', ['id' => $row->order_id])); ?>" class="btn btn-outline-primary button-list-order">Edit</a>
+                                <a href="" class="btn btn-outline-primary button-list-order">View</a>
                             </td>
                           </tr>
                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
@@ -77,4 +80,5 @@
     $("#ordertable").dataTable();
 </script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/pages/list-order.blade.php ENDPATH**/ ?>

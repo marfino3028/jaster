@@ -45,7 +45,7 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>Nama </label>
-                            <input type="text" class="form-control col-md-10" name="nama_order">
+                            <input type="text" class="form-control col-md-10" name="nama">
                             <div class="invalid-feedback">
                                 Input Nama bosz!
                             </div>
@@ -63,7 +63,7 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>No Whatsapp </label>
-                            <input type="text" class="form-control col-md-10" name="no_wa">
+                            <input type="number" class="form-control col-md-10" name="wa">
                             <div class="invalid-feedback">
                                 Input No Whatsapp!
                             </div>
@@ -72,7 +72,7 @@
                         <div class="col-6">
                         <div class="form-group">
                             <label>Email </label>
-                            <input type="text" class="form-control col-md-12" name="nama_order">
+                            <input type="email" class="form-control col-md-12" name="email">
                             <div class="invalid-feedback">
                                 Input Email!
                             </div>
@@ -145,11 +145,15 @@
                         </div>
                         <div class="col-4" style="margin-right: -5px;">
                             <div class="form-group">
-                            <label>Color </label>
-                            <input type="text" class="form-control col-md-12" name="color">
-                            <div class="invalid-feedback">
-                                Input color bosz!
-                            </div>
+                                <label>Color</label>
+                                <div class="input-group colorpickerinput">
+                                    <input type="text" class="form-control" name="warna">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-fill-drip"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-4" style="margin-right: -5px;">
@@ -163,10 +167,19 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <label>Password </label>
-                                <input type="text" class="form-control col-md-12" name="password">
-                                <div class="invalid-feedback">
-                                    Input password!
+                                <label>Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control pwstrength" data-indicator="pwindicator"
+                                        name="akun_password">
+                                </div>
+                                <div id="pwindicator" class="pwindicator">
+                                    <div class="bar"></div>
+                                    <div class="label"></div>
                                 </div>
                             </div>
                             </div>
@@ -213,42 +226,46 @@
                     <div class="row">
                        <?php echo csrf_field(); ?>
                        <div class="col-4" style="margin-right: -290px;">
-                            <div class="form-group">
-                            <label>Paket </label>
+                            <div class="form-group rounded">
+                            <label class="ulang">Paket </label>
                             <input type="text" class="form-control col-md-5" name="paket">
                             <div class="invalid-feedback">
                                 Input paket bosz!
                             </div>
-
                             </div>
+
                         </div>
                         <div class="col-4" style="margin-right: -290px;">
                         <div class="form-group rounded">
-                            <label>Quantity </label>
+                            <label class="ulang">Quantity </label>
                             <input type="text" class="form-control col-md-5" name="quantity">
                             <div class="invalid-feedback">
                                 Input Quantity!
                             </div>
+                        </div>
 
                         </div>
-                        </div>
                         <div class="col-4" style="margin-right: -290px;">
-                            <div class="form-group">
-                                <label>Biaya </label>
-                                <input type="text" class="form-control col-md-5" name="nama_order">
+
+                            <div class="form-group rounded">
+                                <label class="ulang">Biaya </label>
+                                <input type="text" class="form-control col-md-5" name="biaya">
                                 <div class="invalid-feedback">
-                                    Input Nama usaha!
+                                    Input Biaya
                                 </div>
-                                <br><br><br>
                             </div>
+
+                            <br><br><br> <!-- pembatasan antara add order now -->
                      </div>
+
                      <div class="col-1" style="margin-right: 80px;">
                      <div class="form-group">
-                        <button class="login100-form-btn">
+                        <button type="button" class="login100-form-btn" name="add" id="add">
                             <i class="fas fa-plus-circle"></i>&nbsp; Add Row
-                        </button><br><br><br>
+                        </button>
                     </div>
                 </div>
+
 
                 <!-- forline -->
 
@@ -278,8 +295,8 @@
                             <div class="invalid-feedback">
                                 Input tanggal!
                             </div><br>
-                            <label>Durasi</label>
-                            <input type="text" class="form-control col-md-9" name="durasi">
+                            <label>Deadline</label>
+                            <input type="text" class="form-control col-md-9" name="deadline">
                             <div class="invalid-feedback">
                                 Input Nama usaha!
                             </div><br>
@@ -313,6 +330,48 @@
 <?php $__env->startSection('jslibraries'); ?>
 ##parent-placeholder-ffd66c5dac17be6451cca4afe8a4549aa7aad85f##
 
+<script type="text/javascript">
+$(document).ready(function () {
+    var counter = 0;
+
+    $("#add").on("click", function () {
+        var newRow = $("div.rounded");
+        var cols = "";
+        cols += '<label>Paket </label><input type="text" class="form-control col-md-5" name="paket"><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+        cols += '<label>Quantity </label><input type="text" class="form-control col-md-5" name="quantity"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+        cols += '<label>Biaya </label><input type="text" class="form-control col-md-5" name="biaya"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+        newRow.append(cols);
+        $("div.form-group").append(newRow);
+        counter++;
+    });
+
+
+
+    $("div.form-group").on("click", function (event) {
+        $(this).closest("div.rounded").remove();
+        counter -= 1
+    });
+
+
+});
+
+
+
+function calculateRow(row) {
+    var price = +row.find('input[name^="price"]').val();
+
+}
+
+function calculateGrandTotal() {
+    var grandTotal = 0;
+    $("table.order-list").find('input[name^="price"]').each(function () {
+        grandTotal += +$(this).val();
+    });
+    $("#grandtotal").text(grandTotal.toFixed(2));
+}
+
+
+</script>
 <script src="<?php echo e(asset('assets/modules/cleave-js/dist/cleave.min.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/modules/cleave-js/dist/addons/cleave-phone.us.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/modules/jquery-pwstrength/jquery.pwstrength.min.js')); ?>"></script>
@@ -329,8 +388,7 @@
         component: '.input-group-append',
     });
 </script>
-<script>
-</script>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/pages/add-order.blade.php ENDPATH**/ ?>

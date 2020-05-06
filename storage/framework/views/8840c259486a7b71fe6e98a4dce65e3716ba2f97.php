@@ -27,7 +27,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>                                 
+                        <thead>
                           <tr>
                             <th>#</th>
                             <th>Nama Order</th>
@@ -41,7 +41,7 @@
                             <?php $__empty_1 = true; $__currentLoopData = $hasil; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                           <tr>
                             <td><?php echo e($no++); ?></td>
-                            <td><?php echo e($row['nama_order']); ?></td>
+                            <td><?php echo e($row['brand']); ?></td>
                             <td><?php if(($row['last_edit']) == null): ?> not updated yet <?php else: ?> <?php echo e(date('l, d F Y h:i A', strtotime($row['last_edit']))); ?> <?php endif; ?></td>
                             <td><?php echo e($row['presentase']); ?>%</td>
                             <td>
@@ -89,4 +89,5 @@
     });
 </script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/pages/list-progress.blade.php ENDPATH**/ ?>

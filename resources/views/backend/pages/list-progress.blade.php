@@ -27,7 +27,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>                                 
+                        <thead>
                           <tr>
                             <th>#</th>
                             <th>Nama Order</th>
@@ -41,7 +41,7 @@
                             @forelse ($hasil as $row)
                           <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $row['nama_order'] }}</td>
+                            <td>{{ $row['brand'] }}</td>
                             <td>@if (($row['last_edit']) == null) not updated yet @else {{ date('l, d F Y h:i A', strtotime($row['last_edit'])) }} @endif</td>
                             <td>{{ $row['presentase'] }}%</td>
                             <td>

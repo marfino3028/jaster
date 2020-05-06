@@ -27,25 +27,28 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>                                 
+                        <thead>
                           <tr>
-                            <th>#</th>
-                            <th>Nama Order</th>
-                            <th>Nama Paket</th>
+                            <th>No</th>
+                            <th>Order</th>
+                            <th>Project</th>
+                            <th>Tanggal Order</th>
                             <th>Deadline</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             @php $no = 1; @endphp
-                            @forelse ($order as $row)                              
+                            @forelse ($order as $row)
                           <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $row->nama_order }}</td>
-                            <td>{{ $row->nama_paket }}</td>
-                            <td>{{ $row->deadline }}</td>
-                            <td>
+                            <td align="center">{{ $no++ }}</td>
+                            <td align="center">JWT-{{ $row->order_id }}</td>
+                            <td align="center">{{ $row->brand }}</td>
+                            <td align="center">{{ $row->tanggal_order }}</td>
+                            <td align="center">{{ $row->deadline }}</td>
+                            <td align="center">
                                 <a href="{{route('editOrder', ['id' => $row->order_id])}}" class="btn btn-outline-primary button-list-order">Edit</a>
+                                <a href="" class="btn btn-outline-primary button-list-order">View</a>
                             </td>
                           </tr>
                           @empty

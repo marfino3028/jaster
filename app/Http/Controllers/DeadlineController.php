@@ -8,14 +8,14 @@ use App\Orders;
 class DeadlineController extends Controller
 {
     public function index() {
-        $getDeadline = Orders::select('order_id', 'nama_order', 'created_at', 'deadline')->get();
+        $getDeadline = Orders::select('order_id', 'brand', 'created_at', 'deadline')->get();
 
         $listDeadline = array();
 
         foreach ($getDeadline as $row) {
             $hasil = array(
                 'id' => $row->order_id,
-                'title' => $row->nama_order,
+                'title' => $row->brand,
                 'start' => $row->deadline,
                 // 'start' => date('Y-m-d', strtotime($row->created_at)),
                 'end' => $row->deadline,

@@ -26,7 +26,7 @@ class ProgressController extends Controller
                             ->latest()
                             ->get();
         $hasil = array();
-        
+
         $listWebsite = Website::latest()->get()->toArray();
 
         foreach ($listProgress as $key) {
@@ -35,15 +35,15 @@ class ProgressController extends Controller
                         ['nilai', 1]])
                         ->orderBy('updated_at', 'desc')
                         ->first();
-                        
+
             $order = [
                 'order_id'   => $key->order_id,
-                'nama_order' => $key->nama_order,
+                'brand' => $key->brand,
                 'domain' => null,
                 'last_edit'  => $lastEdit['updated_at'],
                 'presentase' => $this->hitungTotalProgress($key->order_id),
             ];
-                        
+
             foreach($listWebsite as $w) {
                 if ($w['order_id'] == $key->order_id)
                 $order['domain'] = $w['domain'];
@@ -94,7 +94,7 @@ class ProgressController extends Controller
             $addProgress->order_id    = $id;
             $addProgress->kategori_id = $request->kategori_id;
             $addProgress->nilai       = true;
-    
+
             $addProgress->save();
         }
 
@@ -106,14 +106,14 @@ class ProgressController extends Controller
             ['order_id', $id],
             ['kategori_id', $request->kategori_id]
                 ])->first();
-        
+
         if ($cekProgress) {
             $deleteUpProgress = ProgressList::where([
                 ['order_id', $id],
                 ['kategori_id', $request->kategori_id],
             ])->update(['nilai' => false]);
         }
-        
+
 
         return response()->json(['success' => 'progress dihapus']);
     }

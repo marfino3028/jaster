@@ -1,18 +1,18 @@
-@section('title', 'Website')
+<?php $__env->startSection('title', 'Website'); ?>
 
-@section('csslibraries')
-@parent
-<link rel="stylesheet" href="{{ asset('assets/modules/datatables/datatables.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-@endsection
+<?php $__env->startSection('csslibraries'); ?>
+##parent-placeholder-7b1b790aaa0be695520f3372cd9a85443b6faa1f##
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/datatables/datatables.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-daterangepicker/daterangepicker.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/modules/select2/dist/css/select2.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/css/custom.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@extends('backend.master')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="section-header">
     <h1>List Hosting</h1>
     <div class="section-header-breadcrumb">
@@ -25,7 +25,7 @@
     <p class="section-lead">This page is just an example for you to create your own page.</p>
     <div class="row">
     <div class="col-xl-8 col-12">
-    @if(!empty($listwebnoHost))
+    <?php if(!empty($listwebnoHost)): ?>
         <div class="card">
             <div class="card-header">
                     <h4 class="mt-0">Belum masuk Hosting</h4>
@@ -41,51 +41,51 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $no = 1; @endphp
-                                @forelse ($listwebnoHost as $row)
-                                @if (is_array($row))
+                                <?php $no = 1; ?>
+                                <?php $__empty_1 = true; $__currentLoopData = $listwebnoHost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php if(is_array($row)): ?>
                                 <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $row['domain'] }}</td>
+                                    <td><?php echo e($no++); ?></td>
+                                    <td><?php echo e($row['domain']); ?></td>
                                     <td>
                                         <div class="form-inline">
                                             <div class="form-group">
-                                                <button onclick="show({{ $row['websiteId'] }})" class="btn btn-outline-primary button-list-order">Edit</a>
+                                                <button onclick="show(<?php echo e($row['websiteId']); ?>)" class="btn btn-outline-primary button-list-order">Edit</a>
                                             </div>
                                             <div class="form-group">
                                                 <button type="button"
-                                                    class="btn btn-outline-danger button-list-order" onclick="deleteDomain({{ $row['websiteId'] }})" data-target="#deleteHostingConfirm" data-toggle="modal">Delete</button>
+                                                    class="btn btn-outline-danger button-list-order" onclick="deleteDomain(<?php echo e($row['websiteId']); ?>)" data-target="#deleteHostingConfirm" data-toggle="modal">Delete</button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                @endif
-                                @empty
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <tr>
                                     <td>Tidak ada data</td>
                                     <td>Tidak ada data</td>
                                     <td>Tidak ada data</td>
                                 </tr>
-                                @endforelse
+                                <?php endif; ?>
                             </tbody>
                         </table>
                 </div>
             </div>
         </div>
-    @endif
-    @foreach ($listweb as $data)
+    <?php endif; ?>
+    <?php $__currentLoopData = $listweb; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="card">
-            @php
+            <?php
                 foreach ($arrayHosting as $a) {
                     if($a['hostingId'] == $data[0]['hostingId']) {
                         $nama_hosting = $a['nama_hosting'];
                     }
                 }
-            @endphp
+            ?>
             <div class="card-header">
-                    <h4 class="mt-0">{{ $nama_hosting }}</h4>
+                    <h4 class="mt-0"><?php echo e($nama_hosting); ?></h4>
                     <div class="card-header-action">
-                        <span><span class="badge badge-primary mr-2">{{ count($data) }}</span> Website didalamnya</span>
+                        <span><span class="badge badge-primary mr-2"><?php echo e(count($data)); ?></span> Website didalamnya</span>
                     </div>
             </div>
             <div class="card-body">
@@ -99,38 +99,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $no = 1; @endphp
-                                @forelse ($data as $row)
-                                @if (is_array($row))
+                                <?php $no = 1; ?>
+                                <?php $__empty_1 = true; $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php if(is_array($row)): ?>
                                 <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td><a href="{{ $row['domain'] }}" target="_blank">{{ $row['domain'] }}</a></td>
+                                    <td><?php echo e($no++); ?></td>
+                                    <td><a href="<?php echo e($row['domain']); ?>" target="_blank"><?php echo e($row['domain']); ?></a></td>
                                     <td>
                                         <div class="form-inline">
                                             <div class="form-group">
-                                                <button onclick="show({{ $row['websiteId'] }})" class="btn btn-outline-primary button-list-order">Edit</a>
+                                                <button onclick="show(<?php echo e($row['websiteId']); ?>)" class="btn btn-outline-primary button-list-order">Edit</a>
                                             </div>
                                             <div class="form-group">
                                                 <button type="button"
-                                                    class="btn btn-outline-danger button-list-order" onclick="deleteDomain({{ $row['websiteId'] }})" data-target="#deleteHostingConfirm" data-toggle="modal">Delete</button>
+                                                    class="btn btn-outline-danger button-list-order" onclick="deleteDomain(<?php echo e($row['websiteId']); ?>)" data-target="#deleteHostingConfirm" data-toggle="modal">Delete</button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                @endif
-                                @empty
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <tr>
                                     <td>Tidak ada data</td>
                                     <td>Tidak ada data</td>
                                     <td>Tidak ada data</td>
                                 </tr>
-                                @endforelse
+                                <?php endif; ?>
                             </tbody>
                         </table>
                 </div>
             </div>
         </div>
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <div class="col-xl-4 col-12">
             <div id="formDomain" class="card position-sticky sticky-top">
@@ -138,8 +138,8 @@
                     <h4>Tambah Website</h4>
                 </div>
                 <div class="card-body">
-                    <form id="kirimDomain" action="{{route('addDomain')}}" method="post">
-                    @csrf
+                    <form id="kirimDomain" action="<?php echo e(route('addDomain')); ?>" method="post">
+                    <?php echo csrf_field(); ?>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
@@ -153,18 +153,18 @@
                                     <label>Hosting</label>
                                     <select class="form-control select2" name="nama_hosting" id="nama_hosting">
                                         <option value="">None</option>
-                                        @foreach($listHosting as $h)
-                                        <option value="{{ $h->hostingId }}">{{ $h->nama_hosting }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $listHosting; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $h): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($h->hostingId); ?>"><?php echo e($h->nama_hosting); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Order</label>
-                                    <select class="form-control select2" name="brand" id="brand">
+                                    <select class="form-control select2" name="nama_order" id="nama_order">
                                         <option value="">None</option>
-                                        @foreach($listOrder as $or)
-                                        <option value="{{ $or->order_id }}">{{ $or->brand }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $listOrder; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $or): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($or->order_id); ?>"><?php echo e($or->nama_order); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -185,10 +185,10 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('jslibraries')
-@parent
+<?php $__env->startSection('jslibraries'); ?>
+##parent-placeholder-ffd66c5dac17be6451cca4afe8a4549aa7aad85f##
 <div class="modal fade" tabindex="-1" role="dialog" id="deleteHostingConfirm">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -203,8 +203,8 @@
             </div>
             <div class="">
             <form class="modal-footer bg-whitesmoke br" action="" id="deleteForm" method="post">
-                @csrf
-                @method('DELETE')
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('DELETE'); ?>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-danger" onclick="deleteSubmit()">Yes</button>
             </form>
@@ -212,15 +212,15 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
-<script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
-<script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
-<script src="{{ asset('assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-<script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('assets/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
+<script src="<?php echo e(asset('assets/modules/datatables/datatables.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/jquery-ui/jquery-ui.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/select2/dist/js/select2.full.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/modules/jquery-selectric/jquery.selectric.min.js')); ?>"></script>
 <script>
     $("table").dataTable({
         pageLength : 5,
@@ -229,8 +229,8 @@
 </script>
 <script>
     function show(webId) {
-        var urlShow = '{{ route("showDomain", ":id") }}';
-        var urlUpdate = '{{ route("updateDomain", ":id") }}';
+        var urlShow = '<?php echo e(route("showDomain", ":id")); ?>';
+        var urlUpdate = '<?php echo e(route("updateDomain", ":id")); ?>';
 
 
         urlShow = urlShow.replace(':id', webId);
@@ -247,8 +247,8 @@
                     $('#nama_domain').val(response.result.domain);
                     $('#nama_hosting').val(response.result.hostingId);
                     $('#nama_hosting').select2().trigger('change');
-                    $('#brand').val(response.result.order_id);
-                    $('#brand').select2().trigger('change');
+                    $('#nama_order').val(response.result.order_id);
+                    $('#nama_order').select2().trigger('change');
                     $('#duedate').val(response.result.duedate);
                     $('#kirimDomain').attr('action', urlUpdate);
                 }
@@ -259,7 +259,7 @@
     function deleteDomain(webId) {
         console.log(webId)
         var id = webId;
-        var url = '{{ route("deleteDomain", ":id") }}';
+        var url = '<?php echo e(route("deleteDomain", ":id")); ?>';
         url = url.replace(':id', id);
         $("#deleteForm").attr('action', url);
     }
@@ -268,4 +268,6 @@
          $("#deleteForm").submit();
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/pages/list-website.blade.php ENDPATH**/ ?>

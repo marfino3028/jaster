@@ -19,21 +19,25 @@ class OrderController extends Controller
 
         return view('backend.pages.list-order', compact('order'));
     }
-    
+
     // add order function
     public function store(Request $request)
     {
         $validateOrder = $request->validate([
-            'nama_order'   => 'required|max: 191',
-            'nama_paket'   => 'required',
-            'data_logo'    => 'required',
-            'data_website' => 'required',
-            'tipe_post'    => 'required',
-            'target'       => 'required',
-            'warna'        => 'nullable',
-            'deadline'     => 'nullable',
-            'request'      => 'nullable',
-            'web_pesaing'  => 'nullable',
+            'nama'    => 'required|max: 191',
+            'paket'    => 'required',
+            'brand'    => 'required',
+            'data_logo'     => 'required',
+            'data_website'  => 'required',
+            'tipe_post'     => 'required',
+            'target'        => 'required',
+            'warna'         => 'nullable',
+            'akun_username' => 'nullable',
+            'akun_email'    => 'nullable',
+            'akun_password' => 'nullable',
+            'deadline'      => 'nullable',
+            'request'       => 'nullable',
+            'tanggal_order'   => 'nullable',
         ]);
 
         $order = Orders::create($validateOrder);
@@ -66,8 +70,9 @@ class OrderController extends Controller
 
     public function update(Request $request, $id) {
         $validateOrder = $request->validate([
-            'nama_order'    => 'required|max: 191',
-            'nama_paket'    => 'required',
+            'nama'    => 'required|max: 191',
+            'paket'    => 'required',
+            'brand'    => 'required',
             'data_logo'     => 'required',
             'data_website'  => 'required',
             'tipe_post'     => 'required',
@@ -78,17 +83,17 @@ class OrderController extends Controller
             'akun_password' => 'nullable',
             'deadline'      => 'nullable',
             'request'       => 'nullable',
-            'web_pesaing'   => 'nullable',
+            'tanggal_order'   => 'nullable',
         ]);
 
         $updateOrder = Orders::where('orders.order_id', $id)
                         ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')->update($validateOrder);
-                        
+
         $updateDomain = Website::where('order_id', $id)->update([
             'domain' => $request->input('domain'),
             'duedate' => $request->input('duedate'),
         ]);
-        
+
         if ($updateDomain == null) {
             $createDomain = Website::create([
                 'domain' => $request->input('domain'),
@@ -113,7 +118,7 @@ class OrderController extends Controller
 
         $insertNotes = Orders::where('order_id', $id)->update(['notes' => $request->input('notes')]);
         if($insertNotes) {
-            $users = User::all();                
+            $users = User::all();
             Notification::send($users, new addedNotes($user, $order));
 
             $response['ping'] = 200;

@@ -34,7 +34,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         });
         Route::post('/add-order', 'OrderController@store')->name('addOrder');
         Route::get('{id}/edit-order', 'OrderController@edit')->name('editOrder');
-        Route::patch('{id}/edit-order', 'OrderController@update')->name('updateOrder');
+        Route::get('{id}/show-order', 'OrderController@show')->name('showOrder');
+        //Route::patch('{id}/edit-order', 'OrderController@update')->name('updateOrder');
         Route::delete('{id}/delete-order', 'OrderController@delete')->name('deleteOrder');
     });
     // progress route
@@ -53,7 +54,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         route::get('/{id}/edit-task', 'CategoryController@edit')->name('editCategory');
         route::patch('/{id}/edit-task', 'CategoryController@update')->name('updateCategory');
         route::delete('{id}/delete-task', 'CategoryController@delete')->name('deleteCategory');
-    
+
         Route::post('{id}/edit-notes', 'OrderController@editNotes')->name('editNotes');
         Route::get('{id}/view-notes', 'OrderController@viewNotes')->name('viewNotes');
     });
