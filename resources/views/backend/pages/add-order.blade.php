@@ -49,6 +49,7 @@
                             <div class="invalid-feedback">
                                 Input Nama bosz!
                             </div>
+
                             </div>
                         </div>
                         <div class="col-6">
@@ -126,13 +127,18 @@
                         </div>
                     </div>
                     <div class="col-4" style="margin-right: -5px;">
-                    <div class="form-group">
-                        <label>Data </label>
-                        <input type="text" class="form-control col-md-12" name="data">
-                        <div class="invalid-feedback">
-                            Input data!
+                        <div class="form-group">
+                            <label>Data</label>
+                            <select class="form-control select2" name="data_website" required>
+                                <option value="">None</option>
+                                <option value="Full Kita">Full Kita</option>
+                                <option value="Full Client">Full Client</option>
+                                <option value="Kita Bantu">Kita Bantu</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Datanya?
+                            </div>
                         </div>
-                    </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
@@ -157,13 +163,21 @@
                             </div>
                         </div>
                         <div class="col-4" style="margin-right: -5px;">
-                        <div class="form-group">
-                            <label>Tipe Post </label>
-                            <input type="text" class="form-control col-md-12" name="tipe_post">
-                            <div class="invalid-feedback">
-                                Input tipe post!
+                            <div class="form-group">
+                                <label>Tipe Post</label>
+                                <select class="form-control select2" name="tipe_post" required>
+                                    <option value="">None</option>
+                                    <option value="Artikel">Artikel</option>
+                                    <option value="Produk">Produk</option>
+                                    <option value="Service">Service</option>
+                                    <option value="Gallery">Gallery</option>
+                                    <option value="Elementor">Elementor</option>
+                                    <option value="Landing">Landing</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Post nya tentang apa?
+                                </div>
                             </div>
-                        </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
@@ -185,26 +199,36 @@
                             </div>
                             <div class="col-4" style="margin-right: -5px;">
                                 <div class="form-group">
-                                <label>Logo </label>
-                                <input type="text" class="form-control col-md-12" name="logo">
-                                <div class="invalid-feedback">
-                                    Input logo bosz!
-                                </div>
+                                    <label>Logo</label>
+                                    <select class="form-control select2" name="data_logo" required>
+                                        <option value="">None</option>
+                                        <option value="Dibuatkan">Dibuatkan</option>
+                                        <option value="Email">Email</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Logonya darimana bosz?
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-4" style="margin-right: -5px;">
-                            <div class="form-group">
-                                <label>Target</label>
-                                <input type="text" class="form-control col-md-12" name="target">
-                                <div class="invalid-feedback">
-                                    Input Target !
-                                </div>
+                           <div class="form-group">
+                            <label>Target</label>
+                            <select class="form-control select2" name="target" required>
+                                <option value="">None</option>
+                                <option value="WA atau Telepon">WA atau Telepon</option>
+                                <option value="Email">Email</option>
+                                <option value="Checkout">Checkout</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Target action nya?
                             </div>
+                        </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label>Request </label>
-                                    <input type="text" class="form-control col-md-12" name="request">
+                                    <label>Request</label>
+                                    <button class="btn btn-outline-primary col-md-12" data-toggle="modal"
+                        data-target="#modalRequest">Request</button>
                                     <div class="invalid-feedback">
                                         Input Request !
                                     </div>
@@ -223,47 +247,56 @@
                   <font color="white" weight="bold"><h3>Detail Order</h3> </font>
                 </div>
                 <div class="card-body col-md-12">
-                    <div class="row">
+                    <div class="row" >
                        @csrf
                        <div class="col-4" style="margin-right: -290px;">
-                            <div class="form-group rounded">
-                            <label class="ulang">Paket </label>
-                            <input type="text" class="form-control col-md-5" name="paket">
+
+                            <div class="form-group" id='formPaket'>
+                            <label>Paket </label>
+                            <div class="col-md-5" style="margin: 0px; padding: 0px;">
+                            <select class="form-control select2" name="paket[]" required>
+                                <option value="">None</option>
+                                <option value="Ekonomis">Ekonomis</option>
+                                <option value="Basic">Basic</option>
+                                <option value="Premium">Premium</option>
+                                <option value="Business">Business</option>
+                                <option value="Luxury">Luxury</option>
+                            </select>
+                            </div>
                             <div class="invalid-feedback">
                                 Input paket bosz!
                             </div>
                             </div>
-
                         </div>
-                        <div class="col-4" style="margin-right: -290px;">
-                        <div class="form-group rounded">
-                            <label class="ulang">Quantity </label>
-                            <input type="text" class="form-control col-md-5" name="quantity">
+                        <div class="col-4"  style="margin-right: -290px;">
+                        <div class="form-group" id="formQuantity">
+                            <label>Quantity </label>
+                            <input type="number" class="form-control col-md-5" name="quantity[]">
                             <div class="invalid-feedback">
                                 Input Quantity!
                             </div>
                         </div>
 
                         </div>
-                        <div class="col-4" style="margin-right: -290px;">
+                        <div class="col-4"  style="margin-right: -290px;">
 
-                            <div class="form-group rounded">
-                                <label class="ulang">Biaya </label>
-                                <input type="text" class="form-control col-md-5" name="biaya">
+                            <div class="form-group" id="formBiaya">
+                                <label>Biaya </label>
+                                <input type="text" class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]" >
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
                             </div>
-
                             <br><br><br> <!-- pembatasan antara add order now -->
                      </div>
 
                      <div class="col-1" style="margin-right: 80px;">
-                     <div class="form-group">
+                     <div class="form-group" id="addRow">
                         <button type="button" class="login100-form-btn" name="add" id="add">
                             <i class="fas fa-plus-circle"></i>&nbsp; Add Row
                         </button>
                     </div>
+
                 </div>
 
 
@@ -272,36 +305,48 @@
             <div class="col-4" style="margin-right: -380px;">
                 <div class="form-group">
                     <label>DP </label>
-                    <input type="text" class="form-control col-md-6" name="dp">
+                    <input type="text" class="form-control col-md-6" name="dp" onkeyup="convertToRupiah(this);">
                     <div class="invalid-feedback">
                         Input DP!
                     </div><br>
                     <label>via </label>
-                                    <input type="text" class="form-control col-md-6" name="via">
-                                    <div class="invalid-feedback">
-                                        Input via!
-                                    </div><br>
-                                    <label>renewal </label>
-                                    <input type="text" class="form-control col-md-6" name="renewal">
-                                    <div class="invalid-feedback">
-                                        Input Renewal!
-                                    </div>
+                    <div class="col-md-6" style="margin: 0px; padding: 0px;">
+                    <select class="form-control select2" name="via">
+
+                        <option value="">None</option>
+                        <option value="BCA">BCA</option>
+                        <option value="Mandiri">Mandiri</option>
+                        <option value="BRI Syariah">BRI Syariah</option>
+                        <option value="OVO">OVO</option>
+                        <option value="DANA">DANA</option>
+                        <option value="CASH">CASH</option>
+                    <div class="invalid-feedback">
+                        Input via!
+                    </div>
+
+                    </select>
+                </div><br>
+                    <label>renewal </label>
+                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal">
+                    <div class="invalid-feedback">
+                        Input Renewal!
+                    </div>
                     </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group" style="margin-left: 150px">
                             <label>Tanggal Order </label>
-                            <input type="text" class="form-control col-md-9" name="tgl_order">
+                            <input type="date" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="tanggal_order">
                             <div class="invalid-feedback">
-                                Input tanggal!
+                                Input tanggal Order!
                             </div><br>
                             <label>Deadline</label>
-                            <input type="text" class="form-control col-md-9" name="deadline">
+                            <input type="deadline" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="deadline">
                             <div class="invalid-feedback">
-                                Input Nama usaha!
+                                Input Deadline!
                             </div><br>
                             <label>Tau dari </label>
-                            <input type="text" class="form-control col-md-9" name="tau">
+                            <input type="text" class="form-control col-md-9" name="tau_dari">
                             <div class="invalid-feedback">
                                 Input tau!
                             </div>
@@ -329,28 +374,133 @@
 
 @section('jslibraries')
 @parent
+<!-- modal reques -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modalRequest">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tambahkan Request disini</p>
+                <div class="form-group">
+                    <div class="note-editor note-frame card">
+                        <div class="note-dropzone">
+                             <div class="note-dropzone-message">
+                                 </div>
+                                </div>
+                                <div class="note-toolbar-wrapper" style="height: 36px;">
+                                    <div class="note-toolbar card-header" style="position: relative; top: 0px; width: 100%;">
+                                        <div class="note-btn-group btn-group note-style">
+                                            <button type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1" title="" data-original-title="Bold (CTRL+B)">
+                                                <i class="note-icon-bold"></i>
+                                                </button>
+                                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1" title="" data-original-title="Italic (CTRL+I)">
+                                                    <i class="note-icon-italic"></i>
+                                                </button>
+                                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1" title="" data-original-title="Underline (CTRL+U)">
+                                                    <i class="note-icon-underline"></i>
+                                                </button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Remove Font Style (CTRL+\)">
+                                                    <i class="note-icon-eraser"></i>
+                                                </button>
+                                            </div>
+                                            <div class="note-btn-group btn-group note-font">
+                                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-strikethrough" tabindex="-1" title="" data-original-title="Strikethrough (CTRL+SHIFT+S)">
+                                                    <i class="note-icon-strikethrough"></i>
+                                                </button>
+                                            </div>
+                                            <div class="note-btn-group btn-group note-para">
+                                                <div class="note-btn-group btn-group">
+                                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" data-original-title="Paragraph">
+                                                        <i class="note-icon-align-left"></i></button><div class="dropdown-menu"><div class="note-btn-group btn-group note-align"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Align left (CTRL+SHIFT+L)"><i class="note-icon-align-left"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Align center (CTRL+SHIFT+E)"><i class="note-icon-align-center"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Align right (CTRL+SHIFT+R)"><i class="note-icon-align-right"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Justify full (CTRL+SHIFT+J)"><i class="note-icon-align-justify"></i></button></div><div class="note-btn-group btn-group note-list"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Outdent (CTRL+[)"><i class="note-icon-align-outdent"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Indent (CTRL+])"><i class="note-icon-align-indent"></i></button></div></div></div></div></div></div><div class="note-editing-area"><div class="note-handle"><div class="note-control-selection" style="display: none;"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><textarea class="note-codable" id="request"></textarea><div class="note-editable card-block" contenteditable="true" style="min-height: 150px;"><p><br></p></div></div><div class="note-statusbar">  <div class="note-resizebar">    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>  </div></div></div>
+                </div>
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" onclick="sendNotes()" class="btn btn-outline-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function sendNotes() {
+        var noteses = tinyMCE.get('request').getContent();
 
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }),
+            $.ajax({
+                url: '{{ route('editRequest', ['id' => request()->route('id')]) }}',
+                method: "post",
+                dataType: 'JSON',
+                data: {
+                    notes: noteses,
+                },
+                success: function (respons) {
+                    $('#lihatRequest').empty();
+                    $('#lihatRequest').append(noteses);
+
+                    if (respons.ping == 200) {
+                        iziToast.success({
+                            title: 'Berhasil!',
+                            message: 'berhasil memasukkan Request',
+                            position: 'bottomRight'
+                        });
+
+                        $('#modalRequest').modal('hide');
+                    } else {
+                        iziToast.info({
+                            title: 'gagal!',
+                            message: 'gagal memasukkan Request',
+                            position: 'bottomRight'
+                        });
+                    }
+                }
+            })
+    }
+
+
+</script>
+<!-- JS Libraies -->
+<script src="{{ asset('assets/modules/izitoast/js/iziToast.min.js') }}"></script>
+
+<!-- Page Specific JS File -->
+<script src="{{ asset('assets/js/page/modules-toastr.js') }}"></script>
+<script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function () {
     var counter = 0;
 
     $("#add").on("click", function () {
-        var newRow = $("div.rounded");
-        var cols = "";
-        cols += '<label>Paket </label><input type="text" class="form-control col-md-5" name="paket"><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
-        cols += '<label>Quantity </label><input type="text" class="form-control col-md-5" name="quantity"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
-        cols += '<label>Biaya </label><input type="text" class="form-control col-md-5" name="biaya"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
-        newRow.append(cols);
-        $("div.form-group").append(newRow);
+        cols1 = '<div class="form-group"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" name="paket[]" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+        cols2 = '<div class="form-group"><label>Quantity </label><input type="number" class="form-control col-md-5" name="quantity[]"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+        cols3 = '<div class="form-group"><label>Biaya </label><input type="text"  class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+        cols4 = '<div class="form-group"><button type="button" class="login100-form-btn" name="add" id="deleteRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
+        $("#formPaket").after(cols1);
+        $("#formQuantity").after(cols2);
+        $("#formBiaya").after(cols3);
+        $("#addRow").after(cols4);
+        $(".select2").select2();
+
+
         counter++;
     });
 
-
-
-    $("div.form-group").on("click", function (event) {
-        $(this).closest("div.rounded").remove();
-        counter -= 1
+    $("#deleteRow").on("click", function () {
+        console.log('koawkwoa');
     });
+
+    // $("#deleteRow").on("click", function (event) {
+    //     console.log("koawkaow");
+    //     $('.form-control [name^=paket]').clearFields();
+    //     // $(this).closest("ulang").remove();
+    //     // counter -= 1
+    // });
 
 
 });
@@ -369,9 +519,42 @@ function calculateGrandTotal() {
     });
     $("#grandtotal").text(grandTotal.toFixed(2));
 }
-
-
 </script>
+
+
+<script>
+   function convertToRupiah(objek) {
+	  separator = ".";
+	  a = objek.value;
+	  b = a.replace(/[^\d]/g,"");
+	  c = "";
+	  panjang = b.length;
+	  j = 0;
+	  for (i = panjang; i > 0; i--) {
+	    j = j + 1;
+	    if (((j % 3) == 1) && (j != 1)) {
+	      c = b.substr(i-1,1) + separator + c;
+	    } else {
+	      c = b.substr(i-1,1) + c;
+	    }
+	  }
+	  objek.value = c;
+
+	}
+
+	function convertToAngka()
+	{	var nominal= document.getElementById("nominal").value;
+		var angka = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
+		document.getElementById("angka").innerHTML= angka;
+	}
+
+	function convertToAngka()
+	{	var nominal1= document.getElementById("nominal1").value;
+		var angka1 = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
+		document.getElementById("angka1").innerHTML= angka;
+	}
+</script>
+
 <script src="{{ asset('assets/modules/cleave-js/dist/cleave.min.js') }}"></script>
 <script src="{{ asset('assets/modules/cleave-js/dist/addons/cleave-phone.us.js') }}"></script>
 <script src="{{ asset('assets/modules/jquery-pwstrength/jquery.pwstrength.min.js') }}"></script>
@@ -388,5 +571,6 @@ function calculateGrandTotal() {
         component: '.input-group-append',
     });
 </script>
-
+<script src="https://cdn.tiny.cloud/1/ubaylt88d66o8ewdhmw9upizv7g1fbhcunbyhvdfoc5hcnek/tinymce/5/tinymce.min.js"></script>
+<script src="{{ asset('js/tinyce.js') }}"></script>
 @endsection

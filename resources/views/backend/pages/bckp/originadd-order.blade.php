@@ -118,7 +118,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Color</label>
+                            <label>Pick Your Color</label>
                             <div class="input-group colorpickerinput">
                                 <input type="text" class="form-control" name="warna">
                                 <div class="input-group-append">

@@ -160,10 +160,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Order</label>
-                                    <select class="form-control select2" name="nama_order" id="nama_order">
+                                    <select class="form-control select2" name="brand" id="brand">
                                         <option value="">None</option>
                                         <?php $__currentLoopData = $listOrder; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $or): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($or->order_id); ?>"><?php echo e($or->nama_order); ?></option>
+                                        <option value="<?php echo e($or->order_id); ?>"><?php echo e($or->brand); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
@@ -247,8 +247,8 @@
                     $('#nama_domain').val(response.result.domain);
                     $('#nama_hosting').val(response.result.hostingId);
                     $('#nama_hosting').select2().trigger('change');
-                    $('#nama_order').val(response.result.order_id);
-                    $('#nama_order').select2().trigger('change');
+                    $('#brand').val(response.result.order_id);
+                    $('#brand').select2().trigger('change');
                     $('#duedate').val(response.result.duedate);
                     $('#kirimDomain').attr('action', urlUpdate);
                 }

@@ -57,6 +57,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::post('{id}/edit-notes', 'OrderController@editNotes')->name('editNotes');
         Route::get('{id}/view-notes', 'OrderController@viewNotes')->name('viewNotes');
+        Route::post('{id}/edit-request', 'OrderController@editRequest')->name('editRequest');
+        Route::get('{id}/view-request', 'OrderController@viewRequest')->name('viewRequest');
     });
     // Adwords route
     Route::prefix('adwords')->group(function () {

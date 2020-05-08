@@ -10,7 +10,7 @@ use App\ProgressList;
 use App\Website;
 
 use App\Notifications\addedNotes;
-
+use App\Notifications\addedRequest;
 class OrderController extends Controller
 {
     // show all orders function
@@ -38,6 +38,7 @@ class OrderController extends Controller
             'deadline'      => 'nullable',
             'request'       => 'nullable',
             'tanggal_order'   => 'nullable',
+
         ]);
 
         $order = Orders::create($validateOrder);
@@ -84,6 +85,7 @@ class OrderController extends Controller
             'deadline'      => 'nullable',
             'request'       => 'nullable',
             'tanggal_order'   => 'nullable',
+
         ]);
 
         $updateOrder = Orders::where('orders.order_id', $id)
@@ -128,9 +130,30 @@ class OrderController extends Controller
 
         return json_encode($response);
     }
+    public function editRequest(Request $request, $id) {
+        $user = $request->user();
+        $order = Orders::where('order_id', $id)->first();
+
+        $insertNotes = Orders::where('order_id', $id)->update(['request' => $request->input('request')]);
+        if($insertNotes) {
+            $users = User::all();
+            Notification::send($users, new addedRequest($user, $order));
+
+            $response['ping'] = 200;
+        } else {
+            $response['ping'] = 500;
+        }
+
+        return json_encode($response);
+    }
 
     public function viewNotes($id) {
         $viewNotes = Orders::where('order_id', $id)->get();
+
+        return response()->json($viewNotes);
+    }
+    public function viewRequest($id) {
+        $viewRequest = Orders::where('order_id', $id)->get();
 
         return response()->json($viewNotes);
     }
