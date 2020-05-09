@@ -477,27 +477,31 @@ $(document).ready(function () {
     var counter = 0;
 
     $("#add").on("click", function () {
-        cols1 = '<div class="form-group"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" name="paket[]" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
-        cols2 = '<div class="form-group"><label>Quantity </label><input type="number" class="form-control col-md-5" name="quantity[]"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
-        cols3 = '<div class="form-group"><label>Biaya </label><input type="text"  class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
-        cols4 = '<div class="form-group"><button type="button" class="login100-form-btn" name="add" id="deleteRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
+        cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" name="paket[]" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+        cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" class="form-control col-md-5" name="quantity[]"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+        cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text"  class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+        cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
         $("#formPaket").after(cols1);
         $("#formQuantity").after(cols2);
         $("#formBiaya").after(cols3);
         $("#addRow").after(cols4);
         $(".select2").select2();
 
-
+        $("#hapusRow").click(function(){
+            $('.addOrder'+ $(this).attr('data-id')).remove();
+        });
         counter++;
     });
 
-    $("#deleteRow").on("click", function () {
-        console.log('koawkwoa');
-    });
+
+
+    // $("#hapusRow").on("click", function () {
+    //     console.log('koawkwoa');
+    // });
 
     // $("#deleteRow").on("click", function (event) {
-    //     console.log("koawkaow");
     //     $('.form-control [name^=paket]').clearFields();
+    //     console.log("koawkaow");
     //     // $(this).closest("ulang").remove();
     //     // counter -= 1
     // });
