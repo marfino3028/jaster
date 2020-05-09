@@ -25,8 +25,12 @@ class OrderController extends Controller
     {
         $validateOrder = $request->validate([
             'nama'    => 'required|max: 191',
-            'paket'    => 'required',
             'brand'    => 'required',
+            'jabatan'    => 'required',
+            'wa'    => 'required',
+            'alamat'    => 'required',
+            'via'    => 'required',
+            'tau_dari' => 'required',
             'data_logo'     => 'required',
             'data_website'  => 'required',
             'tipe_post'     => 'required',
@@ -38,6 +42,7 @@ class OrderController extends Controller
             'deadline'      => 'nullable',
             'request'       => 'nullable',
             'tanggal_order'   => 'nullable',
+
 
         ]);
 
@@ -155,6 +160,6 @@ class OrderController extends Controller
     public function viewRequest($id) {
         $viewRequest = Orders::where('order_id', $id)->get();
 
-        return response()->json($viewNotes);
+        return response()->json($viewRequest);
     }
 }

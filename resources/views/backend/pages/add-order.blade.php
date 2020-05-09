@@ -495,18 +495,6 @@ $(document).ready(function () {
 
 
 
-    // $("#hapusRow").on("click", function () {
-    //     console.log('koawkwoa');
-    // });
-
-    // $("#deleteRow").on("click", function (event) {
-    //     $('.form-control [name^=paket]').clearFields();
-    //     console.log("koawkaow");
-    //     // $(this).closest("ulang").remove();
-    //     // counter -= 1
-    // });
-
-
 });
 
 

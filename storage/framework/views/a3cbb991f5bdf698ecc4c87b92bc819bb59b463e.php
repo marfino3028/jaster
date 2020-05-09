@@ -474,7 +474,7 @@
 <script src="<?php echo e(asset('assets/js/page/bootstrap-modal.js')); ?>"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-    var counter = 0;
+    var counter = 2;
 
     $("#add").on("click", function () {
         cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" name="paket[]" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
@@ -493,18 +493,6 @@ $(document).ready(function () {
         counter++;
     });
 
-
-
-    // $("#hapusRow").on("click", function () {
-    //     console.log('koawkwoa');
-    // });
-
-    // $("#deleteRow").on("click", function (event) {
-    //     $('.form-control [name^=paket]').clearFields();
-    //     console.log("koawkaow");
-    //     // $(this).closest("ulang").remove();
-    //     // counter -= 1
-    // });
 
 
 });
