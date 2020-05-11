@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/button_ic/css/normalize.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('assets/button_ic/css/vicons-font.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('assets/button_ic/css/buttons.css')}}" />
 @endsection
@@ -46,7 +45,7 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>Nama </label>
-                            <input type="text" class="form-control col-md-10" name="nama">
+                            <input type="text" class="form-control col-md-10" name="nama" value="{{ $edit->nama }}">
                             <div class="invalid-feedback">
                                 Input Nama bosz!
                             </div>
@@ -56,7 +55,7 @@
                         <div class="col-6">
                         <div class="form-group">
                             <label>Brand / Nama Usaha </label>
-                            <input type="text" class="form-control col-md-12" name="brand">
+                            <input type="text" class="form-control col-md-12" name="brand" value="{{ $edit->brand }}">
                             <div class="invalid-feedback">
                                 Input Nama usaha!
                             </div>
@@ -65,7 +64,7 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>No Whatsapp </label>
-                            <input type="number" class="form-control col-md-10" name="wa">
+                            <input type="number" class="form-control col-md-10" name="wa" value="{{ $edit->wa }}">
                             <div class="invalid-feedback">
                                 Input No Whatsapp!
                             </div>
@@ -74,7 +73,7 @@
                         <div class="col-6">
                         <div class="form-group">
                             <label>Email </label>
-                            <input type="email" class="form-control col-md-12" name="email">
+                            <input type="email" class="form-control col-md-12" name="akun_email" value="{{ $edit->akun_email }}">
                             <div class="invalid-feedback">
                                 Input Email!
                             </div>
@@ -83,7 +82,7 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>Jabatan </label>
-                            <input type="text" class="form-control col-md-10" name="jabatan">
+                            <input type="text" class="form-control col-md-10" name="jabatan" value="{{ $edit->jabatan }}">
                             <div class="invalid-feedback">
                                 Input jabatan bosz!
                             </div>
@@ -92,7 +91,7 @@
                         <div class="col-6">
                         <div class="form-group">
                             <label>Alamat </label>
-                            <input type="text" class="form-control col-md-12" name="alamat">
+                            <input type="text" class="form-control col-md-12" name="alamat" value="{{ $edit->alamat }}">
                             <div class="invalid-feedback">
                                 Input Alamat !
                             </div>
@@ -121,7 +120,7 @@
                    <div class="col-4" style="margin-right: -5px;">
                         <div class="form-group">
                         <label>Domain </label>
-                        <input type="text" class="form-control col-md-12" name="domain">
+                        <input type="text" class="form-control col-md-12" name="domain" value="{{ $edit->domain }}">
                         <div class="invalid-feedback">
                             Input domain bosz!
                         </div>
@@ -132,9 +131,9 @@
                             <label>Data</label>
                             <select class="form-control select2" name="data_website" required>
                                 <option value="">None</option>
-                                <option value="Full Kita">Full Kita</option>
-                                <option value="Full Client">Full Client</option>
-                                <option value="Kita Bantu">Kita Bantu</option>
+                                <option value="Full Kita" @if ($edit->data_website == "Full Kita") {{ 'selected' }} @endif>Full dari Kita</option>
+                                <option value="Full Client" @if ($edit->data_website == "Full Client") {{ 'selected' }} @endif>Full Client</option>
+                                <option value="Kita Bantu" @if ($edit->data_website == "Kita Bantu") {{ 'selected' }} @endif>Kita Bantu</option>
                             </select>
                             <div class="invalid-feedback">
                                 Datanya?
@@ -144,7 +143,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label>Username </label>
-                            <input type="text" class="form-control col-md-12" name="username">
+                            <input type="text" class="form-control col-md-12" name="akun_username" value="{{ $edit->akun_username }}">
                             <div class="invalid-feedback">
                                 Input username!
                             </div>
@@ -154,7 +153,7 @@
                             <div class="form-group">
                                 <label>Color</label>
                                 <div class="input-group colorpickerinput">
-                                    <input type="text" class="form-control" name="warna">
+                                    <input type="text" class="form-control" name="warna" value="{{ $edit->warna }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <i class="fas fa-fill-drip"></i>
@@ -168,12 +167,12 @@
                                 <label>Tipe Post</label>
                                 <select class="form-control select2" name="tipe_post" required>
                                     <option value="">None</option>
-                                    <option value="Artikel">Artikel</option>
-                                    <option value="Produk">Produk</option>
-                                    <option value="Service">Service</option>
-                                    <option value="Gallery">Gallery</option>
-                                    <option value="Elementor">Elementor</option>
-                                    <option value="Landing">Landing</option>
+                                    <option value="Artikel" @if ($edit->tipe_post == "Artikel") {{ 'selected' }} @endif>Artikel</option>
+                                    <option value="Produk" @if ($edit->tipe_post == "Produk") {{ 'selected' }} @endif>Produk</option>
+                                    <option value="Service" @if ($edit->tipe_post == "Service") {{ 'selected' }} @endif>Service</option>
+                                    <option value="Gallery" @if ($edit->tipe_post == "Gallery") {{ 'selected' }} @endif>Gallery</option>
+                                    <option value="Elementor" @if ($edit->tipe_post == "Elementor") {{ 'selected' }} @endif>Elementor</option>
+                                    <option value="Landing" @if ($edit->tipe_post == "Landing") {{ 'selected' }} @endif>Landing</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Post nya tentang apa?
@@ -190,7 +189,7 @@
                                         </div>
                                     </div>
                                     <input type="text" class="form-control pwstrength" data-indicator="pwindicator"
-                                        name="akun_password">
+                                        name="akun_password" value="{{ $edit->akun_password }}">
                                 </div>
                                 <div id="pwindicator" class="pwindicator">
                                     <div class="bar"></div>
@@ -203,8 +202,8 @@
                                     <label>Logo</label>
                                     <select class="form-control select2" name="data_logo" required>
                                         <option value="">None</option>
-                                        <option value="Dibuatkan">Dibuatkan</option>
-                                        <option value="Email">Email</option>
+                                        <option value="Dibuatkan" @if ($edit->data_logo == "Dibuatkan") {{ 'selected' }} @endif>Dibuatkan</option>
+                                        <option value="Email" @if ($edit->data_logo == "Email") {{ 'selected' }} @endif>Email</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Logonya darimana bosz?
@@ -216,9 +215,9 @@
                             <label>Target</label>
                             <select class="form-control select2" name="target" required>
                                 <option value="">None</option>
-                                <option value="WA atau Telepon">WA atau Telepon</option>
-                                <option value="Email">Email</option>
-                                <option value="Checkout">Checkout</option>
+                                <option value="WA atau Telepon" @if ($edit->target == "WA atau Telepon") {{ 'selected' }} @endif>WA atau Telepon</option>
+                                <option value="Email" @if ($edit->target == "Email") {{ 'selected' }} @endif>Email</option>
+                                <option value="Checkout" @if ($edit->target == "Checkout") {{ 'selected' }} @endif>Checkout</option>
                             </select>
                             <div class="invalid-feedback">
                                 Target action nya?
@@ -227,7 +226,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label>Reuquest</label>
+                                    <label>Request</label>
                                     <button id="request" class="btn btn-outline-primary col-md-12" data-toggle="modal"
                         data-target="#modalRequest">Request</button>
                                     <div class="invalid-feedback">
@@ -253,15 +252,15 @@
                        <div class="col-4" style="margin-right: -290px;">
 
                             <div class="form-group" id='formPaket'>
-                            <label>Paket </label>
+                            <label>Paket</label>
                             <div class="col-md-5" style="margin: 0px; padding: 0px;">
-                            <select class="form-control select2" name="paket[]" required>
+                            <select class="form-control select2" name="nama_paket[]" required>
                                 <option value="">None</option>
-                                <option value="Ekonomis">Ekonomis</option>
-                                <option value="Basic">Basic</option>
-                                <option value="Premium">Premium</option>
-                                <option value="Business">Business</option>
-                                <option value="Luxury">Luxury</option>
+                                <option value="Ekonomis" @if ($edit->nama_paket == "Ekonomis") {{ 'selected' }} @endif>Ekonomis</option>
+                                <option value="Basic" @if ($edit->nama_paket == "Basic") {{ 'selected' }} @endif>Basic</option>
+                                <option value="Premium" @if ($edit->nama_paket == "Premium") {{ 'selected' }} @endif>Premium</option>
+                                <option value="Business" @if ($edit->nama_paket == "Business") {{ 'selected' }} @endif>Business</option>
+                                <option value="Luxury" @if ($edit->nama_paket == "Luxury") {{ 'selected' }} @endif>Luxury</option>
                             </select>
                             </div>
                             <div class="invalid-feedback">
@@ -305,21 +304,21 @@
             <div class="col-4" style="margin-right: -380px;">
                 <div class="form-group">
                     <label>DP </label>
-                    <input type="text" class="form-control col-md-6" name="dp" onkeyup="convertToRupiah(this);">
+                    <input type="text" class="form-control col-md-6" name="dp" onkeyup="convertToRupiah(this);" value="{{ $edit->dp }}">
                     <div class="invalid-feedback">
                         Input DP!
                     </div><br>
                     <label>via </label>
                     <div class="col-md-6" style="margin: 0px; padding: 0px;">
-                    <select class="form-control select2" name="via">
+                    <select class="form-control select2" name="via" >
 
                         <option value="">None</option>
-                        <option value="BCA">BCA</option>
-                        <option value="Mandiri">Mandiri</option>
-                        <option value="BRI Syariah">BRI Syariah</option>
-                        <option value="OVO">OVO</option>
-                        <option value="DANA">DANA</option>
-                        <option value="CASH">CASH</option>
+                        <option value="BCA" @if ($edit->via == "BCA") {{ 'selected' }} @endif>BCA</option>
+                        <option value="Mandiri" @if ($edit->via == "Mandiri") {{ 'selected' }} @endif>Mandiri</option>
+                        <option value="BRI Syariah" @if ($edit->via == "BRI Syariah") {{ 'selected' }} @endif>BRI Syariah</option>
+                        <option value="OVO" @if ($edit->via == "OVO") {{ 'selected' }} @endif>OVO</option>
+                        <option value="DANA" @if ($edit->via == "DANA") {{ 'selected' }} @endif>DANA</option>
+                        <option value="CASH" @if ($edit->via == "CASH") {{ 'selected' }} @endif>CASH</option>
                     <div class="invalid-feedback">
                         Input via!
                     </div>
@@ -327,7 +326,7 @@
                     </select>
                 </div><br>
                     <label>renewal </label>
-                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal">
+                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal" value="{{ $edit->renewal }}">
                     <div class="invalid-feedback">
                         Input Renewal!
                     </div>
@@ -336,17 +335,17 @@
                     <div class="col-4">
                         <div class="form-group" style="margin-left: 150px">
                             <label>Tanggal Order </label>
-                            <input type="date" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="tanggal_order">
+                            <input type="date" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="tanggal_order" value="{{ $edit->tanggal_order }}">
                             <div class="invalid-feedback">
                                 Input tanggal Order!
                             </div><br>
                             <label>Deadline</label>
-                            <input type="deadline" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="deadline">
+                            <input type="deadline" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="deadline" value="{{ $edit->deadline }}">
                             <div class="invalid-feedback">
                                 Input Deadline!
                             </div><br>
                             <label>Tau dari </label>
-                            <input type="text" class="form-control col-md-9" name="tau_dari">
+                            <input type="text" class="form-control col-md-9" name="tau_dari" value="{{ $edit->tau_dari }}">
                             <div class="invalid-feedback">
                                 Input tau!
                             </div>

@@ -269,9 +269,9 @@
                             </div>
                         </div>
                         <div class="col-4"  style="margin-right: -290px;">
-                        <div class="form-group" id="formQuantity">
+                        <div class="form-group addOrder0" id="formQuantity">
                             <label>Quantity </label>
-                            <input type="number" class="form-control col-md-5" name="quantity[]">
+                            <input type="number" class="form-control col-md-5" name="quantity[]" onkeyup="sendQuantity($(this), 0)">
                             <div class="invalid-feedback">
                                 Input Quantity!
                             </div>
@@ -280,9 +280,9 @@
                         </div>
                         <div class="col-4"  style="margin-right: -290px;">
 
-                            <div class="form-group" id="formBiaya">
+                            <div class="form-group addOrder0" id="formBiaya">
                                 <label>Biaya </label>
-                                <input type="text" class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]" >
+                                <input type="text" class="form-control col-md-5" onkeyup="convertToRupiah(this); sendHarga($(this), 0)" name="biaya[]" >
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
@@ -363,7 +363,7 @@
       <div class="total">Total Order :</div>
       <table class="table1">
 		<tr>
-			<th>Rp. <?php echo e(number_format(5000000,0,',','.')); ?>-,</th>
+			<th>Rp. <?php echo e(number_format(0,0,',','.')); ?>-,</th>
 		</tr>
     </table>
     <button class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
@@ -473,13 +473,17 @@
 <script src="<?php echo e(asset('assets/js/page/modules-toastr.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/js/page/bootstrap-modal.js')); ?>"></script>
 <script type="text/javascript">
+var totals = {};
+var totalHarga = {};
+var totalSemua = 0;
+
 $(document).ready(function () {
-    var counter = 2;
+    var counter = 1;
 
     $("#add").on("click", function () {
         cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" name="paket[]" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
-        cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" class="form-control col-md-5" name="quantity[]"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
-        cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text"  class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+        cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" class="form-control col-md-5" name="quantity[]" onkeyup="sendQuantity($(this), '+counter+')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+        cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text"  class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+counter+')" name="biaya[]"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
         cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
         $("#formPaket").after(cols1);
         $("#formQuantity").after(cols2);
@@ -492,25 +496,63 @@ $(document).ready(function () {
         });
         counter++;
     });
-
-
-
 });
 
+function sendQuantity(iki, count) {
+    var quantity = parseInt(iki.val());
+    var biaya= $('.addOrder'+ count + ' > input[name="biaya[]"]').val();
+    var splitBiaya = parseInt(biaya.split('.').join(""));
+    var totalItem = quantity * splitBiaya;
 
+    var obj ={
+        id: count,
+        quantity: quantity,
+        harga: splitBiaya,
+        totalItem: totalItem,
+    };
 
-function calculateRow(row) {
-    var price = +row.find('input[name^="price"]').val();
+    totalHarga[count] = totalItem;
+    // for (var key in totalHarga) {
+    //     totalSemua += totalHarga[key];
+    // }
 
+    for (var key in totalHarga) {
+        totalSemua += totalHarga[key];
+    }
+
+    totals[count] = obj;
+    console.log(totals);
+    console.log(totalSemua);
 }
 
-function calculateGrandTotal() {
-    var grandTotal = 0;
-    $("table.order-list").find('input[name^="price"]').each(function () {
-        grandTotal += +$(this).val();
-    });
-    $("#grandtotal").text(grandTotal.toFixed(2));
+function sendHarga(iki, count) {
+    var quantity = parseInt($('.addOrder'+ count + ' > input[name="quantity[]"]').val());
+    var biaya= iki.val();
+    var splitBiaya = parseInt(biaya.split('.').join(""));
+    var totalItem = quantity * splitBiaya;
+
+    var obj ={
+        id: count,
+        quantity: quantity,
+        harga: splitBiaya,
+        totalItem: totalItem,
+    };
+
+    totalHarga[count] = totalItem;
+    // for (var key in totalHarga) {
+    //     totalSemua += totalHarga[key];
+    // }
+    for (var key in totalHarga) {
+        totalSemua += totalHarga[key];
+    }
+
+    totals[count] = obj;
+    console.log(totals);
+    console.log(totalSemua);
 }
+
+
+
 </script>
 
 

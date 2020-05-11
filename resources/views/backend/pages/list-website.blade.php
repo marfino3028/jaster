@@ -168,8 +168,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Due Date</label>
-                                    <input type="text" class="form-control datepicker" placeholder="YYYY-MM-DD" name="duedate" id="duedate">
+                                    <label>Deadline</label>
+                                    <input type="text" class="form-control datepicker" placeholder="YYYY-MM-DD" name="deadline" id="deadline">
                                     <div class="invalid-feedback">
                                         Input tanggal dengan benar
                                     </div>

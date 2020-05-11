@@ -139,8 +139,8 @@ class OrderController extends Controller
         $user = $request->user();
         $order = Orders::where('order_id', $id)->first();
 
-        $insertNotes = Orders::where('order_id', $id)->update(['request' => $request->input('request')]);
-        if($insertNotes) {
+        $insertRequest = Orders::where('order_id', $id)->update(['request' => $request->input('request')]);
+        if($insertRequest) {
             $users = User::all();
             Notification::send($users, new addedRequest($user, $order));
 
