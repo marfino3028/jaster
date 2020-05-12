@@ -528,16 +528,45 @@ function sendQuantity(iki, count) {
 }
 
 //function renewal
+function sendRenewal(iki, count) {
+    var renewal = parseInt(iki.val());
+    var biaya= $('.addOrder'+ count + ' > input[name="renewal"]').val();
+    var splitBiaya = parseInt(biaya.split('.').join(""));
+    var totalItem = renewal + splitBiaya;
 
+    var obj ={
+        id: count,
+        renewal: renewal,
+        harga: splitBiaya,
+        totalItem: totalItem,
+    };
+
+    totalHarga[count] = totalItem;
+
+    // loop value in object and sum all
+    var totalSemua = 0;
+    for (const key in totalHarga) {
+        if (isNaN(totalHarga[key])) {
+            totalSemua = totalSemua + 0;
+        } else {
+            totalSemua += parseInt(totalHarga[key]);
+        }
+    }
+
+    totals[count] = obj;
+    $('#totalOrder').text('Rp. '+totalSemua);
+}
 // function untuk kirim harga tiap row
 function sendHarga(iki, count) {
     // get quantity
     var quantity = parseInt($('.addOrder'+ count + ' > input[name="quantity[]"]').val());
+    // get renewal
+    var renewal = parseInt($('.addOrder'+ count + ' > input[name="renewal"]').val());
     // get biaya
     var biaya= iki.val();
     var splitBiaya = parseInt(biaya.split('.').join(""));
     // quantity * biaya
-    var totalItem = quantity * splitBiaya;
+    var totalItem = quantity * splitBiaya + renewal;
 
     var obj ={
         id: count,
