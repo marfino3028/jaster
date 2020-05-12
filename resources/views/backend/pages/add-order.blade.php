@@ -327,7 +327,7 @@
                     </select>
                 </div><br>
                     <label>renewal </label>
-                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal">
+                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6 addOrder" name="renewal" id="formRenewal">
                     <div class="invalid-feedback">
                         Input Renewal!
                     </div>
@@ -363,7 +363,7 @@
       <div class="total">Total Order :</div>
       <table class="table1">
 		<tr>
-			<th>Rp. {{ number_format(0,0,',','.') }}-,</th>
+			<th id="totalOrder">Rp. {{ number_format(0,0,',','.') }}-,</th>
 		</tr>
     </table>
     <button class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
@@ -475,7 +475,6 @@
 <script type="text/javascript">
 var totals = {};
 var totalHarga = {};
-var totalSemua = 0;
 
 $(document).ready(function () {
     var counter = 1;
@@ -498,6 +497,7 @@ $(document).ready(function () {
     });
 });
 
+// function untuk kirim kuantitas
 function sendQuantity(iki, count) {
     var quantity = parseInt(iki.val());
     var biaya= $('.addOrder'+ count + ' > input[name="biaya[]"]').val();
@@ -512,23 +512,31 @@ function sendQuantity(iki, count) {
     };
 
     totalHarga[count] = totalItem;
-    // for (var key in totalHarga) {
-    //     totalSemua += totalHarga[key];
-    // }
 
-    for (var key in totalHarga) {
-        totalSemua += parseInt(totalHarga[key]);
+    // loop value in object and sum all
+    var totalSemua = 0;
+    for (const key in totalHarga) {
+        if (isNaN(totalHarga[key])) {
+            totalSemua = totalSemua + 0;
+        } else {
+            totalSemua += parseInt(totalHarga[key]);
+        }
     }
 
     totals[count] = obj;
-    console.log(totals);
-    console.log(totalSemua);
+    $('#totalOrder').text('Rp. '+totalSemua);
 }
 
+//function renewal
+
+// function untuk kirim harga tiap row
 function sendHarga(iki, count) {
+    // get quantity
     var quantity = parseInt($('.addOrder'+ count + ' > input[name="quantity[]"]').val());
+    // get biaya
     var biaya= iki.val();
     var splitBiaya = parseInt(biaya.split('.').join(""));
+    // quantity * biaya
     var totalItem = quantity * splitBiaya;
 
     var obj ={
@@ -539,19 +547,20 @@ function sendHarga(iki, count) {
     };
 
     totalHarga[count] = totalItem;
-    // for (var key in totalHarga) {
-    //     totalSemua += totalHarga[key];
-    // }
-    for (var key in totalHarga) {
-        totalSemua += parseInt(totalHarga[key]);
+
+    // loop value in object and sum all
+    var totalSemua = 0;
+    for (const key in totalHarga) {
+        if (isNaN(totalHarga[key])) {
+            totalSemua = totalSemua + 0;
+        } else {
+            totalSemua += parseInt(totalHarga[key]);
+        }
     }
 
     totals[count] = obj;
-    console.log(totals);
-    console.log(totalSemua);
+    $('#totalOrder').text('Rp. '+totalSemua);
 }
-
-
 
 </script>
 

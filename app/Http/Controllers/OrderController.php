@@ -162,4 +162,6 @@ class OrderController extends Controller
 
         return response()->json($viewRequest);
     }
+
+    public function addOrder()
 }
