@@ -561,11 +561,6 @@ function sendHarga(iki, count) {
     $('#totalOrder').text('Rp. '+totalSemua);
 }
 
-$('#kirimData').submit(function (e) {
-    e.preventDefault();
-    console.log($(this).serialize());
-})
-
 </script>
 <script>
         $.ajaxSetup({
@@ -576,10 +571,16 @@ $('#kirimData').submit(function (e) {
 
 
       $('.button--shikoba').click(function(){
+        var dataToSend = {};
+        $('#kirimData').submit(function (e) {
+            e.preventDefault();
+            dataToSend['data'] = $(this).serializeArray();
+            dataToSend['transaksi'] = totals;
+
            $.ajax({
-                url:postURL,
+                url:'{{ route('addOrder') }}',
                 method:"POST",
-                data:$('#totalOrder').serialize(),
+                data:dataToSend,
                 type:'json',
                 success:function(data)
                 {
@@ -596,6 +597,7 @@ $('#kirimData').submit(function (e) {
                     }
                 }
            });
+        })
       });
 
 

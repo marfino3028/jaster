@@ -24,51 +24,51 @@ class OrderController extends Controller
     // add order function
     public function store(Request $request)
     {
-        $validateOrder = $request->validate([
-            'nama'    => 'required|max: 191',
-            'brand'    => 'required',
-            'jabatan'    => 'required',
-            'wa'    => 'required',
-            'alamat'    => 'required',
-            'via'    => 'required',
-            'tau_dari' => 'required',
-            'data_logo'     => 'required',
-            'data_website'  => 'required',
-            'tipe_post'     => 'required',
-            'target'        => 'required',
-            'warna'         => 'nullable',
-            'akun_username' => 'nullable',
-            'akun_email'    => 'nullable',
-            'akun_password' => 'nullable',
-            'deadline'      => 'nullable',
-            'request'       => 'nullable',
-            'dp'   => 'nullable',
-            'renewal'   => 'nullable',
+        // $validateOrder = $request->validate([
+        //     'nama'    => 'required|max: 191',
+        //     'brand'    => 'required',
+        //     'jabatan'    => 'required',
+        //     'wa'    => 'required',
+        //     'alamat'    => 'required',
+        //     'via'    => 'required',
+        //     'tau_dari' => 'required',
+        //     'data_logo'     => 'required',
+        //     'data_website'  => 'required',
+        //     'tipe_post'     => 'required',
+        //     'target'        => 'required',
+        //     'warna'         => 'nullable',
+        //     'akun_username' => 'nullable',
+        //     'akun_email'    => 'nullable',
+        //     'akun_password' => 'nullable',
+        //     'deadline'      => 'nullable',
+        //     'request'       => 'nullable',
+        //     'dp'   => 'nullable',
+        //     'renewal'   => 'nullable',
 
 
-        ]);
+        // ]);
 
-        $order = Orders::create($validateOrder);
+        // $order = Orders::create($validateOrder);
 
-        $validateWebAkun = $request->validate([
-            'akun_username' => 'nullable',
-            'akun_email'    => 'nullable',
-            'akun_password' => 'nullable',
-        ]);
+        // $validateWebAkun = $request->validate([
+        //     'akun_username' => 'nullable',
+        //     'akun_email'    => 'nullable',
+        //     'akun_password' => 'nullable',
+        // ]);
 
-        $order->akun()->create($validateWebAkun);
-        $order->website()->create([
-            'domain' => $request->input('domain'),
-            'tanggal_order' => $request->input('tanggal_order'),
-        ]);
-        $order->transaksi()->create([
-            'quantity' => $request->input('quantity'),
-            'biaya' => $request->input('biaya'),
-            'paket' => $request->input('paket'),
-            'total' => $request->input('total'),
-        ]);
+        // $order->akun()->create($validateWebAkun);
+        // $order->website()->create([
+        //     'domain' => $request->input('domain'),
+        //     'tanggal_order' => $request->input('tanggal_order'),
+        // ]);
+        // $order->transaksi()->create([
+        //     'quantity' => $request->input('quantity'),
+        //     'biaya' => $request->input('biaya'),
+        //     'paket' => $request->input('paket'),
+        //     'total' => $request->input('total'),
+        // ]);
         // return redirect('/orders');
-        return dd($order);
+        return dd($request);
     }
 
     // edit order by id
