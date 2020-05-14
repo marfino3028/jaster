@@ -42,13 +42,13 @@
                             @forelse ($order as $row)
                           <tr>
                             <td align="center">{{ $no++ }}</td>
-                            <td align="center">JWT-{{ $row->order_id }}</td>
+                            <td align="center">JW-{{ $row->order_id }}</td>
                             <td align="center">{{ $row->brand }}</td>
                             <td align="center">{{ $row->tanggal_order }}</td>
                             <td align="center">{{ $row->deadline }}</td>
                             <td align="center">
                                 <a href="{{route('editOrder', ['id' => $row->order_id])}}" class="btn btn-outline-primary button-list-order">Edit</a>
-                                <a href="" class="btn btn-outline-primary button-list-order">View</a>
+
                             </td>
                           </tr>
                           @empty

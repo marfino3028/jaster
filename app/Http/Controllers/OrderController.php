@@ -8,6 +8,7 @@ use App\User;
 use App\Orders;
 use App\ProgressList;
 use App\Website;
+use App\Transaksi;
 
 use App\Notifications\addedNotes;
 use App\Notifications\addedRequest;
@@ -41,7 +42,8 @@ class OrderController extends Controller
             'akun_password' => 'nullable',
             'deadline'      => 'nullable',
             'request'       => 'nullable',
-            'tanggal_order'   => 'nullable',
+            'dp'   => 'nullable',
+            'renewal'   => 'nullable',
 
 
         ]);
@@ -57,10 +59,16 @@ class OrderController extends Controller
         $order->akun()->create($validateWebAkun);
         $order->website()->create([
             'domain' => $request->input('domain'),
-            'duedate' => $request->input('duedate'),
+            'tanggal_order' => $request->input('tanggal_order'),
         ]);
-
-        return redirect('/orders');
+        $order->transaksi()->create([
+            'quantity' => $request->input('quantity'),
+            'biaya' => $request->input('biaya'),
+            'paket' => $request->input('paket'),
+            'total' => $request->input('total'),
+        ]);
+        // return redirect('/orders');
+        return dd($order);
     }
 
     // edit order by id
@@ -77,7 +85,6 @@ class OrderController extends Controller
     public function update(Request $request, $id) {
         $validateOrder = $request->validate([
             'nama'    => 'required|max: 191',
-            'paket'    => 'required',
             'brand'    => 'required',
             'data_logo'     => 'required',
             'data_website'  => 'required',
@@ -89,22 +96,23 @@ class OrderController extends Controller
             'akun_password' => 'nullable',
             'deadline'      => 'nullable',
             'request'       => 'nullable',
-            'tanggal_order'   => 'nullable',
+
+            'dp'   => 'nullable',
+            'renewal'   => 'nullable',
 
         ]);
 
         $updateOrder = Orders::where('orders.order_id', $id)
                         ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')->update($validateOrder);
-
         $updateDomain = Website::where('order_id', $id)->update([
             'domain' => $request->input('domain'),
-            'duedate' => $request->input('duedate'),
+            'tanggal_order' => $request->input('tanggal_order'),
         ]);
 
         if ($updateDomain == null) {
             $createDomain = Website::create([
                 'domain' => $request->input('domain'),
-                'duedate' => $request->input('duedate'),
+                'tanggal_order' => $request->input('tanggal_order'),
                 'order_id' => $id,
             ]);
         }
@@ -163,5 +171,10 @@ class OrderController extends Controller
         return response()->json($viewRequest);
     }
 
-    public function addOrder()
+    public function addOrder(){
+
+    }
+    public function addOrderPost(){
+
+    }
 }

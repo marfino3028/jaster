@@ -42,13 +42,13 @@
                             <?php $__empty_1 = true; $__currentLoopData = $order; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                           <tr>
                             <td align="center"><?php echo e($no++); ?></td>
-                            <td align="center">JWT-<?php echo e($row->order_id); ?></td>
+                            <td align="center">JW-<?php echo e($row->order_id); ?></td>
                             <td align="center"><?php echo e($row->brand); ?></td>
                             <td align="center"><?php echo e($row->tanggal_order); ?></td>
                             <td align="center"><?php echo e($row->deadline); ?></td>
                             <td align="center">
                                 <a href="<?php echo e(route('editOrder', ['id' => $row->order_id])); ?>" class="btn btn-outline-primary button-list-order">Edit</a>
-                                <a href="" class="btn btn-outline-primary button-list-order">View</a>
+
                             </td>
                           </tr>
                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

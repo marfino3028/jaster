@@ -120,7 +120,7 @@
                    <div class="col-4" style="margin-right: -5px;">
                         <div class="form-group">
                         <label>Domain </label>
-                        <input type="text" class="form-control col-md-12" name="domain" value="{{ $edit->domain }}">
+                        <input type="text" class="form-control" name="domain" value="{{ $edit->domain }}">
                         <div class="invalid-feedback">
                             Input domain bosz!
                         </div>
@@ -335,12 +335,14 @@
                     <div class="col-4">
                         <div class="form-group" style="margin-left: 150px">
                             <label>Tanggal Order </label>
-                            <input type="date" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="tanggal_order" value="{{ $edit->tanggal_order }}">
+                            <input type="text" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="tanggal_order"
+                            required value={{ $edit->tanggal_order }}>
                             <div class="invalid-feedback">
                                 Input tanggal Order!
                             </div><br>
                             <label>Deadline</label>
-                            <input type="deadline" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="deadline" value="{{ $edit->deadline }}">
+                            <input type="text" value={{ $edit->deadline }} class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="deadline"
+                                required>
                             <div class="invalid-feedback">
                                 Input Deadline!
                             </div><br>

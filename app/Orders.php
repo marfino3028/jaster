@@ -10,8 +10,8 @@ class Orders extends Model
     protected $primarykey = 'order_id';
     protected $table = 'orders';
 
-    protected $fillable = ['nama_order', 'nama_paket', 'data_logo', 'data_website', 
-    'tipe_post', 'target', 'warna', 'deadline', 'request', 'web_pesaing', 'deleting'];
+    protected $fillable = ['nama', 'brand', 'data_logo', 'data_website',
+    'tipe_post', 'target', 'warna', 'deadline', 'request',  'renewal', 'dp', 'deleting'];
 
     public function akun() {
         return $this->hasOne('App\WebAkun', 'order_id');

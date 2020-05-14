@@ -61,7 +61,7 @@ class WebsiteController extends Controller
             'hostingId' => $request->input('nama_hosting'),
             'order_id'  => $request->input('nama'),
             'domain'    => $request->input('nama_domain'),
-            'duedate'   => $request->input('duedate'),
+            'tanggal_order'   => $request->input('tanggal_order'),
         ]);
 
         if ($create) {
@@ -74,7 +74,7 @@ class WebsiteController extends Controller
             'hostingId' => $request->input('nama_hosting'),
             'order_id'  => $request->input('nama'),
             'domain'    => $request->input('nama_domain'),
-            'duedate'   => $request->input('duedate'),
+            'tanggal_order'   => $request->input('tanggal_order'),
         ]);
 
         if ($update) {

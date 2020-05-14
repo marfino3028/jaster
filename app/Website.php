@@ -12,7 +12,7 @@ class Website extends Model
         'hostingId',
         'order_id',
         'domain',
-        'duedate'
+        'tanggal_order'
     ];
 
     public function order() {

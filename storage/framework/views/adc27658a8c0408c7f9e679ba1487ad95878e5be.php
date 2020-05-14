@@ -168,8 +168,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Deadline</label>
-                                    <input type="text" class="form-control datepicker" placeholder="YYYY-MM-DD" name="deadline" id="deadline">
+                                    <label>Tanggal Order</label>
+                                    <input type="text" class="form-control datepicker" placeholder="YYYY-MM-DD" name="tanggal_order" id="tanggal_order">
                                     <div class="invalid-feedback">
                                         Input tanggal dengan benar
                                     </div>
@@ -249,7 +249,7 @@
                     $('#nama_hosting').select2().trigger('change');
                     $('#brand').val(response.result.order_id);
                     $('#brand').select2().trigger('change');
-                    $('#duedate').val(response.result.duedate);
+                    $('#tanggal_order').val(response.result.tanggal_order);
                     $('#kirimDomain').attr('action', urlUpdate);
                 }
             }

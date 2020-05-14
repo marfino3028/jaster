@@ -29,7 +29,7 @@
       <div class="section-body">
         <h2 class="section-title">Add Order</h2>
         <p class="section-lead">Tambahkan Ordernya dibawah</p>
-        <form method="post" action="<?php echo e(route('addOrder')); ?>" class="needs-validation" novalidate="">
+        <form id="kirimData" method="post" action="<?php echo e(route('addOrder')); ?>" class="needs-validation" novalidate="">
 
 
             <!-- table kiri atas -->
@@ -366,7 +366,7 @@
 			<th id="totalOrder">Rp. <?php echo e(number_format(0,0,',','.')); ?>-,</th>
 		</tr>
     </table>
-    <button class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
+    <button type="submit" class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
         </form>
     </section>
   </div>
@@ -527,46 +527,17 @@ function sendQuantity(iki, count) {
     $('#totalOrder').text('Rp. '+totalSemua);
 }
 
-//function renewal
-function sendRenewal(iki, count) {
-    var renewal = parseInt(iki.val());
-    var biaya= $('.addOrder'+ count + ' > input[name="renewal"]').val();
-    var splitBiaya = parseInt(biaya.split('.').join(""));
-    var totalItem = renewal + splitBiaya;
-
-    var obj ={
-        id: count,
-        renewal: renewal,
-        harga: splitBiaya,
-        totalItem: totalItem,
-    };
-
-    totalHarga[count] = totalItem;
-
-    // loop value in object and sum all
-    var totalSemua = 0;
-    for (const key in totalHarga) {
-        if (isNaN(totalHarga[key])) {
-            totalSemua = totalSemua + 0;
-        } else {
-            totalSemua += parseInt(totalHarga[key]);
-        }
-    }
-
-    totals[count] = obj;
-    $('#totalOrder').text('Rp. '+totalSemua);
-}
 // function untuk kirim harga tiap row
 function sendHarga(iki, count) {
     // get quantity
     var quantity = parseInt($('.addOrder'+ count + ' > input[name="quantity[]"]').val());
-    // get renewal
-    var renewal = parseInt($('.addOrder'+ count + ' > input[name="renewal"]').val());
+
+
     // get biaya
     var biaya= iki.val();
     var splitBiaya = parseInt(biaya.split('.').join(""));
     // quantity * biaya
-    var totalItem = quantity * splitBiaya + renewal;
+    var totalItem = quantity * splitBiaya;
 
     var obj ={
         id: count,
@@ -590,6 +561,53 @@ function sendHarga(iki, count) {
     totals[count] = obj;
     $('#totalOrder').text('Rp. '+totalSemua);
 }
+
+$('#kirimData').submit(function (e) {
+    e.preventDefault();
+    console.log($(this).serialize());
+})
+
+</script>
+<script>
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+
+      $('.button--shikoba').click(function(){
+           $.ajax({
+                url:postURL,
+                method:"POST",
+                data:$('#totalOrder').serialize(),
+                type:'json',
+                success:function(data)
+                {
+                    if(data.error){
+                        printErrorMsg(data.error);
+                    }else{
+                        i=1;
+                        $('.dynamic-added').remove();
+                        $('.button--shikoba')[0].reset();
+                        $(".print-success-msg").find(".addOrder").html('');
+                        $(".print-success-msg").css('display','block');
+                        $(".print-error-msg").css('display','none');
+                        $(".print-success-msg").find(".addOrder").append('<li>Record Inserted Successfully.</li>');
+                    }
+                }
+           });
+      });
+
+
+      function printErrorMsg (msg) {
+         $(".print-error-msg").find(".addOrder").html('');
+         $(".print-error-msg").css('display','block');
+         $(".print-success-msg").css('display','none');
+         $.each( msg, function( key, value ) {
+            $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
+         });
+      }
 
 </script>
 
