@@ -72,7 +72,7 @@
                         <div class="col-6">
                         <div class="form-group">
                             <label>Email </label>
-                            <input type="email" class="form-control col-md-12" name="email">
+                            <input type="email" class="form-control col-md-12" name="akun_email">
                             <div class="invalid-feedback">
                                 Input Email!
                             </div>
@@ -142,7 +142,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label>Username </label>
-                            <input type="text" class="form-control col-md-12" name="username">
+                            <input type="text" class="form-control col-md-12" name="akun_username">
                             <div class="invalid-feedback">
                                 Input username!
                             </div>
@@ -227,7 +227,7 @@
                                 <div class="form-group">
                                     <label>Request</label>
                                     <button class="btn btn-outline-primary col-md-12" data-toggle="modal"
-                        data-target="#modalRequest">Request</button>
+                        data-target="#modalRequest" id="addRequest">Request</button>
                                     <div class="invalid-feedback">
                                         Input Request !
                                     </div>
@@ -335,12 +335,12 @@
                     <div class="col-4">
                         <div class="form-group" style="margin-left: 150px">
                             <label>Tanggal Order </label>
-                            <input type="date" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="tanggal_order">
+                            <input type="text" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="tanggal_order">
                             <div class="invalid-feedback">
                                 Input tanggal Order!
                             </div><br>
                             <label>Deadline</label>
-                            <input type="deadline" class="form-control col-md-9 datepicker" value="YYYY-MM-DD" name="deadline">
+                            <input type="text" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="deadline">
                             <div class="invalid-feedback">
                                 Input Deadline!
                             </div><br>
@@ -367,18 +367,25 @@
     </table>
     <button type="submit" class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
         </form>
-    </section>
   </div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('jslibraries'); ?>
 ##parent-placeholder-ffd66c5dac17be6451cca4afe8a4549aa7aad85f##
 <!-- modal reques -->
+<!-- JS Libraies -->
+<script src="<?php echo e(asset('assets/modules/izitoast/js/iziToast.min.js')); ?>"></script>
+
+<!-- Page Specific JS File -->
+<script src="<?php echo e(asset('assets/js/page/modules-toastr.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/js/page/bootstrap-modal.js')); ?>"></script>
+
+<!-- modal untuk menambahkan notes -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modalRequest">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Request</h5>
+                <h5 class="modal-title">Add Request</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -386,47 +393,19 @@
             <div class="modal-body">
                 <p>Tambahkan Request disini</p>
                 <div class="form-group">
-                    <div class="note-editor note-frame card">
-                        <div class="note-dropzone">
-                             <div class="note-dropzone-message">
-                                 </div>
-                                </div>
-                                <div class="note-toolbar-wrapper" style="height: 36px;">
-                                    <div class="note-toolbar card-header" style="position: relative; top: 0px; width: 100%;">
-                                        <div class="note-btn-group btn-group note-style">
-                                            <button type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1" title="" data-original-title="Bold (CTRL+B)">
-                                                <i class="note-icon-bold"></i>
-                                                </button>
-                                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1" title="" data-original-title="Italic (CTRL+I)">
-                                                    <i class="note-icon-italic"></i>
-                                                </button>
-                                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1" title="" data-original-title="Underline (CTRL+U)">
-                                                    <i class="note-icon-underline"></i>
-                                                </button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Remove Font Style (CTRL+\)">
-                                                    <i class="note-icon-eraser"></i>
-                                                </button>
-                                            </div>
-                                            <div class="note-btn-group btn-group note-font">
-                                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-strikethrough" tabindex="-1" title="" data-original-title="Strikethrough (CTRL+SHIFT+S)">
-                                                    <i class="note-icon-strikethrough"></i>
-                                                </button>
-                                            </div>
-                                            <div class="note-btn-group btn-group note-para">
-                                                <div class="note-btn-group btn-group">
-                                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" data-original-title="Paragraph">
-                                                        <i class="note-icon-align-left"></i></button><div class="dropdown-menu"><div class="note-btn-group btn-group note-align"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Align left (CTRL+SHIFT+L)"><i class="note-icon-align-left"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Align center (CTRL+SHIFT+E)"><i class="note-icon-align-center"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Align right (CTRL+SHIFT+R)"><i class="note-icon-align-right"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Justify full (CTRL+SHIFT+J)"><i class="note-icon-align-justify"></i></button></div><div class="note-btn-group btn-group note-list"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Outdent (CTRL+[)"><i class="note-icon-align-outdent"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Indent (CTRL+])"><i class="note-icon-align-indent"></i></button></div></div></div></div></div></div><div class="note-editing-area"><div class="note-handle"><div class="note-control-selection" style="display: none;"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><textarea class="note-codable" id="request"></textarea><div class="note-editable card-block" contenteditable="true" style="min-height: 150px;"><p><br></p></div></div><div class="note-statusbar">  <div class="note-resizebar">    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>  </div></div></div>
+                    <textarea id="notes"></textarea>
                 </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-                <button type="button" onclick="sendNotes()" class="btn btn-outline-primary">Save changes</button>
+                <button type="button" onclick="sendRequest()" class="btn btn-outline-primary">Save changes</button>
             </div>
         </div>
     </div>
 </div>
 <script>
-    function sendNotes() {
-        var noteses = tinyMCE.get('request').getContent();
+    function sendRequest() {
+        var requestes = tinyMCE.get('notes').getContent();
 
         $.ajaxSetup({
                 headers: {
@@ -438,11 +417,11 @@
                 method: "post",
                 dataType: 'JSON',
                 data: {
-                    notes: noteses,
+                    request: requestes,
                 },
                 success: function (respons) {
                     $('#lihatRequest').empty();
-                    $('#lihatRequest').append(noteses);
+                    $('#lihatRequest').append(requestes);
 
                     if (respons.ping == 200) {
                         iziToast.success({
@@ -465,12 +444,7 @@
 
 
 </script>
-<!-- JS Libraies -->
-<script src="<?php echo e(asset('assets/modules/izitoast/js/iziToast.min.js')); ?>"></script>
 
-<!-- Page Specific JS File -->
-<script src="<?php echo e(asset('assets/js/page/modules-toastr.js')); ?>"></script>
-<script src="<?php echo e(asset('assets/js/page/bootstrap-modal.js')); ?>"></script>
 <script type="text/javascript">
 var totals = {};
 var totalHarga = {};

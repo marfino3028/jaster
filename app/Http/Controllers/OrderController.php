@@ -24,59 +24,59 @@ class OrderController extends Controller
     // add order function
     public function store(Request $request)
     {
-        // $validateOrder = $request->validate([
-        //     'nama'    => 'required|max: 191',
-        //     'brand'    => 'required',
-        //     'jabatan'    => 'required',
-        //     'wa'    => 'required',
-        //     'alamat'    => 'required',
-        //     'via'    => 'required',
-        //     'tau_dari' => 'required',
-        //     'data_logo'     => 'required',
-        //     'data_website'  => 'required',
-        //     'tipe_post'     => 'required',
-        //     'target'        => 'required',
-        //     'warna'         => 'nullable',
-        //     'akun_username' => 'nullable',
-        //     'akun_email'    => 'nullable',
-        //     'akun_password' => 'nullable',
-        //     'deadline'      => 'nullable',
-        //     'request'       => 'nullable',
-        //     'dp'   => 'nullable',
-        //     'renewal'   => 'nullable',
+         $validateOrder = $request->validate([
+             'nama'    => 'required|max: 191',
+             'brand'    => 'required',
+             'jabatan'    => 'required',
+             'wa'    => 'required',
+             'alamat'    => 'required',
+             'via'    => 'required',
+             'tau_dari' => 'required',
+             'data_logo'     => 'required',
+             'data_website'  => 'required',
+             'tipe_post'     => 'required',
+             'target'        => 'required',
+             'warna'         => 'nullable',
+             'akun_username' => 'nullable',
+             'akun_email'    => 'nullable',
+             'akun_password' => 'nullable',
+             'deadline'      => 'nullable',
+             'dp'   => 'nullable',
+             'renewal'   => 'nullable',
 
 
-        // ]);
+         ]);
 
-        // $order = Orders::create($validateOrder);
+         $order = Orders::create($validateOrder);
 
-        // $validateWebAkun = $request->validate([
-        //     'akun_username' => 'nullable',
-        //     'akun_email'    => 'nullable',
-        //     'akun_password' => 'nullable',
-        // ]);
+         $validateWebAkun = $request->validate([
+             'akun_username' => 'nullable',
+             'akun_email'    => 'nullable',
+             'akun_password' => 'nullable',
+         ]);
 
-        // $order->akun()->create($validateWebAkun);
-        // $order->website()->create([
-        //     'domain' => $request->input('domain'),
-        //     'tanggal_order' => $request->input('tanggal_order'),
-        // ]);
-        // $order->transaksi()->create([
-        //     'quantity' => $request->input('quantity'),
-        //     'biaya' => $request->input('biaya'),
-        //     'paket' => $request->input('paket'),
-        //     'total' => $request->input('total'),
-        // ]);
-        // return redirect('/orders');
+         $order->akun()->create($validateWebAkun);
+         $order->website()->create([
+             'domain' => $request->input('domain'),
+             'tanggal_order' => $request->input('tanggal_order'),
+         ]);
+         $order->transaksi()->create([
+             'quantity' => $request->input('quantity'),
+             'biaya' => $request->input('biaya'),
+             'paket' => $request->input('paket'),
+             'total' => $request->input('total'),
+         ]);
+         return redirect('/orders');
         return dd($request);
     }
 
     // edit order by id
     public function edit($id) {
-        // $edit = Orders::where('order_id', $id)->first();
+        $edit = Orders::where('order_id', $id)->first();
         $edit = Orders::where('orders.order_id', $id)
                     ->leftJoin('web_akuns', 'orders.order_id', 'web_akuns.order_id')
                     ->leftjoin('websites', 'orders.order_id', 'websites.order_id')
+                    ->leftjoin('transaksi', 'orders.transaksi_id', 'transaksi.transaksi_id')
                     ->first();
 
         return view('backend.pages.edit-order', compact('edit'));
@@ -103,7 +103,9 @@ class OrderController extends Controller
         ]);
 
         $updateOrder = Orders::where('orders.order_id', $id)
-                        ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')->update($validateOrder);
+                        ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')
+                        ->join('transaksi', 'orders.transaksi_id', 'transaksi.transaksi_id')
+                        ->update($validateOrder);
         $updateDomain = Website::where('order_id', $id)->update([
             'domain' => $request->input('domain'),
             'tanggal_order' => $request->input('tanggal_order'),

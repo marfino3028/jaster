@@ -63,7 +63,7 @@ class addedRequest extends Notification
         return [
             'user_id'     => $this->user->id,
             'name'        => $this->user->name,
-            'description' => 'added Notes to <em class="text-primary"><strong>'. $this->order->nama_order.'</strong></em>',
+            'description' => 'added Request to <em class="text-primary"><strong>'. $this->order->nama.'</strong></em>',
             'id_content'  => $this->order->order_id,
             'bottom'      => date('l, M Y'),
         ];
