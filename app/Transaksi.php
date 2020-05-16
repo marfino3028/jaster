@@ -9,14 +9,15 @@ class Transaksi extends Model
     protected $table      = 'transaksi';
     protected $primaryKey = 'transaksi_id';
     protected $fillable   = [
+        'order_id',
         'quantity',
         'biaya',
         'paket',
         'total',
 
     ];
-
-    public function transaksi() {
-        return $this->hasOne('App\Website', 'transaksi_id');
+    public $timestamps = false;
+    public function order() {
+        return $this->belongsTo('App\Orders', 'transaksi_id');
     }
 }

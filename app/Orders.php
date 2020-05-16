@@ -10,7 +10,8 @@ class Orders extends Model
     protected $primarykey = 'order_id';
     protected $table = 'orders';
 
-    protected $fillable = ['nama', 'brand', 'data_logo', 'data_website',
+    protected $fillable = ['nama', 'brand', 'data_logo', 'data_website','jabatan','wa','alamat',
+    'via','tau_dari',
     'tipe_post', 'target', 'warna', 'deadline', 'request',  'renewal', 'dp', 'deleting'];
 
     public function akun() {
@@ -23,5 +24,8 @@ class Orders extends Model
 
     public function website() {
         return $this->hasOne('App\Website', 'order_id');
+    }
+    public function transaksi() {
+        return $this->hasMany('App\Transaksi', 'order_id');
     }
 }

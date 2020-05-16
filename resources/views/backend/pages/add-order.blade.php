@@ -226,7 +226,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Request</label>
-                                    <button class="btn btn-outline-primary col-md-12" data-toggle="modal"
+                                    <button type="button" class="btn btn-outline-primary col-md-12" data-toggle="modal"
                         data-target="#modalRequest" id="addRequest">Request</button>
                                     <div class="invalid-feedback">
                                         Input Request !
@@ -253,7 +253,7 @@
                             <div class="form-group" id='formPaket'>
                             <label>Paket </label>
                             <div class="col-md-5" style="margin: 0px; padding: 0px;">
-                            <select class="form-control select2" name="paket[]" required>
+                            <select id="paketInput0" data-input="paket" data-hitung="0" class="form-control select2" required>
                                 <option value="">None</option>
                                 <option value="Ekonomis">Ekonomis</option>
                                 <option value="Basic">Basic</option>
@@ -270,7 +270,7 @@
                         <div class="col-4"  style="margin-right: -290px;">
                         <div class="form-group addOrder0" id="formQuantity">
                             <label>Quantity </label>
-                            <input type="number" class="form-control col-md-5" name="quantity[]" onkeyup="sendQuantity($(this), 0)">
+                            <input type="number" id="quantityInput0" class="form-control col-md-5" onkeyup="sendQuantity($(this), 0)">
                             <div class="invalid-feedback">
                                 Input Quantity!
                             </div>
@@ -281,7 +281,7 @@
 
                             <div class="form-group addOrder0" id="formBiaya">
                                 <label>Biaya </label>
-                                <input type="text" class="form-control col-md-5" onkeyup="convertToRupiah(this); sendHarga($(this), 0)" name="biaya[]" >
+                                <input type="text" id="biayaInput0" class="form-control col-md-5" onkeyup="convertToRupiah(this); sendHarga($(this), 0)" >
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
@@ -365,7 +365,8 @@
 			<th id="totalOrder">Rp. {{ number_format(0,0,',','.') }}-,</th>
 		</tr>
     </table>
-    <button type="submit" class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
+    <button type="submit" class="button button--shikoba button--text-medium button--round-l button--inverted">
+        <i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
         </form>
   </div>
 @endsection
@@ -403,47 +404,7 @@
         </div>
     </div>
 </div>
-<script>
-    function sendRequest() {
-        var requestes = tinyMCE.get('notes').getContent();
 
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            }),
-            $.ajax({
-                url: '{{ route('editRequest', ['id' => request()->route('id')]) }}',
-                method: "post",
-                dataType: 'JSON',
-                data: {
-                    request: requestes,
-                },
-                success: function (respons) {
-                    $('#lihatRequest').empty();
-                    $('#lihatRequest').append(requestes);
-
-                    if (respons.ping == 200) {
-                        iziToast.success({
-                            title: 'Berhasil!',
-                            message: 'berhasil memasukkan Request',
-                            position: 'bottomRight'
-                        });
-
-                        $('#modalRequest').modal('hide');
-                    } else {
-                        iziToast.info({
-                            title: 'gagal!',
-                            message: 'gagal memasukkan Request',
-                            position: 'bottomRight'
-                        });
-                    }
-                }
-            })
-    }
-
-
-</script>
 
 <script type="text/javascript">
 var totals = {};
@@ -453,9 +414,9 @@ $(document).ready(function () {
     var counter = 1;
 
     $("#add").on("click", function () {
-        cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" name="paket[]" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
-        cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" class="form-control col-md-5" name="quantity[]" onkeyup="sendQuantity($(this), '+counter+')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
-        cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text"  class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+counter+')" name="biaya[]"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+        cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+        cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+ counter +')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+        cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+ counter +')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
         cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
         $("#formPaket").after(cols1);
         $("#formQuantity").after(cols2);
@@ -468,19 +429,29 @@ $(document).ready(function () {
         });
         counter++;
     });
+
+    $('.select2[data-input="paket"]').change(function() {
+        var counts = $(this).data('hitung');
+        sendQuantity($('.addOrder'+ counts + ' > #quantityInput'+counts), counts);
+        $('.addOrder'+ counts + ' > #quantityInput'+counts).val("");
+        sendHarga($('.addOrder'+ counts + ' > #biayaInput'+counts), counts);
+        $('.addOrder'+ counts + ' > #biayaInput'+counts).val("");
+    });
 });
 
 // function untuk kirim kuantitas
 function sendQuantity(iki, count) {
+    var paket = $('#paketInput'+ count).val();
     var quantity = parseInt(iki.val());
-    var biaya= $('.addOrder'+ count + ' > input[name="biaya[]"]').val();
+    var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
     var splitBiaya = parseInt(biaya.split('.').join(""));
-    var totalItem = quantity * splitBiaya;
+    var totalItem = quantity * biaya;
 
     var obj ={
         id: count,
+        paket: paket,
         quantity: quantity,
-        harga: splitBiaya,
+        harga: biaya,
         totalItem: totalItem,
     };
 
@@ -497,23 +468,25 @@ function sendQuantity(iki, count) {
     }
 
     totals[count] = obj;
+    //console.log(totals);
     $('#totalOrder').text('Rp. '+totalSemua);
 }
 
 // function untuk kirim harga tiap row
 function sendHarga(iki, count) {
+    var paket = $('#paketInput'+ count).val();
     // get quantity
-    var quantity = parseInt($('.addOrder'+ count + ' > input[name="quantity[]"]').val());
-
-
+    var quantity = parseInt($('.addOrder'+ count + ' > #quantityInput'+count).val());
     // get biaya
     var biaya= iki.val();
+
     var splitBiaya = parseInt(biaya.split('.').join(""));
     // quantity * biaya
-    var totalItem = quantity * splitBiaya;
+    var totalItem = quantity * splitBiaya
 
     var obj ={
         id: count,
+        paket: paket,
         quantity: quantity,
         harga: splitBiaya,
         totalItem: totalItem,
@@ -532,7 +505,30 @@ function sendHarga(iki, count) {
     }
 
     totals[count] = obj;
+
+    //console.log(totals);
     $('#totalOrder').text('Rp. '+totalSemua);
+}
+
+var dataRequest;
+
+function sendRequest(){
+    var editor = tinymce.get('notes');
+    var content = editor.getContent();
+   dataRequest = (content);
+    $('#modalRequest').modal('hide');
+
+}
+
+function getFormData($form){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
 }
 
 </script>
@@ -546,10 +542,13 @@ function sendHarga(iki, count) {
 
       $('.button--shikoba').click(function(){
         var dataToSend = {};
+
         $('#kirimData').submit(function (e) {
             e.preventDefault();
-            dataToSend['data'] = $(this).serializeArray();
-            dataToSend['transaksi'] = totals;
+
+            dataToSend['data'] = getFormData($(this));
+            dataToSend.data['request'] = dataRequest;
+            dataToSend.data['transaksi'] = totals;
 
            $.ajax({
                 url:'{{ route('addOrder') }}',
@@ -561,13 +560,8 @@ function sendHarga(iki, count) {
                     if(data.error){
                         printErrorMsg(data.error);
                     }else{
-                        i=1;
-                        $('.dynamic-added').remove();
-                        $('.button--shikoba')[0].reset();
-                        $(".print-success-msg").find(".addOrder").html('');
-                        $(".print-success-msg").css('display','block');
-                        $(".print-error-msg").css('display','none');
-                        $(".print-success-msg").find(".addOrder").append('<li>Record Inserted Successfully.</li>');
+                       //window.location.href = 'orders'
+                       $('input').val("");
                     }
                 }
            });

@@ -335,8 +335,7 @@
                     <div class="col-4">
                         <div class="form-group" style="margin-left: 150px">
                             <label>Tanggal Order </label>
-                            <input type="text" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="tanggal_order"
-                            required value={{ $edit->tanggal_order }}>
+                            <input type="text" value="{{ $edit->tanggal_order }}" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="tanggal_order">
                             <div class="invalid-feedback">
                                 Input tanggal Order!
                             </div><br>
@@ -399,110 +398,173 @@
     </div>
 </div>
 <script>
-    function sendNotes() {
-        var noteses = tinyMCE.get('notes').getContent();
+   var totals = {};
+var totalHarga = {};
 
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            }),
-            $.ajax({
-                url: '{{ route('editNotes', ['id' => request()->route('id')]) }}',
-                method: "post",
-                dataType: 'JSON',
-                data: {
-                    notes: noteses,
-                },
-                success: function (respons) {
-                    $('#lihatNotes').empty();
-                    $('#lihatNotes').append(noteses);
-
-                    if (respons.ping == 200) {
-                        iziToast.success({
-                            title: 'Berhasil!',
-                            message: 'berhasil memasukkan Notes',
-                            position: 'bottomRight'
-                        });
-
-                        $('#modalNotes').modal('hide');
-                    } else {
-                        iziToast.info({
-                            title: 'gagal!',
-                            message: 'gagal memasukkan Notes',
-                            position: 'bottomRight'
-                        });
-                    }
-                }
-            })
-    }
-
-    function viewNotes() {
-
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            }),
-            $.ajax({
-                url: '{{ route('viewNotes', ['id' => request()->route('id')]) }}',
-                method: "post",
-                success: function (respons) {
-
-                    return respons;
-
-                }
-            })
-    }
-
-</script>
-<!-- JS Libraies -->
-<script src="{{ asset('assets/modules/izitoast/js/iziToast.min.js') }}"></script>
-
-<!-- Page Specific JS File -->
-<script src="{{ asset('assets/js/page/modules-toastr.js') }}"></script>
-<script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
-<script type="text/javascript">
 $(document).ready(function () {
-    var counter = 0;
+    var counter = 1;
 
     $("#add").on("click", function () {
-        cols1 = '<div class="form-group"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2 !important" name="paket[]" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
-        cols2 = '<div class="form-group"><label>Quantity </label><input type="number" class="form-control col-md-5" name="quantity[]"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
-        cols3 = '<div class="form-group"><label>Biaya </label><input type="text"  class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
-
+        cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" id="paketInput'+counter+'" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+        cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+counter+'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+counter+')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+        cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text" id="quantityInput'+counter+'" class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+counter+')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+        cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
         $("#formPaket").after(cols1);
         $("#formQuantity").after(cols2);
         $("#formBiaya").after(cols3);
+        $("#addRow").after(cols4);
+        $(".select2").select2();
 
-        // counter++;
+        $("#hapusRow").click(function(){
+            $('.addOrder'+ $(this).attr('data-id')).remove();
+        });
+        counter++;
     });
-
-
-
-    $("div.rounded").on("click", function (event) {
-        $(this).closest("ulang").remove();
-        counter -= 1
-    });
-
-
 });
 
+// function untuk kirim kuantitas
+function sendQuantity(iki, count) {
+    var quantity = parseInt(iki.val());
+    var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
+    var splitBiaya = parseInt(biaya);
+    var totalItem = quantity * splitBiaya;
 
+    var obj ={
+        id: count,
+        quantity: quantity,
+        harga: splitBiaya,
+        totalItem: totalItem,
+    };
 
-function calculateRow(row) {
-    var price = +row.find('input[name^="price"]').val();
+    totalHarga[count] = totalItem;
+
+    // loop value in object and sum all
+    var totalSemua = 0;
+    for (const key in totalHarga) {
+        if (isNaN(totalHarga[key])) {
+            totalSemua = totalSemua + 0;
+        } else {
+            totalSemua += parseInt(totalHarga[key]);
+        }
+    }
+
+    totals[count] = obj;
+    console.log(totals);
+    $('#totalOrder').text('Rp. '+totalSemua);
+}
+
+// function untuk kirim harga tiap row
+function sendHarga(iki, count) {
+    // get quantity
+    var quantity = parseInt($('.addOrder'+ count + ' > #quantityInput'+count).val());
+    // get biaya
+    var biaya= iki.val();
+
+    var splitBiaya = parseInt(biaya.split('.').join(""));
+    // quantity * biaya
+    var totalItem = quantity * splitBiaya;
+
+    var obj ={
+        id: count,
+        quantity: quantity,
+        harga: splitBiaya,
+        totalItem: totalItem,
+    };
+
+    totalHarga[count] = totalItem;
+
+    // loop value in object and sum all
+    var totalSemua = 0;
+    for (const key in totalHarga) {
+        if (isNaN(totalHarga[key])) {
+            totalSemua = totalSemua + 0;
+        } else {
+            totalSemua += parseInt(totalHarga[key]);
+        }
+    }
+
+    totals[count] = obj;
+
+    console.log(totals);
+    $('#totalOrder').text('Rp. '+totalSemua);
+}
+
+var dataRequest;
+
+function sendRequest(){
+    var editor = tinymce.get('notes');
+    var content = editor.getContent();
+   dataRequest = (content);
+    $('#modalRequest').modal('hide');
 
 }
 
-function calculateGrandTotal() {
-    var grandTotal = 0;
-    $("table.order-list").find('input[name^="price"]').each(function () {
-        grandTotal += +$(this).val();
+function getFormData($form){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+        indexed_array[n['name']] = n['value'];
     });
-    $("#grandtotal").text(grandTotal.toFixed(2));
+
+    return indexed_array;
 }
+
 </script>
+<script>
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+
+      $('.button--shikoba').click(function(){
+        var dataToSend = {};
+
+        $('#kirimData').submit(function (e) {
+            e.preventDefault();
+
+            dataToSend['data'] = getFormData($(this));
+            dataToSend.data['request'] = dataRequest;
+            dataToSend['transaksi'] = totals;
+
+           $.ajax({
+                url:'{{ route('addOrder') }}',
+                method:"POST",
+                data:dataToSend,
+                type:'json',
+                success:function(data)
+                {
+                    if(data.error){
+                        printErrorMsg(data.error);
+                    }else{
+                        // i=1;
+                        // $('.dynamic-added').remove();
+                        // $('.button--shikoba')[0].reset();
+                        // $(".print-success-msg").find(".addOrder").html('');
+                        // $(".print-success-msg").css('display','block');
+                        // $(".print-error-msg").css('display','none');
+                        // $(".print-success-msg").find(".addOrder").append('<li>Record Inserted Successfully.</li>');
+                    }
+                }
+           });
+        })
+      });
+
+
+      function printErrorMsg (msg) {
+         $(".print-error-msg").find(".addOrder").html('');
+         $(".print-error-msg").css('display','block');
+         $(".print-success-msg").css('display','none');
+         $.each( msg, function( key, value ) {
+            $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
+         });
+      }
+
+</script>
+
+
 <script>
    function convertToRupiah(objek) {
 	  separator = ".";

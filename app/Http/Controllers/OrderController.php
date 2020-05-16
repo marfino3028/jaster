@@ -9,7 +9,7 @@ use App\Orders;
 use App\ProgressList;
 use App\Website;
 use App\Transaksi;
-
+use DB;
 use App\Notifications\addedNotes;
 use App\Notifications\addedRequest;
 class OrderController extends Controller
@@ -24,50 +24,59 @@ class OrderController extends Controller
     // add order function
     public function store(Request $request)
     {
-         $validateOrder = $request->validate([
-             'nama'    => 'required|max: 191',
-             'brand'    => 'required',
-             'jabatan'    => 'required',
-             'wa'    => 'required',
-             'alamat'    => 'required',
-             'via'    => 'required',
-             'tau_dari' => 'required',
-             'data_logo'     => 'required',
-             'data_website'  => 'required',
-             'tipe_post'     => 'required',
-             'target'        => 'required',
-             'warna'         => 'nullable',
-             'akun_username' => 'nullable',
-             'akun_email'    => 'nullable',
-             'akun_password' => 'nullable',
-             'deadline'      => 'nullable',
-             'dp'   => 'nullable',
-             'renewal'   => 'nullable',
+
+            $order= Orders::create([
+                'nama'    => $request->input('data.nama'),
+                'brand'    => $request->input('data.brand'),
+                'jabatan'    => $request->input('data.jabatan'),
+                'wa'    => $request->input('data.wa'),
+                'alamat'    => $request->input('data.alamat'),
+                'via'    => $request->input('data.via'),
+                'tau_dari' => $request->input('data.tau_dari'),
+                'data_logo'     => $request->input('data.data_logo'),
+                'data_website'  => $request->input('data.data_website'),
+                'tipe_post'     => $request->input('data.tipe_post'),
+                'target'        => $request->input('data.target'),
+                'warna'         => $request->input('data.warna'),
+                'deadline'      => $request->input('data.deadline'),
+                'dp'   => $request->input('data.dp'),
+                'renewal'   => $request->input('data.renewal'),
+                'request'   => $request->input('data.request'),
+            ]);
+            $transaksi = $request->input('data.transaksi');
+            if ($order) {
+                $orderId = DB::getPdo()->lastInsertId();
+                foreach ($transaksi as $tr){
+                    $order->transaksi()->create([
+                        'order_id' => $orderId,
+                        'quantity' => $tr['quantity'],
+                        'biaya' => $tr['harga'],
+                        'paket' => $tr['paket'],
+                        'total' => $tr['totalItem'],
+                        ]);
+
+            }}
+            else {
+                return response(500);
+            }
+     
 
 
-         ]);
 
-         $order = Orders::create($validateOrder);
 
-         $validateWebAkun = $request->validate([
-             'akun_username' => 'nullable',
-             'akun_email'    => 'nullable',
-             'akun_password' => 'nullable',
-         ]);
+            $order->akun()->create([
+                'akun_username' => $request->input('data.akun_username'),
+                'akun_email'    => $request->input('data.akun_email'),
+                'akun_password' => $request->input('data.akun_password'),
+            ]);
 
-         $order->akun()->create($validateWebAkun);
          $order->website()->create([
-             'domain' => $request->input('domain'),
-             'tanggal_order' => $request->input('tanggal_order'),
+            'domain' => $request->input('data.domain'),
+             'tanggal_order' => $request->input('data.tanggal_order'),
          ]);
-         $order->transaksi()->create([
-             'quantity' => $request->input('quantity'),
-             'biaya' => $request->input('biaya'),
-             'paket' => $request->input('paket'),
-             'total' => $request->input('total'),
-         ]);
-         return redirect('/orders');
-        return dd($request);
+
+    //         // $dataOrder = $request->input('data');
+        return redirect('/orders');
     }
 
     // edit order by id
@@ -76,7 +85,7 @@ class OrderController extends Controller
         $edit = Orders::where('orders.order_id', $id)
                     ->leftJoin('web_akuns', 'orders.order_id', 'web_akuns.order_id')
                     ->leftjoin('websites', 'orders.order_id', 'websites.order_id')
-                    ->leftjoin('transaksi', 'orders.transaksi_id', 'transaksi.transaksi_id')
+                    ->leftjoin('transaksi', 'orders.order_id', 'transaksi.order_id')
                     ->first();
 
         return view('backend.pages.edit-order', compact('edit'));
@@ -96,7 +105,6 @@ class OrderController extends Controller
             'akun_password' => 'nullable',
             'deadline'      => 'nullable',
             'request'       => 'nullable',
-
             'dp'   => 'nullable',
             'renewal'   => 'nullable',
 
@@ -104,7 +112,7 @@ class OrderController extends Controller
 
         $updateOrder = Orders::where('orders.order_id', $id)
                         ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')
-                        ->join('transaksi', 'orders.transaksi_id', 'transaksi.transaksi_id')
+                        ->join('transaksi', 'orders.order_id', 'transaksi..order_id')
                         ->update($validateOrder);
         $updateDomain = Website::where('order_id', $id)->update([
             'domain' => $request->input('domain'),
@@ -145,27 +153,28 @@ class OrderController extends Controller
 
         return json_encode($response);
     }
-    public function editRequest(Request $request, $id) {
-        $user = $request->user();
-        $order = Orders::where('order_id', $id)->first();
 
-        $insertRequest = Orders::where('order_id', $id)->update(['request' => $request->input('request')]);
-        if($insertRequest) {
-            $users = User::all();
-            Notification::send($users, new addedRequest($user, $order));
-
-            $response['ping'] = 200;
-        } else {
-            $response['ping'] = 500;
-        }
-
-        return json_encode($response);
-    }
 
     public function viewNotes($id) {
         $viewNotes = Orders::where('order_id', $id)->get();
 
         return response()->json($viewNotes);
+    }
+    public function editRequest(Request $request, $id) {
+        $user = $request->user();
+        $order = Orders::where('order_id', $id)->first();
+
+        $insertRequest = Orders::where('order_id', $id)->update(['notes' => $request->input('notes')]);
+        if($insertRequest) {
+        $users = User::all();
+        Notification::send($users, new addedRequest($user, $order));
+
+        $response['ping'] = 200;
+        } else {
+        $response['ping'] = 500;
+        }
+
+        return json_encode($response);
     }
     public function viewRequest($id) {
         $viewRequest = Orders::where('order_id', $id)->get();
