@@ -326,7 +326,7 @@
                     </select>
                 </div><br>
                     <label>renewal </label>
-                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal">
+                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal" id="formRenewal">
                     <div class="invalid-feedback">
                         Input Renewal!
                     </div>

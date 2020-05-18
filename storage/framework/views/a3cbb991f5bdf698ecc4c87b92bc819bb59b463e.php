@@ -326,7 +326,7 @@
                     </select>
                 </div><br>
                     <label>renewal </label>
-                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6 addOrder" name="renewal" id="formRenewal">
+                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal">
                     <div class="invalid-feedback">
                         Input Renewal!
                     </div>
@@ -557,12 +557,13 @@ function getFormData($form){
                 type:'json',
                 success:function(data)
                 {
-                    if(data.error){
-                        printErrorMsg(data.error);
-                    }else{
-                       //window.location.href = 'orders'
-                       $('input').val("");
-                    }
+                    // window.location.href = '<?php echo e(route('listOrder')); ?>'
+                    // if(data.error){
+                    //     printErrorMsg(data.error);
+                    // }else{
+                    //    //window.location.href = 'orders'
+                    //    $('input').val("");
+                    // }
                 }
            });
         })

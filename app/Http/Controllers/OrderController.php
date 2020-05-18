@@ -25,45 +25,64 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-            $order= Orders::create([
-                'nama'    => $request->input('data.nama'),
-                'brand'    => $request->input('data.brand'),
-                'jabatan'    => $request->input('data.jabatan'),
-                'wa'    => $request->input('data.wa'),
-                'alamat'    => $request->input('data.alamat'),
-                'via'    => $request->input('data.via'),
-                'tau_dari' => $request->input('data.tau_dari'),
-                'data_logo'     => $request->input('data.data_logo'),
-                'data_website'  => $request->input('data.data_website'),
-                'tipe_post'     => $request->input('data.tipe_post'),
-                'target'        => $request->input('data.target'),
-                'warna'         => $request->input('data.warna'),
-                'deadline'      => $request->input('data.deadline'),
-                'dp'   => $request->input('data.dp'),
-                'renewal'   => $request->input('data.renewal'),
-                'request'   => $request->input('data.request'),
-            ]);
-            $transaksi = $request->input('data.transaksi');
-            if ($order) {
-                $orderId = DB::getPdo()->lastInsertId();
-                foreach ($transaksi as $tr){
-                    $order->transaksi()->create([
-                        'order_id' => $orderId,
-                        'quantity' => $tr['quantity'],
-                        'biaya' => $tr['harga'],
-                        'paket' => $tr['paket'],
-                        'total' => $tr['totalItem'],
-                        ]);
+            // $order= Orders::create([
+            //     'nama'          => $request->input('data.nama'),
+            //     'brand'         => $request->input('data.brand'),
+            //     'jabatan'       => $request->input('data.jabatan'),
+            //     'wa'            => $request->input('data.wa'),
+            //     'alamat'        => $request->input('data.alamat'),
+            //     'via'           => $request->input('data.via'),
+            //     'tau_dari'      => $request->input('data.tau_dari'),
+            //     'data_logo'     => $request->input('data.data_logo'),
+            //     'data_website'  => $request->input('data.data_website'),
+            //     'tipe_post'     => $request->input('data.tipe_post'),
+            //     'target'        => $request->input('data.target'),
+            //     'warna'         => $request->input('data.warna'),
+            //     'deadline'      => $request->input('data.deadline'),
+            //     'dp'            => $request->input('data.dp'),
+            //     'renewal'       => $request->input('data.renewal'),
+            //     'request'       => $request->input('data.request'),
+            // ]);
 
+            $order = new Orders;
+            $order->nama = $request->input('data.nama');
+            $order->brand = $request->input('data.brand');
+            $order->jabatan = $request->input('data.jabatan');
+            $order->wa = $request->input('data.wa');
+            $order->alamat = $request->input('data.alamat');
+            $order->via = $request->input('data.via');
+            $order->tau_dari = $request->input('data.tau_dari');
+            $order->data_logo = $request->input('data.data_logo');
+            $order->data_website = $request->input('data.data_website');
+            $order->tipe_post = $request->input('data.tipe_post');
+            $order->target = $request->input('data.target');
+            $order->warna = $request->input('data.warna');
+            $order->deadline = $request->input('data.deadline');
+            $order->dp = $request->input('data.dp');
+            $order->renewal = $request->input('data.renewal');
+            $order->request = $request->input('data.request');
+
+            $order->save();
+
+
+            $transaksi = $request->input('data.transaksi');
+            // get last insert order id
+            $orderId = DB::getPdo()->lastInsertId();
+
+            if ($order) {
+                foreach ($transaksi as $tr){
+                    $transaksi = new Transaksi;
+                    $transaksi->order_id = $orderId;
+                    $transaksi->quantity =$tr['quantity'];
+                    $transaksi->biaya = $tr['harga'];
+                    $transaksi->paket = $tr['paket'];
+                    $transaksi->total =$tr['totalItem'];
+
+                    $transaksi->save();
             }}
             else {
                 return response(500);
             }
-     
-
-
-
-
             $order->akun()->create([
                 'akun_username' => $request->input('data.akun_username'),
                 'akun_email'    => $request->input('data.akun_email'),
@@ -75,8 +94,8 @@ class OrderController extends Controller
              'tanggal_order' => $request->input('data.tanggal_order'),
          ]);
 
-    //         // $dataOrder = $request->input('data');
-        return redirect('/orders');
+            // $dataOrder = $request->input('data');
+        return dd($orderId);
     }
 
     // edit order by id
@@ -105,8 +124,8 @@ class OrderController extends Controller
             'akun_password' => 'nullable',
             'deadline'      => 'nullable',
             'request'       => 'nullable',
-            'dp'   => 'nullable',
-            'renewal'   => 'nullable',
+            'dp'            => 'nullable',
+            'renewal'       => 'nullable',
 
         ]);
 

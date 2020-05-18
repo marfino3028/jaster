@@ -48,7 +48,7 @@
                             <td align="center"><?php echo e($row->deadline); ?></td>
                             <td align="center">
                                 <a href="<?php echo e(route('editOrder', ['id' => $row->order_id])); ?>" class="btn btn-outline-primary button-list-order">Edit</a>
-
+                                <a href="<?php echo e(route('showOrder', ['id' => $row->order_id])); ?>" class="btn btn-outline-primary button-list-order">View</a>
                             </td>
                           </tr>
                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

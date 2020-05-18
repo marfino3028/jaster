@@ -14,7 +14,6 @@ class Transaksi extends Model
         'biaya',
         'paket',
         'total',
-
     ];
     public $timestamps = false;
     public function order() {

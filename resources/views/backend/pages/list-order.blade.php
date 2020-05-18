@@ -48,7 +48,7 @@
                             <td align="center">{{ $row->deadline }}</td>
                             <td align="center">
                                 <a href="{{route('editOrder', ['id' => $row->order_id])}}" class="btn btn-outline-primary button-list-order">Edit</a>
-
+                                <a href="{{route('showOrder', ['id' => $row->order_id])}}" class="btn btn-outline-primary button-list-order">View</a>
                             </td>
                           </tr>
                           @empty
