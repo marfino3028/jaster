@@ -255,11 +255,11 @@
                             <div class="col-md-5" style="margin: 0px; padding: 0px;">
                             <select id="paketInput0" data-input="paket" data-hitung="0" class="form-control select2" required>
                                 <option value="">None</option>
-                                <option value="Ekonomis">Ekonomis</option>
-                                <option value="Basic">Basic</option>
-                                <option value="Premium">Premium</option>
-                                <option value="Business">Business</option>
-                                <option value="Luxury">Luxury</option>
+                                <option value="Web & Apps">Web & Apps</option>
+                                <option value="Business Kit">Business Kit</option>
+                                <option value="Digital Marketing">Digital Marketing</option>
+                                <option value="Troubleshooting">Troubleshooting</option>
+                                <option value="Advertising">Advertising</option>
                             </select>
                             </div>
                             <div class="invalid-feedback">
@@ -409,27 +409,23 @@
 <script type="text/javascript">
 var totals = {};
 var totalHarga = {};
-
 $(document).ready(function () {
     var counter = 1;
-
     $("#add").on("click", function () {
-        cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+        cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Web & Apps">Web & Apps</option><option value="Business Kit">Business Kit</option><option value="Digital Marketing">Digital Marketing</option><option value="Troubleshooting">Troubleshooting</option><option value="Advertising">Advertising</option><option value="Branding">Branding</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
         cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+ counter +')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
         cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+ counter +')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
-        cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
+        cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow" style="background-color: red;"><font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row</font></button></div>';
         $("#formPaket").after(cols1);
         $("#formQuantity").after(cols2);
         $("#formBiaya").after(cols3);
         $("#addRow").after(cols4);
         $(".select2").select2();
-
         $("#hapusRow").click(function(){
             $('.addOrder'+ $(this).attr('data-id')).remove();
         });
         counter++;
     });
-
     $('.select2[data-input="paket"]').change(function() {
         var counts = $(this).data('hitung');
         sendQuantity($('.addOrder'+ counts + ' > #quantityInput'+counts), counts);
@@ -438,7 +434,6 @@ $(document).ready(function () {
         $('.addOrder'+ counts + ' > #biayaInput'+counts).val("");
     });
 });
-
 // function untuk kirim kuantitas
 function sendQuantity(iki, count) {
     var paket = $('#paketInput'+ count).val();
@@ -446,7 +441,6 @@ function sendQuantity(iki, count) {
     var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
     var splitBiaya = parseInt(biaya.split('.').join(""));
     var totalItem = quantity * biaya;
-
     var obj ={
         id: count,
         paket: paket,
@@ -454,9 +448,7 @@ function sendQuantity(iki, count) {
         harga: biaya,
         totalItem: totalItem,
     };
-
     totalHarga[count] = totalItem;
-
     // loop value in object and sum all
     var totalSemua = 0;
     for (const key in totalHarga) {
@@ -466,12 +458,10 @@ function sendQuantity(iki, count) {
             totalSemua += parseInt(totalHarga[key]);
         }
     }
-
     totals[count] = obj;
     //console.log(totals);
     $('#totalOrder').text('Rp. '+totalSemua);
 }
-
 // function untuk kirim harga tiap row
 function sendHarga(iki, count) {
     var paket = $('#paketInput'+ count).val();
@@ -479,11 +469,9 @@ function sendHarga(iki, count) {
     var quantity = parseInt($('.addOrder'+ count + ' > #quantityInput'+count).val());
     // get biaya
     var biaya= iki.val();
-
     var splitBiaya = parseInt(biaya.split('.').join(""));
     // quantity * biaya
     var totalItem = quantity * splitBiaya
-
     var obj ={
         id: count,
         paket: paket,
@@ -491,9 +479,7 @@ function sendHarga(iki, count) {
         harga: splitBiaya,
         totalItem: totalItem,
     };
-
     totalHarga[count] = totalItem;
-
     // loop value in object and sum all
     var totalSemua = 0;
     for (const key in totalHarga) {
@@ -503,34 +489,25 @@ function sendHarga(iki, count) {
             totalSemua += parseInt(totalHarga[key]);
         }
     }
-
     totals[count] = obj;
-
     //console.log(totals);
     $('#totalOrder').text('Rp. '+totalSemua);
 }
-
 var dataRequest;
-
 function sendRequest(){
     var editor = tinymce.get('notes');
     var content = editor.getContent();
    dataRequest = (content);
     $('#modalRequest').modal('hide');
-
 }
-
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
     var indexed_array = {};
-
     $.map(unindexed_array, function(n, i){
         indexed_array[n['name']] = n['value'];
     });
-
     return indexed_array;
 }
-
 </script>
 <script>
         $.ajaxSetup({
@@ -538,18 +515,13 @@ function getFormData($form){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
-
-
       $('.button--shikoba').click(function(){
         var dataToSend = {};
-
         $('#kirimData').submit(function (e) {
             e.preventDefault();
-
             dataToSend['data'] = getFormData($(this));
             dataToSend.data['request'] = dataRequest;
             dataToSend.data['transaksi'] = totals;
-
            $.ajax({
                 url:'<?php echo e(route('addOrder')); ?>',
                 method:"POST",
@@ -557,7 +529,7 @@ function getFormData($form){
                 type:'json',
                 success:function(data)
                 {
-                    // window.location.href = '<?php echo e(route('listOrder')); ?>'
+                    window.location.href = '<?php echo e(route('listOrder')); ?>'
                     // if(data.error){
                     //     printErrorMsg(data.error);
                     // }else{
@@ -568,8 +540,6 @@ function getFormData($form){
            });
         })
       });
-
-
       function printErrorMsg (msg) {
          $(".print-error-msg").find(".addOrder").html('');
          $(".print-error-msg").css('display','block');
@@ -578,7 +548,6 @@ function getFormData($form){
             $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
          });
       }
-
 </script>
 
 
@@ -599,15 +568,12 @@ function getFormData($form){
 	    }
 	  }
 	  objek.value = c;
-
 	}
-
 	function convertToAngka()
 	{	var nominal= document.getElementById("nominal").value;
 		var angka = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
 		document.getElementById("angka").innerHTML= angka;
 	}
-
 	function convertToAngka()
 	{	var nominal1= document.getElementById("nominal1").value;
 		var angka1 = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
