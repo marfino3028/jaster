@@ -16,7 +16,10 @@ class OrderController extends Controller
 {
     // show all orders function
     public function index() {
-        $order = Orders::latest()->get();
+        $order = Orders::leftjoin('websites', 'orders.order_id', 'websites.order_id')
+        ->orderBy('orders.created_at', 'desc')
+
+        ->get();
 
         return view('backend.pages.list-order', compact('order'));
     }
@@ -97,20 +100,40 @@ class OrderController extends Controller
             // $dataOrder = $request->input('data');
         return dd($orderId);
     }
+    public function show($id)
+    {
+
+    $listTransaksi = Transaksi::where('order_id', $id)->get();
+    $totalsemua = Transaksi::where('order_id', $id)->sum('total');
+
+    $ar_order = Orders::where('orders.order_id', $id)
+                ->leftJoin('web_akuns', 'orders.order_id', 'web_akuns.order_id')
+                ->leftjoin('websites', 'orders.order_id', 'websites.order_id')
+                ->leftjoin('transaksi', 'orders.order_id', 'transaksi.order_id')
+                ->get();
+
+                return view('backend.pages.view-order', compact('ar_order', 'listTransaksi','totalsemua'));
+
+            }
 
     // edit order by id
     public function edit($id) {
-        $edit = Orders::where('order_id', $id)->first();
+
         $edit = Orders::where('orders.order_id', $id)
                     ->leftJoin('web_akuns', 'orders.order_id', 'web_akuns.order_id')
                     ->leftjoin('websites', 'orders.order_id', 'websites.order_id')
                     ->leftjoin('transaksi', 'orders.order_id', 'transaksi.order_id')
                     ->first();
-
-        return view('backend.pages.edit-order', compact('edit'));
+        $listTransaksi = Transaksi::where('order_id', $id)->get();
+        $totalsemua = Transaksi::where('order_id', $id)->sum('total');
+        $jumlah = Transaksi::where('order_id', $id)->count('transaksi_id');
+        return view('backend.pages.edit-order', compact('edit', 'listTransaksi','jumlah','totalsemua'));
     }
 
+
+
     public function update(Request $request, $id) {
+
         $validateOrder = $request->validate([
             'nama'    => 'required|max: 191',
             'brand'    => 'required',
@@ -131,7 +154,7 @@ class OrderController extends Controller
 
         $updateOrder = Orders::where('orders.order_id', $id)
                         ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')
-                        ->join('transaksi', 'orders.order_id', 'transaksi..order_id')
+                        ->join('transaksi', 'orders.order_id', 'transaksi.order_id')
                         ->update($validateOrder);
         $updateDomain = Website::where('order_id', $id)->update([
             'domain' => $request->input('domain'),
@@ -145,14 +168,16 @@ class OrderController extends Controller
                 'order_id' => $id,
             ]);
         }
-
+        $listTransaksi = Transaksi::where('order_id', $id)->get();
+        $totalsemua = Transaksi::where('order_id', $id)->sum('total');
+        $jumlah = Transaksi::where('order_id', $id)->count('transaksi_id');
         return redirect('/orders');
     }
 
     public function delete(Request $request, $id) {
         $delete = Orders::where('order_id', $id)->update(['deleting' => true]);
         $deleteProgress = ProgressList::where('order_id', $id)->delete();
-
+        
         return response()->json($delete);
     }
 

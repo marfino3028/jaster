@@ -59,8 +59,9 @@
                               <td>Tidak ada data</td>
                               <td>Tidak ada data</td>
                           </tr>
-                          @endforelse
+
                         </tbody>
+                        @endforelse
                       </table>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-@section('title', 'Add Order')
+@section('title', 'View Order')
 
 @section('csslibraries')
 @parent
@@ -17,18 +17,20 @@
 @extends('backend.master')
 
 @section('content')
+
 <div class="section-header"> <!-- done -->
-        <h1>Add Order</h1>
+        <h1>View Order</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item"><a href="#">Orders</a></div>
-          <div class="breadcrumb-item active"><a href="#">Add Order</a></div>
+          <div class="breadcrumb-item active"><a href="#">View Order</a></div>
         </div>
       </div>
 
       <div class="section-body">
-        <h2 class="section-title">Add Order</h2>
-        <p class="section-lead">Tambahkan Ordernya dibawah</p>
-        <form id="kirimData" method="post" action="{{ route('addOrder') }}" class="needs-validation" novalidate="">
+        <h2 class="section-title">View Order</h2>
+        <p class="section-lead">View Order </p>
+
+        @foreach ($ar_order as $row)
 
 
             <!-- table kiri atas -->
@@ -44,17 +46,13 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>Nama </label>
-                            <input type="text" class="form-control col-md-10" name="nama">
-                            <div class="invalid-feedback">
-                                Input Nama bosz!
-                            </div>
-
+                            <input type="text" class="form-control col-md-10 " style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="nama" value="{{$row->nama}}" disabled>
                             </div>
                         </div>
                         <div class="col-6">
                         <div class="form-group">
                             <label>Brand / Nama Usaha </label>
-                            <input type="text" class="form-control col-md-12" name="brand">
+                            <input type="text" class="form-control col-md-12" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;"  name="brand" value="{{$row->brand}}" disabled>
                             <div class="invalid-feedback">
                                 Input Nama usaha!
                             </div>
@@ -63,7 +61,7 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>No Whatsapp </label>
-                            <input type="number" class="form-control col-md-10" name="wa">
+                            <input type="number" class="form-control col-md-10" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="wa" value="{{$row->wa}}" disabled>
                             <div class="invalid-feedback">
                                 Input No Whatsapp!
                             </div>
@@ -72,7 +70,7 @@
                         <div class="col-6">
                         <div class="form-group">
                             <label>Email </label>
-                            <input type="email" class="form-control col-md-12" name="akun_email">
+                            <input type="email" class="form-control col-md-12" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="akun_email" value="{{$row->akun_email}}" disabled>
                             <div class="invalid-feedback">
                                 Input Email!
                             </div>
@@ -81,7 +79,7 @@
                         <div class="col-7" style="margin-right: -60px;">
                             <div class="form-group">
                             <label>Jabatan </label>
-                            <input type="text" class="form-control col-md-10" name="jabatan">
+                            <input type="text" class="form-control col-md-10" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="jabatan" value="{{$row->jabatan}}" disabled>
                             <div class="invalid-feedback">
                                 Input jabatan bosz!
                             </div>
@@ -90,7 +88,7 @@
                         <div class="col-6">
                         <div class="form-group">
                             <label>Alamat </label>
-                            <input type="text" class="form-control col-md-12" name="alamat">
+                            <input type="text" class="form-control col-md-12" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="alamat" value="{{$row->alamat}}" disabled>
                             <div class="invalid-feedback">
                                 Input Alamat !
                             </div>
@@ -119,7 +117,7 @@
                    <div class="col-4" style="margin-right: -5px;">
                         <div class="form-group">
                         <label>Domain </label>
-                        <input type="text" class="form-control col-md-12" name="domain">
+                        <input type="text" class="form-control col-md-12" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="domain" value="{{$row->domain}}" disabled>
                         <div class="invalid-feedback">
                             Input domain bosz!
                         </div>
@@ -128,11 +126,11 @@
                     <div class="col-4" style="margin-right: -5px;">
                         <div class="form-group">
                             <label>Data</label>
-                            <select class="form-control select2" name="data_website" required>
+                            <select class="form-control" name="data_website" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" disabled>
                                 <option value="">None</option>
-                                <option value="Full Kita">Full Kita</option>
-                                <option value="Full Client">Full Client</option>
-                                <option value="Kita Bantu">Kita Bantu</option>
+                                <option value="Full Kita" @if ($row->data_website == "Full Kita") {{ 'selected' }} @endif>Full Kita</option>
+                                <option value="Full Client" @if ($row->data_website == "Full Client") {{ 'selected' }} @endif>Full Client</option>
+                                <option value="Kita Bantu" @if ($row->data_website == "Kita Bantu") {{ 'selected' }} @endif>Kita Bantu</option>
                             </select>
                             <div class="invalid-feedback">
                                 Datanya?
@@ -142,36 +140,29 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label>Username </label>
-                            <input type="text" class="form-control col-md-12" name="akun_username">
-                            <div class="invalid-feedback">
-                                Input username!
-                            </div>
+                            <input type="text" class="form-control col-md-12" style="color: yellow; font-size:17px; font-weight:bold; background:#5C5A14;" name="akun_username" value="{{$row->akun_username}}" disabled>
                         </div>
                         </div>
                         <div class="col-4" style="margin-right: -5px;">
                             <div class="form-group">
                                 <label>Color</label>
                                 <div class="input-group colorpickerinput">
-                                    <input type="text" class="form-control" name="warna">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-fill-drip"></i>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control" name="warna" style="color: yellow; font-size:17px; font-weight:bold; background:#5C5A14;" value="{{$row->warna}}" disabled>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-4" style="margin-right: -5px;">
                             <div class="form-group">
                                 <label>Tipe Post</label>
-                                <select class="form-control select2" name="tipe_post" required>
+                                <select class="form-control " name="tipe_post"   style="color: yellow; font-size:17px; font-weight:bold; background:#5C5A14;" disabled>
                                     <option value="">None</option>
-                                    <option value="Artikel">Artikel</option>
-                                    <option value="Produk">Produk</option>
-                                    <option value="Service">Service</option>
-                                    <option value="Gallery">Gallery</option>
-                                    <option value="Elementor">Elementor</option>
-                                    <option value="Landing">Landing</option>
+                                    <option value="Artikel" @if ($row->tipe_post == "Artikel") {{ 'selected' }} @endif>Artikel</option>
+                                    <option value="Produk" @if ($row->tipe_post == "Produk") {{ 'selected' }} @endif>Produk</option>
+                                    <option value="Service" @if ($row->tipe_post == "Service") {{ 'selected' }} @endif>Service</option>
+                                    <option value="Gallery" @if ($row->tipe_post == "Gallery") {{ 'selected' }} @endif>Gallery</option>
+                                    <option value="Elementor" @if ($row->tipe_post == "Elementor") {{ 'selected' }} @endif>Elementor</option>
+                                    <option value="Landing" @if ($row->tipe_post == "Landing") {{ 'selected' }} @endif>Landing</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Post nya tentang apa?
@@ -188,7 +179,7 @@
                                         </div>
                                     </div>
                                     <input type="text" class="form-control pwstrength" data-indicator="pwindicator"
-                                        name="akun_password">
+                                        name="akun_password" style="color: yellow; font-size:17px; font-weight:bold; background:#5C5A14;" value="{{$row->akun_password}}" disabled>
                                 </div>
                                 <div id="pwindicator" class="pwindicator">
                                     <div class="bar"></div>
@@ -199,10 +190,10 @@
                             <div class="col-4" style="margin-right: -5px;">
                                 <div class="form-group">
                                     <label>Logo</label>
-                                    <select class="form-control select2" name="data_logo" required>
+                                    <select class="form-control " name="data_logo" required style="color: yellow; font-size:17px; font-weight:bold; background:#5C5A14;" disabled>
                                         <option value="">None</option>
-                                        <option value="Dibuatkan">Dibuatkan</option>
-                                        <option value="Email">Email</option>
+                                        <option value="Dibuatkan" @if ($row->data_logo == "Dibuatkan") {{ 'selected' }} @endif>Dibuatkan</option>
+                                        <option value="Email" @if ($row->data_logo == "Email") {{ 'selected' }} @endif>Email</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Logonya darimana bosz?
@@ -212,11 +203,11 @@
                             <div class="col-4" style="margin-right: -5px;">
                            <div class="form-group">
                             <label>Target</label>
-                            <select class="form-control select2" name="target" required>
+                            <select class="form-control " name="target" required style="color: yellow; font-size:17px; font-weight:bold; background:#5C5A14;" disabled>
                                 <option value="">None</option>
-                                <option value="WA atau Telepon">WA atau Telepon</option>
-                                <option value="Email">Email</option>
-                                <option value="Checkout">Checkout</option>
+                                <option value="WA atau Telepon" @if ($row->target == "WA atau Telepon") {{ 'selected' }} @endif>WA atau Telepon</option>
+                                <option value="Email" @if ($row->target == "Email") {{ 'selected' }} @endif>Email</option>
+                                <option value="Checkout" @if ($row->target == "Checkout") {{ 'selected' }} @endif>Checkout</option>
                             </select>
                             <div class="invalid-feedback">
                                 Target action nya?
@@ -225,7 +216,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label>Request</label>
+                                    <label>Cek Request</label>
                                     <button type="button" class="btn btn-outline-primary col-md-12" data-toggle="modal"
                         data-target="#modalRequest" id="addRequest">Request</button>
                                     <div class="invalid-feedback">
@@ -243,60 +234,71 @@
           <div class="col-12 rounded-left rounded-top rounded-bottom">
             <div class="card rounded-right rounded-left rounded-top rounded-bottom" >
                 <div class="card-header" style="margin-bottom: -20px;">
+
                   <font color="white" weight="bold"><h3>Detail Order</h3> </font>
                 </div>
-                <div class="card-body col-md-12">
-                    <div class="row" >
-                       @csrf
-                       <div class="col-4" style="margin-right: -290px;">
 
+
+
+                <div class="card-body col-md-12">
+
+                    <div class="row" >
+
+                       @csrf
+                       <div class="col-4" style="margin-right: -300px;">
                             <div class="form-group" id='formPaket'>
+                                @foreach ($listTransaksi as $item)
+
                             <label>Paket </label>
                             <div class="col-md-5" style="margin: 0px; padding: 0px;">
-                            <select id="paketInput0" data-input="paket" data-hitung="0" class="form-control select2" required>
+                            <select id="paketInput0" data-input="paket" data-hitung="0" class="form-control" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" disabled>
                                 <option value="">None</option>
-                                <option value="Ekonomis">Ekonomis</option>
-                                <option value="Basic">Basic</option>
-                                <option value="Premium">Premium</option>
-                                <option value="Business">Business</option>
-                                <option value="Luxury">Luxury</option>
+                                <option value="Web & Apps" @if ($item->paket == "Web & Apps") {{ 'selected' }} @endif>Web & Apps</option>
+                                <option value="Business Kit" @if ($item->paket == "Business Kit") {{ 'selected' }} @endif>Business Kit</option>
+                                <option value="Digital Marketing" @if ($item->paket == "Digital Marketing") {{ 'selected' }} @endif>Digital Marketing</option>
+                                <option value="Troubleshooting" @if ($item->paket == "Troubleshooting") {{ 'selected' }} @endif>Troubleshooting</option>
+                                <option value="Advertising" @if ($item->paket == "Advertising") {{ 'selected' }} @endif>Advertising</option>
+                                <option value="Branding" @if ($item->paket == "Branding") {{ 'selected' }} @endif>Branding</option>
                             </select>
                             </div>
                             <div class="invalid-feedback">
                                 Input paket bosz!
                             </div>
+                            @endforeach
                             </div>
                         </div>
-                        <div class="col-4"  style="margin-right: -290px;">
+                        <div class="col-4"  style="margin-right: -300px;">
                         <div class="form-group addOrder0" id="formQuantity">
+                            @foreach ($listTransaksi as $itemi)
                             <label>Quantity </label>
-                            <input type="number" id="quantityInput0" class="form-control col-md-5" onkeyup="sendQuantity($(this), 0)">
+                            <input type="number" id="quantityInput0" class="form-control col-md-5" onkeyup="sendQuantity($(this), 0)" value="{{ $itemi->quantity }}" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" disabled>
                             <div class="invalid-feedback">
                                 Input Quantity!
                             </div>
+                            @endforeach
                         </div>
 
                         </div>
-                        <div class="col-4"  style="margin-right: -290px;">
-
+                        <div class="col-4"  style="margin-right: -300px;">
                             <div class="form-group addOrder0" id="formBiaya">
+                                @foreach ($listTransaksi as $itemii)
                                 <label>Biaya </label>
-                                <input type="text" id="biayaInput0" class="form-control col-md-5" onkeyup="convertToRupiah(this); sendHarga($(this), 0)" >
+                                <input type="text" id="biayaInput0" class="form-control col-md-5" onkeyup="convertToRupiah(this); sendHarga($(this), 0)" value="{{ $itemii->biaya }}" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" disabled>
                                 <div class="invalid-feedback">
-                                    Input Biaya
+                                    Input Biaya!
                                 </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-4"  style="margin-right: -280px;">
+                            <div class="form-group addOrder0" id="formBiaya">
+                                @foreach ($listTransaksi as $itemiii)
+                                <label>Total </label>
+                                <input type="text" id="biayaInput0" class="form-control col-md-5" onkeyup="convertToRupiah(this); sendHarga($(this), 0)" value="{{ $itemiii->total }}" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" disabled>
+                                @endforeach
                             </div>
                             <br><br><br> <!-- pembatasan antara add order now -->
-                     </div>
-
-                     <div class="col-1" style="margin-right: 80px;">
-                     <div class="form-group" id="addRow">
-                        <button type="button" class="login100-form-btn" name="add" id="add">
-                            <i class="fas fa-plus-circle"></i>&nbsp; Add Row
-                        </button>
-                    </div>
-
-                </div>
+                        </div>
 
 
                 <!-- forline -->
@@ -304,21 +306,21 @@
             <div class="col-4" style="margin-right: -380px;">
                 <div class="form-group">
                     <label>DP </label>
-                    <input type="text" class="form-control col-md-6" name="dp" onkeyup="convertToRupiah(this);">
+                    <input type="text" class="form-control col-md-5" name="dp" onkeyup="convertToRupiah(this);" style="color: yellow; font-size:17x; font-weight:bold; background:#5C5A14;" value="{{$row->dp}}" disabled>
                     <div class="invalid-feedback">
                         Input DP!
                     </div><br>
                     <label>via </label>
-                    <div class="col-md-6" style="margin: 0px; padding: 0px;">
-                    <select class="form-control select2" name="via">
+                    <div class="col-md-5" style="margin: 0px; padding: 0px;">
+                    <select class="form-control " name="via" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" disabled>
 
                         <option value="">None</option>
-                        <option value="BCA">BCA</option>
-                        <option value="Mandiri">Mandiri</option>
-                        <option value="BRI Syariah">BRI Syariah</option>
-                        <option value="OVO">OVO</option>
-                        <option value="DANA">DANA</option>
-                        <option value="CASH">CASH</option>
+                        <option value="BCA" @if ($row->via == "BCA") {{ 'selected' }} @endif>BCA</option>
+                        <option value="Mandiri" @if ($row->via == "Mandiri") {{ 'selected' }} @endif>Mandiri</option>
+                        <option value="BRI Syariah" @if ($row->via == "BRI Syariah") {{ 'selected' }} @endif>BRI Syariah</option>
+                        <option value="OVO" @if ($row->via == "OVO") {{ 'selected' }} @endif>OVO</option>
+                        <option value="DANA" @if ($row->via == "DANA") {{ 'selected' }} @endif>DANA</option>
+                        <option value="CASH" @if ($row->via == "CASH") {{ 'selected' }} @endif>CASH</option>
                     <div class="invalid-feedback">
                         Input via!
                     </div>
@@ -326,26 +328,26 @@
                     </select>
                 </div><br>
                     <label>renewal </label>
-                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-6" name="renewal" id="formRenewal">
+                    <input type="text" onkeyup="convertToRupiah(this);" class="form-control col-md-5" name="renewal" id="formRenewal" style="color: yellow; font-size:17x; font-weight:bold; background:#5C5A14;" value="{{$row->renewal}}" disabled>
                     <div class="invalid-feedback">
                         Input Renewal!
                     </div>
                     </div>
                     </div>
                     <div class="col-4">
-                        <div class="form-group" style="margin-left: 150px">
+                        <div class="form-group" style="margin-left: 80px">
                             <label>Tanggal Order </label>
-                            <input type="text" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="tanggal_order">
+                            <input type="text" class="form-control col-md-7 datepicker" placeholder="YYYY-MM-DD" name="tanggal_order" style="color: yellow; font-size:17x; font-weight:bold; background:#5C5A14;" value="{{$row->tanggal_order}}" disabled>
                             <div class="invalid-feedback">
                                 Input tanggal Order!
                             </div><br>
                             <label>Deadline</label>
-                            <input type="text" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="deadline">
+                            <input type="text" class="form-control col-md-7 datepicker" placeholder="YYYY-MM-DD" name="deadline" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" value="{{$row->deadline}}" disabled>
                             <div class="invalid-feedback">
                                 Input Deadline!
                             </div><br>
                             <label>Tau dari </label>
-                            <input type="text" class="form-control col-md-9" name="tau_dari">
+                            <input type="text" class="form-control col-md-7" name="tau_dari" style="color: yellow; font-size:17px; font-weight:bold; background:#5C5A14;" value="{{$row->tau_dari}}" disabled>
                             <div class="invalid-feedback">
                                 Input tau!
                             </div>
@@ -362,13 +364,16 @@
       <div class="total">Total Order :</div>
       <table class="table1">
 		<tr>
-			<th id="totalOrder">Rp. {{ number_format(0,0,',','.') }}-,</th>
-		</tr>
+			<th id="totalOrder">Rp. {{ number_format($totalsemua,0,',','.') }}-,</th>
+        </tr>
+
     </table>
-    <button type="submit" class="button button--shikoba button--text-medium button--round-l button--inverted">
-        <i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
+
+    <button onclick="window.location.href='{{route('listOrder')}}'" class="button button--shikoba button--text-medium button--round-l button--inverted">
+        <i class="button__icon icon icon-forward"></i><span>Back To List Order</span></button>
         </form>
   </div>
+
 @endsection
 
 @section('jslibraries')
@@ -386,23 +391,24 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Request</h5>
+                <h5 class="modal-title">Isi Request</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Tambahkan Request disini</p>
-                <div class="form-group">
-                    <textarea id="notes"></textarea>
+
+                <div class="form-group" id="modalRequest">
+                    {{$row->request}}
                 </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-                <button type="button" onclick="sendRequest()" class="btn btn-outline-primary">Save changes</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Kembali</button>
+
             </div>
         </div>
     </div>
+    @endforeach
 </div>
 
 
@@ -417,7 +423,6 @@ $(document).ready(function () {
         cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
         cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+ counter +')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
         cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+ counter +')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
-        cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
         $("#formPaket").after(cols1);
         $("#formQuantity").after(cols2);
         $("#formBiaya").after(cols3);
@@ -516,7 +521,10 @@ function sendRequest(){
     var editor = tinymce.get('notes');
     var content = editor.getContent();
    dataRequest = (content);
+   $
+   $('#modalRequest').append('dataRequest');
     $('#modalRequest').modal('hide');
+
 
 }
 

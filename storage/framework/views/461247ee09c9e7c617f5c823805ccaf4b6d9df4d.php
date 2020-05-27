@@ -1,4 +1,4 @@
-<?php $__env->startSection('title', 'Add Order'); ?>
+<?php $__env->startSection('title', 'Edit Order'); ?>
 
 <?php $__env->startSection('csslibraries'); ?>
 ##parent-placeholder-7b1b790aaa0be695520f3372cd9a85443b6faa1f##
@@ -18,15 +18,15 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="section-header"> <!-- done -->
-        <h1>Add Order</h1>
+        <h1>Edit Order</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item"><a href="#">Orders</a></div>
-          <div class="breadcrumb-item active"><a href="#">Add Order</a></div>
+          <div class="breadcrumb-item active"><a href="#">Edit Order</a></div>
         </div>
       </div>
 
       <div class="section-body">
-        <h2 class="section-title">Add Order</h2>
+        <h2 class="section-title">Edit Order</h2>
         <p class="section-lead">Tambahkan Ordernya dibawah</p>
         <form method="post" action="<?php echo e(route('updateOrder', ['id' => request()->route('id')])); ?>" class="needs-validation" novalidate="">
 
@@ -227,7 +227,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Request</label>
-                                    <button id="request" class="btn btn-outline-primary col-md-12" data-toggle="modal"
+                                    <button id="addRequest" type="button" class="btn btn-outline-primary col-md-12" data-toggle="modal"
                         data-target="#modalRequest">Request</button>
                                     <div class="invalid-feedback">
                                         Input Request !
@@ -249,45 +249,60 @@
                 <div class="card-body col-md-12">
                     <div class="row" >
                        <?php echo csrf_field(); ?>
-                       <div class="col-4" style="margin-right: -290px;">
+                       <div class="col-4" style="margin-right: -300px;">
+                        <div class="form-group" id='formPaket'>
+                            <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                            <div class="form-group" id='formPaket'>
-                            <label>Paket</label>
-                            <div class="col-md-5" style="margin: 0px; padding: 0px;">
-                            <select class="form-control select2" name="nama_paket[]" required>
-                                <option value="">None</option>
-                                <option value="Ekonomis" <?php if($edit->nama_paket == "Ekonomis"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Ekonomis</option>
-                                <option value="Basic" <?php if($edit->nama_paket == "Basic"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Basic</option>
-                                <option value="Premium" <?php if($edit->nama_paket == "Premium"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Premium</option>
-                                <option value="Business" <?php if($edit->nama_paket == "Business"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Business</option>
-                                <option value="Luxury" <?php if($edit->nama_paket == "Luxury"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Luxury</option>
-                            </select>
-                            </div>
-                            <div class="invalid-feedback">
-                                Input paket bosz!
-                            </div>
-                            </div>
+                        <label>Paket </label>
+                        <div class="col-md-5" style="margin: 0px; padding: 0px;">
+                        <select id="paketInput0" data-input="paket" data-hitung="0" class="form-control select2">
+                            <option value="">None</option>
+                            <option value="Web & Apps" <?php if($item->paket == "Web & Apps"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Web & Apps</option>
+                            <option value="Business Kit" <?php if($item->paket == "Business Kit"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Business Kit</option>
+                            <option value="Digital Marketing" <?php if($item->paket == "Digital Marketing"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Digital Marketing</option>
+                            <option value="Troubleshooting" <?php if($item->paket == "Troubleshooting"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Troubleshooting</option>
+                            <option value="Advertising" <?php if($item->paket == "Advertising"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Advertising</option>
+                            <option value="Branding" <?php if($item->paket == "Branding"): ?> <?php echo e('selected'); ?> <?php endif; ?>>Branding</option>
+                        </select>
                         </div>
+                        <div class="invalid-feedback">
+                            Input paket bosz!
+                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </div>
+                    <div class="col-4"  style="margin-right: -300px;">
+                    <div class="form-group addOrder0" id="formQuantity">
+                        <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <label>Quantity </label>
+                        <input type="number" id="quantityInput0" class="form-control col-md-5"  value="<?php echo e($itemi->quantity); ?>" onkeyup="sendQuantity($(this), 0)" value="<?php echo e($itemi->quantity); ?>">
+                        <div class="invalid-feedback">
+                            Input Quantity!
+                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+
+                    </div>
                         <div class="col-4"  style="margin-right: -290px;">
-                        <div class="form-group" id="formQuantity">
-                            <label>Quantity </label>
-                            <input type="number" class="form-control col-md-5" name="quantity[]">
-                            <div class="invalid-feedback">
-                                Input Quantity!
-                            </div>
-                        </div>
-
-                        </div>
-                        <div class="col-4"  style="margin-right: -290px;">
-
                             <div class="form-group" id="formBiaya">
+                                <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemii): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <label>Biaya </label>
-                                <input type="text" class="form-control col-md-5" onkeyup="convertToRupiah(this);" name="biaya[]" >
+                                <input type="text" class="form-control col-md-5"  value="<?php echo e($itemii->biaya); ?>" onkeyup="convertToRupiah(this);" name="biaya[]" >
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <br><br><br> <!-- pembatasan antara add order now -->
+                     </div>
+                     <div class="col-4"  style="margin-right: -520px;">
+                     <div style="margin-top: 65px;" class="form-group addOrder'+ counter +'">
+                        
+                        <button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow" style="background-color: red;" value="<?php echo e($jumlah); ?>">
+                            <font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row
+                            </font>
+                        </button>
+                    </div>
                      </div>
 
                      <div class="col-1" style="margin-right: 80px;">
@@ -297,8 +312,6 @@
                         </button>
                     </div>
                 </div>
-
-
                 <!-- forline -->
 
             <div class="col-4" style="margin-right: -380px;">
@@ -333,6 +346,7 @@
                     </div>
                     </div>
                     <div class="col-4">
+
                         <div class="form-group" style="margin-left: 150px">
                             <label>Tanggal Order </label>
                             <input type="text" value="<?php echo e($edit->tanggal_order); ?>" class="form-control col-md-9 datepicker" placeholder="YYYY-MM-DD" name="tanggal_order">
@@ -363,10 +377,10 @@
       <div class="total">Total Order :</div>
       <table class="table1">
 		<tr>
-			<th>Rp. <?php echo e(number_format(5000000,0,',','.')); ?>-,</th>
+			<th>Rp. <?php echo e(number_format($totalsemua,0,',','.')); ?>-,</th>
 		</tr>
     </table>
-    <button class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-cart"></i><span>Add Order Now</span></button>
+    <button class="button button--shikoba button--text-medium button--round-l button--inverted"><i class="button__icon icon icon-write"></i><span>Edit Order Now</span></button>
         </form>
     </section>
   </div>
@@ -379,7 +393,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Request</h5>
+                <h5 class="modal-title"> Add Request</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -387,216 +401,191 @@
             <div class="modal-body">
                 <p>Tambahkan Request disini</p>
                 <div class="form-group">
-                    <textarea id="request"></textarea>
+                    <textarea id="notes"><?php echo e($edit->request); ?></textarea>
                 </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-                <button type="button" onclick="sendNotes()" class="btn btn-outline-primary">Save changes</button>
+                <button type="button" onclick="sendRequest()" class="btn btn-outline-primary">Save changes</button>
             </div>
         </div>
     </div>
 </div>
-<script>
-   var totals = {};
-var totalHarga = {};
-
-$(document).ready(function () {
-    var counter = 1;
-
-    $("#add").on("click", function () {
-        cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select class="form-control select2" id="paketInput'+counter+'" required><option value="">None</option><option value="Ekonomis">Ekonomis</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Business">Business</option><option value="Luxury">Luxury</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
-        cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+counter+'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+counter+')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
-        cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text" id="quantityInput'+counter+'" class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+counter+')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
-        cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow"><i class="fas fa-plus-circle"></i>&nbsp; Delete Row</button></div>';
-        $("#formPaket").after(cols1);
-        $("#formQuantity").after(cols2);
-        $("#formBiaya").after(cols3);
-        $("#addRow").after(cols4);
-        $(".select2").select2();
-
-        $("#hapusRow").click(function(){
-            $('.addOrder'+ $(this).attr('data-id')).remove();
+<script type="text/javascript">
+    var totals = {};
+    var totalHarga = {};
+    $(document).ready(function () {
+        var counter = 1;
+        $("#add").on("click", function () {
+            cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Web & Apps">Web & Apps</option><option value="Business Kit">Business Kit</option><option value="Digital Marketing">Digital Marketing</option><option value="Troubleshooting">Troubleshooting</option><option value="Advertising">Advertising</option><option value="Branding">Branding</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+            cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+ counter +')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+            cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+ counter +')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+            cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow" style="background-color: red;"><font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row</font></button></div>';
+            $("#formPaket").after(cols1);
+            $("#formQuantity").after(cols2);
+            $("#formBiaya").after(cols3);
+            $("#addRow").after(cols4);
+            $(".select2").select2();
+            $("#hapusRow").click(function(){
+                $('.addOrder'+ $(this).attr('data-id')).remove();
+            });
+            counter++;
         });
-        counter++;
-    });
-});
-
-// function untuk kirim kuantitas
-function sendQuantity(iki, count) {
-    var quantity = parseInt(iki.val());
-    var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
-    var splitBiaya = parseInt(biaya);
-    var totalItem = quantity * splitBiaya;
-
-    var obj ={
-        id: count,
-        quantity: quantity,
-        harga: splitBiaya,
-        totalItem: totalItem,
-    };
-
-    totalHarga[count] = totalItem;
-
-    // loop value in object and sum all
-    var totalSemua = 0;
-    for (const key in totalHarga) {
-        if (isNaN(totalHarga[key])) {
-            totalSemua = totalSemua + 0;
-        } else {
-            totalSemua += parseInt(totalHarga[key]);
-        }
-    }
-
-    totals[count] = obj;
-    console.log(totals);
-    $('#totalOrder').text('Rp. '+totalSemua);
-}
-
-// function untuk kirim harga tiap row
-function sendHarga(iki, count) {
-    // get quantity
-    var quantity = parseInt($('.addOrder'+ count + ' > #quantityInput'+count).val());
-    // get biaya
-    var biaya= iki.val();
-
-    var splitBiaya = parseInt(biaya.split('.').join(""));
-    // quantity * biaya
-    var totalItem = quantity * splitBiaya;
-
-    var obj ={
-        id: count,
-        quantity: quantity,
-        harga: splitBiaya,
-        totalItem: totalItem,
-    };
-
-    totalHarga[count] = totalItem;
-
-    // loop value in object and sum all
-    var totalSemua = 0;
-    for (const key in totalHarga) {
-        if (isNaN(totalHarga[key])) {
-            totalSemua = totalSemua + 0;
-        } else {
-            totalSemua += parseInt(totalHarga[key]);
-        }
-    }
-
-    totals[count] = obj;
-
-    console.log(totals);
-    $('#totalOrder').text('Rp. '+totalSemua);
-}
-
-var dataRequest;
-
-function sendRequest(){
-    var editor = tinymce.get('notes');
-    var content = editor.getContent();
-   dataRequest = (content);
-    $('#modalRequest').modal('hide');
-
-}
-
-function getFormData($form){
-    var unindexed_array = $form.serializeArray();
-    var indexed_array = {};
-
-    $.map(unindexed_array, function(n, i){
-        indexed_array[n['name']] = n['value'];
+        $('.select2[data-input="paket"]').change(function() {
+            var counts = $(this).data('hitung');
+            sendQuantity($('.addOrder'+ counts + ' > #quantityInput'+counts), counts);
+            $('.addOrder'+ counts + ' > #quantityInput'+counts).val("");
+            sendHarga($('.addOrder'+ counts + ' > #biayaInput'+counts), counts);
+            $('.addOrder'+ counts + ' > #biayaInput'+counts).val("");
+        });
     });
 
-    return indexed_array;
-}
-
-</script>
-<script>
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });
-
-
-      $('.button--shikoba').click(function(){
-        var dataToSend = {};
-
-        $('#kirimData').submit(function (e) {
-            e.preventDefault();
-
-            dataToSend['data'] = getFormData($(this));
-            dataToSend.data['request'] = dataRequest;
-            dataToSend['transaksi'] = totals;
-
-           $.ajax({
-                url:'<?php echo e(route('addOrder')); ?>',
-                method:"POST",
-                data:dataToSend,
-                type:'json',
-                success:function(data)
-                {
-                    if(data.error){
-                        printErrorMsg(data.error);
-                    }else{
-                        // i=1;
-                        // $('.dynamic-added').remove();
-                        // $('.button--shikoba')[0].reset();
-                        // $(".print-success-msg").find(".addOrder").html('');
-                        // $(".print-success-msg").css('display','block');
-                        // $(".print-error-msg").css('display','none');
-                        // $(".print-success-msg").find(".addOrder").append('<li>Record Inserted Successfully.</li>');
+    // function untuk kirim kuantitas
+    function sendQuantity(iki, count) {
+        var paket = $('#paketInput'+ count).val();
+        var quantity = parseInt(iki.val());
+        var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
+        var splitBiaya = parseInt(biaya.split('.').join(""));
+        var totalItem = quantity * biaya;
+        var obj ={
+            id: count,
+            paket: paket,
+            quantity: quantity,
+            harga: biaya,
+            totalItem: totalItem,
+        };
+        totalHarga[count] = totalItem;
+        // loop value in object and sum all
+        var totalSemua = 0;
+        for (const key in totalHarga) {
+            if (isNaN(totalHarga[key])) {
+                totalSemua = totalSemua + 0;
+            } else {
+                totalSemua += parseInt(totalHarga[key]);
+            }
+        }
+        totals[count] = obj;
+        //console.log(totals);
+        $('#totalOrder').text('Rp. '+totalSemua);
+    }
+    // function untuk kirim harga tiap row
+    function sendHarga(iki, count) {
+        var paket = $('#paketInput'+ count).val();
+        // get quantity
+        var quantity = parseInt($('.addOrder'+ count + ' > #quantityInput'+count).val());
+        // get biaya
+        var biaya= iki.val();
+        var splitBiaya = parseInt(biaya.split('.').join(""));
+        // quantity * biaya
+        var totalItem = quantity * splitBiaya
+        var obj ={
+            id: count,
+            paket: paket,
+            quantity: quantity,
+            harga: splitBiaya,
+            totalItem: totalItem,
+        };
+        totalHarga[count] = totalItem;
+        // loop value in object and sum all
+        var totalSemua = 0;
+        for (const key in totalHarga) {
+            if (isNaN(totalHarga[key])) {
+                totalSemua = totalSemua + 0;
+            } else {
+                totalSemua += parseInt(totalHarga[key]);
+            }
+        }
+        totals[count] = obj;
+        //console.log(totals);
+        $('#totalOrder').text('Rp. '+totalSemua);
+    }
+    var dataRequest;
+    function sendRequest(){
+        var editor = tinymce.get('notes');
+        var content = editor.getContent();
+       dataRequest = (content);
+        $('#modalRequest').modal('hide');
+    }
+    function getFormData($form){
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+        $.map(unindexed_array, function(n, i){
+            indexed_array[n['name']] = n['value'];
+        });
+        return indexed_array;
+    }
+    </script>
+    <script>
+            $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+          $('.button--shikoba').click(function(){
+            var dataToSend = {};
+            $('#kirimData').submit(function (e) {
+                e.preventDefault();
+                dataToSend['data'] = getFormData($(this));
+                dataToSend.data['request'] = dataRequest;
+                dataToSend.data['transaksi'] = totals;
+               $.ajax({
+                    url:'<?php echo e(route('addOrder')); ?>',
+                    method:"POST",
+                    data:dataToSend,
+                    type:'json',
+                    success:function(data)
+                    {
+                        window.location.href = '<?php echo e(route('listOrder')); ?>'
+                        // if(data.error){
+                        //     printErrorMsg(data.error);
+                        // }else{
+                        //    //window.location.href = 'orders'
+                        //    $('input').val("");
+                        // }
                     }
-                }
-           });
-        })
-      });
+               });
+            })
+          });
+          function printErrorMsg (msg) {
+             $(".print-error-msg").find(".addOrder").html('');
+             $(".print-error-msg").css('display','block');
+             $(".print-success-msg").css('display','none');
+             $.each( msg, function( key, value ) {
+                $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
+             });
+          }
+    </script>
 
 
-      function printErrorMsg (msg) {
-         $(".print-error-msg").find(".addOrder").html('');
-         $(".print-error-msg").css('display','block');
-         $(".print-success-msg").css('display','none');
-         $.each( msg, function( key, value ) {
-            $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
-         });
-      }
-
-</script>
-
-
-<script>
-   function convertToRupiah(objek) {
-	  separator = ".";
-	  a = objek.value;
-	  b = a.replace(/[^\d]/g,"");
-	  c = "";
-	  panjang = b.length;
-	  j = 0;
-	  for (i = panjang; i > 0; i--) {
-	    j = j + 1;
-	    if (((j % 3) == 1) && (j != 1)) {
-	      c = b.substr(i-1,1) + separator + c;
-	    } else {
-	      c = b.substr(i-1,1) + c;
-	    }
-	  }
-	  objek.value = c;
-
-	}
-
-	function convertToAngka()
-	{	var nominal= document.getElementById("nominal").value;
-		var angka = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
-		document.getElementById("angka").innerHTML= angka;
-	}
-
-	function convertToAngka()
-	{	var nominal1= document.getElementById("nominal1").value;
-		var angka1 = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
-		document.getElementById("angka1").innerHTML= angka;
-	}
-</script>
+    <script>
+       function convertToRupiah(objek) {
+          separator = ".";
+          a = objek.value;
+          b = a.replace(/[^\d]/g,"");
+          c = "";
+          panjang = b.length;
+          j = 0;
+          for (i = panjang; i > 0; i--) {
+            j = j + 1;
+            if (((j % 3) == 1) && (j != 1)) {
+              c = b.substr(i-1,1) + separator + c;
+            } else {
+              c = b.substr(i-1,1) + c;
+            }
+          }
+          objek.value = c;
+        }
+        function convertToAngka()
+        {	var nominal= document.getElementById("nominal").value;
+            var angka = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
+            document.getElementById("angka").innerHTML= angka;
+        }
+        function convertToAngka()
+        {	var nominal1= document.getElementById("nominal1").value;
+            var angka1 = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
+            document.getElementById("angka1").innerHTML= angka;
+        }
+    </script>
 
 <script src="<?php echo e(asset('assets/modules/cleave-js/dist/cleave.min.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/modules/cleave-js/dist/addons/cleave-phone.us.js')); ?>"></script>

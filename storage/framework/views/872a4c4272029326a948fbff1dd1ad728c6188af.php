@@ -59,8 +59,9 @@
                               <td>Tidak ada data</td>
                               <td>Tidak ada data</td>
                           </tr>
-                          <?php endif; ?>
+
                         </tbody>
+                        <?php endif; ?>
                       </table>
                     </div>
                   </div>

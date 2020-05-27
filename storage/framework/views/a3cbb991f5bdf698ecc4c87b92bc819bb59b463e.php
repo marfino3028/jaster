@@ -260,6 +260,7 @@
                                 <option value="Digital Marketing">Digital Marketing</option>
                                 <option value="Troubleshooting">Troubleshooting</option>
                                 <option value="Advertising">Advertising</option>
+                                <option value="Branding">Branding</option>
                             </select>
                             </div>
                             <div class="invalid-feedback">

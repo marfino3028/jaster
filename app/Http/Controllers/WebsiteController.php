@@ -22,7 +22,7 @@ class WebsiteController extends Controller
         $listHosting = Hosting::where('deleting', 0)->get();
         $arrayHosting = $listHosting->toArray();
 
-        $listOrder = Orders::select('order_id', 'nama')->get();
+        $listOrder = Orders::select('order_id', 'brand')->get();
 
         return view('backend.pages.list-website', compact('listweb', 'listOrder', 'listHosting', 'arrayHosting', 'listwebnoHost'));
     }
@@ -59,7 +59,7 @@ class WebsiteController extends Controller
     public function create(Request $request) {
         $create = Website::create([
             'hostingId' => $request->input('nama_hosting'),
-            'order_id'  => $request->input('nama'),
+            'order_id'  => $request->input('brand'),
             'domain'    => $request->input('nama_domain'),
             'tanggal_order'   => $request->input('tanggal_order'),
         ]);
@@ -72,7 +72,7 @@ class WebsiteController extends Controller
     public function update(Request $request, $id) {
         $update = Website::where('websiteId', $id)->update([
             'hostingId' => $request->input('nama_hosting'),
-            'order_id'  => $request->input('nama'),
+            'order_id'  => $request->input('brand'),
             'domain'    => $request->input('nama_domain'),
             'tanggal_order'   => $request->input('tanggal_order'),
         ]);

@@ -13,6 +13,38 @@ line-height: 27px;
 color: #F4F4F4;
 
 }
+.totals {
+    display: inline-block;
+    background: #27293D;
+    padding: inherit;
+    margin: 10px auto 30px 20px;
+    border: 5px;
+    box-sizing: border-box;
+}
+.digit {
+    color: #17a2b8;
+    font-size: xx-large;
+    font-weight: bold;
+}
+.rumus {
+    color: #d3cdcd;
+    font-size: medium;
+    font-weight: 400;
+}
+.akuns{
+    display: inline-block;
+font-weight: bold;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+padding: .375rem .75rem;
+font-size: 1rem;
+line-height: 1.5;
+border-radius: .25rem;
+background: #6777EF;
+margin: 10px auto 30px auto;
+color: whitesmoke;
+}
 .table1 {
     font-family: Poppins;
     font-size: 18px;

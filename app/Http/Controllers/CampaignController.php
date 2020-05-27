@@ -36,6 +36,7 @@ class CampaignController extends Controller
             'tanggal_akhir' => $request->tanggal_akhir,
             'saldo_adwords' => $validateCampaign['saldo'],
             'notes'         => $request->catatan,
+            'nama_akun' => $request->nama_akun,
         ]);
 
         return redirect(route('listCampaign'));
@@ -58,7 +59,7 @@ class CampaignController extends Controller
                         'saldo_adwords' => $request->saldo,
                         'notes' => $request->catatan,
                     ]);
-        
+
         return redirect(route('listCampaign'));
     }
 

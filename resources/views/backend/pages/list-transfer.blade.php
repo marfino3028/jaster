@@ -27,7 +27,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>                                 
+                        <thead>
                           <tr>
                             <th>#</th>
                             <th>Nama</th>
@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
                             @php $no = 1; @endphp
-                            @forelse ($listTransfer as $row)                              
+                            @forelse ($listTransfer as $row)
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $row->nama_customer }}</td>
@@ -54,8 +54,8 @@
                                     </div>
                                     <div class="form-group">
                                         <button type="button"
-                                            id="deleteTf" class="btn btn-outline-info button-list-order" 
-                                            data-toggle="modal" 
+                                            id="deleteTf" class="btn btn-outline-info button-list-order"
+                                            data-toggle="modal"
                                             data-target="#transfered"
                                             data-id="{{ $row->adstransfer_id }}"
                                             data-cpid="{{ $row->adscampaign_id }}"
@@ -92,7 +92,19 @@
 <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script>
-    $("#ordertable").dataTable();
+    $(document).ready(function() {
+    $('.table').DataTable( {
+        'paging' : false,
+        'lengthChange' : false,
+        'searching' : false,
+        'ordering' : [[ 1, "asc" ]],
+        'order': [[ 1, "asc" ]],
+        'autoWidth' : false,
+        'info' : false,
+        'scrollx' : false
+
+    } );
+} );
 </script>
 
 <!-- modal untuk delete transfered -->

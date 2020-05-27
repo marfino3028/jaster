@@ -3,3 +3,6 @@
 .icon::before { display: inline-block; width: 100%; }
 
 .icon-cart:before { content: '\e625'; }
+.icon-forward:before { content: '\e605'; }
+.icon-switch:before { content: '\e634'; }
+.icon-write:before { content: '\e601'; }

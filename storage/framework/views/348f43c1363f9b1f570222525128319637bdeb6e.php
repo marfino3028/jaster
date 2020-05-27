@@ -27,7 +27,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>                                 
+                        <thead>
                           <tr>
                             <th>#</th>
                             <th>Nama</th>
@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
                             <?php $no = 1; ?>
-                            <?php $__empty_1 = true; $__currentLoopData = $listTransfer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>                              
+                            <?php $__empty_1 = true; $__currentLoopData = $listTransfer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                           <tr>
                             <td><?php echo e($no++); ?></td>
                             <td><?php echo e($row->nama_customer); ?></td>
@@ -54,8 +54,8 @@
                                     </div>
                                     <div class="form-group">
                                         <button type="button"
-                                            id="deleteTf" class="btn btn-outline-info button-list-order" 
-                                            data-toggle="modal" 
+                                            id="deleteTf" class="btn btn-outline-info button-list-order"
+                                            data-toggle="modal"
                                             data-target="#transfered"
                                             data-id="<?php echo e($row->adstransfer_id); ?>"
                                             data-cpid="<?php echo e($row->adscampaign_id); ?>"
@@ -92,7 +92,19 @@
 <script src="<?php echo e(asset('assets/modules/jquery-ui/jquery-ui.min.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/js/custom.js')); ?>"></script>
 <script>
-    $("#ordertable").dataTable();
+    $(document).ready(function() {
+    $('.table').DataTable( {
+        'paging' : false,
+        'lengthChange' : false,
+        'searching' : false,
+        'ordering' : [[ 1, "asc" ]],
+        'order': [[ 1, "asc" ]],
+        'autoWidth' : false,
+        'info' : false,
+        'scrollx' : false
+
+    } );
+} );
 </script>
 
 <!-- modal untuk delete transfered -->
@@ -116,4 +128,5 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/pages/list-transfer.blade.php ENDPATH**/ ?>

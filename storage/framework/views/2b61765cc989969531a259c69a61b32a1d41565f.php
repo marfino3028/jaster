@@ -1,6 +1,14 @@
 <?php $__env->startSection('title', 'Ringkasan Campaign'); ?>
 
 <?php $__env->startSection('csslibraries'); ?>
+<?php
+$totalsaldoA = DB::table('ads_campaigns')->where('adsakun_id','=', 1)->sum('saldo_adwords');
+$rumus = $totalsaldoA * 10/100;
+$totalfixsaldoA = $totalsaldoA + $rumus;
+$totalsaldoB = DB::table('ads_campaigns')->where('adsakun_id','=', 2)->sum('saldo_adwords');
+$rumus = $totalsaldoB * 10/100;
+$totalfixsaldoB = $totalsaldoB + $rumus;
+?>
 ##parent-placeholder-7b1b790aaa0be695520f3372cd9a85443b6faa1f##
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/datatables/datatables.min.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')); ?>">
@@ -22,13 +30,39 @@
   <h2 class="section-title">List Campaign</h2>
   <p class="section-lead">This page is just an example for you to create your own page.</p>
   <div class="row">
+      <div class="col-12">
+            <div class="totals">
+                <span class="akuns">
+                    Akun A
+                </span>
+                <br>
+                <span class="digit">
+                    Rp. <?php echo e(number_format($totalfixsaldoA,0,',','.')); ?>-,
+                </span>
+                <br>
+                <p class="rumus"> Rp. <?php echo e(number_format($totalsaldoA,0,',','.')); ?>-, x 10%</p>
+            </div>
+
+            <div class="totals">
+                <span class="akuns">
+                    Akun B
+                </span><br>
+                <span class="digit">
+                    Rp. <?php echo e(number_format($totalfixsaldoB,0,',','.')); ?>-,
+                </span><br>
+                <p class="rumus">Rp. <?php echo e(number_format($totalsaldoB,0,',','.')); ?>-, x 10%</p>
+            </div>
+            
+        </div>
+      </div>
     <div class="col-12">
       <?php $__currentLoopData = $listCampaign; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $akun => $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <div class="card">
         <div class="card-body">
-          <div class="table-responsive">
+
+          <div class="table-responsive" style="overflow-y: hidden; overflow-x: hidden;">
                       <table id="ordertable" class="table table-striped">
-                        <thead>                                 
+                        <thead>
                           <tr>
                             <th>#</th>
                             <th>Nama</th>
@@ -41,8 +75,9 @@
                         </thead>
                         <tbody>
                             <?php $no = 1; ?>
-                            <?php $__empty_1 = true; $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>                              
+                            <?php $__empty_1 = true; $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                           <tr>
+
                             <td><?php echo e($no++); ?></td>
                             <td><?php echo e($row->nama_customer); ?></td>
                             <td><?php echo e($row->akun->nama_akun); ?></td>
@@ -77,9 +112,11 @@
                               <td>Tidak ada data</td>
                               <td>Tidak ada data</td>
                               <td>Tidak ada data</td>
+
                           </tr>
                           <?php endif; ?>
                         </tbody>
+
                       </table>
                     </div>
                   </div>
@@ -137,7 +174,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group" id="detailNotes">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -148,7 +185,21 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    $('.table').DataTable( {
+        'paging' : false,
+        'lengthChange' : false,
+        'searching' : false,
+        'ordering' : [[ 1, "asc" ]],
+        'order': [[ 1, "asc" ]],
+        'autoWidth' : false,
+        'info' : false,
+        'scrollx' : false
 
+    } );
+} );
+</script>
 <script>
     $("table").dataTable();
 
@@ -165,4 +216,5 @@
 </script>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\jaster\resources\views/backend/pages/list-campaign.blade.php ENDPATH**/ ?>
