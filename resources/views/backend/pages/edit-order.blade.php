@@ -271,11 +271,12 @@
                         @endforeach
                         </div>
                     </div>
+
                     <div class="col-4"  style="margin-right: -300px;">
                     <div class="form-group addOrder0" id="formQuantity">
                         @foreach ($listTransaksi as $itemi)
                         <label>Quantity </label>
-                        <input type="number" id="quantityInput0" class="form-control col-md-5"  value="{{ $itemi->quantity }}" onkeyup="sendQuantity($(this), 0)" value="{{ $itemi->quantity }}">
+                        <input data-type="number" id="quantityInput0 myInput" class="form-control col-md-5"  value="{{ $itemi->quantity }}" onkeyup="sendQuantity($(this), 0)" >
                         <div class="invalid-feedback">
                             Input Quantity!
                         </div>
@@ -287,7 +288,7 @@
                             <div class="form-group" id="formBiaya">
                                 @foreach ($listTransaksi as $itemii)
                                 <label>Biaya </label>
-                                <input type="text" class="form-control col-md-5"  value="{{ $itemii->biaya }}" onkeyup="convertToRupiah(this);" name="biaya[]" >
+                                <input type="text" class="form-control col-md-5" id="biayaInput0" value="{{ $itemii->biaya }}" onkeyup="convertToRupiah(this);" >
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
@@ -296,9 +297,8 @@
                             <br><br><br> <!-- pembatasan antara add order now -->
                      </div>
                      <div class="col-4"  style="margin-right: -520px;">
-                     <div style="margin-top: 65px;" class="form-group addOrder'+ counter +'">
-                        
-                        <button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow" style="background-color: red;" value="{{ $jumlah }}">
+                     <div style="margin-top: 65px;" class="form-group addOrder0" >
+                        <button type="button" class="login100-form-btn" name="add" id="hapusRow" style="background-color: red;" >
                             <font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row
                             </font>
                         </button>
@@ -412,6 +412,9 @@
     </div>
 </div>
 <script type="text/javascript">
+
+
+
     var totals = {};
     var totalHarga = {};
     $(document).ready(function () {
@@ -439,12 +442,14 @@
             $('.addOrder'+ counts + ' > #biayaInput'+counts).val("");
         });
     });
-
     // function untuk kirim kuantitas
     function sendQuantity(iki, count) {
+        console.log(iki,count);
         var paket = $('#paketInput'+ count).val();
         var quantity = parseInt(iki.val());
+
         var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
+        console.log(count);
         var splitBiaya = parseInt(biaya.split('.').join(""));
         var totalItem = quantity * biaya;
         var obj ={
@@ -468,6 +473,7 @@
         //console.log(totals);
         $('#totalOrder').text('Rp. '+totalSemua);
     }
+
     // function untuk kirim harga tiap row
     function sendHarga(iki, count) {
         var paket = $('#paketInput'+ count).val();
@@ -554,6 +560,7 @@
                 $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
              });
           }
+
     </script>
 
 
@@ -585,6 +592,8 @@
             var angka1 = parseInt(nominal.replace(/,.*|[^0-9]/g, ''), 10);
             document.getElementById("angka1").innerHTML= angka;
         }
+
+
     </script>
 
 <script src="{{ asset('assets/modules/cleave-js/dist/cleave.min.js') }}"></script>

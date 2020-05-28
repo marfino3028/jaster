@@ -42,7 +42,7 @@
                             <?php $__empty_1 = true; $__currentLoopData = $order; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                           <tr>
                             <td align="center"><?php echo e($no++); ?></td>
-                            <td align="center">JW-<?php echo e($row->order_id); ?></td>
+                            <td align="center">JW<?php echo e($row->order_id); ?></td>
                             <td align="center"><?php echo e($row->brand); ?></td>
                             <td align="center"><?php echo e($row->tanggal_order); ?></td>
                             <td align="center"><?php echo e($row->deadline); ?></td>

@@ -42,7 +42,7 @@
                             @forelse ($order as $row)
                           <tr>
                             <td align="center">{{ $no++ }}</td>
-                            <td align="center">JW-{{ $row->order_id }}</td>
+                            <td align="center">JW{{ $row->order_id }}</td>
                             <td align="center">{{ $row->brand }}</td>
                             <td align="center">{{ $row->tanggal_order }}</td>
                             <td align="center">{{ $row->deadline }}</td>
