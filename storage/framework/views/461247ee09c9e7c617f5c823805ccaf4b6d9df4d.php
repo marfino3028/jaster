@@ -250,8 +250,8 @@
                     <div class="row" >
                        <?php echo csrf_field(); ?>
                        <div class="col-4" style="margin-right: -300px;">
+                        <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="form-group" id='formPaket'>
-                            <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                         <label>Paket </label>
                         <div class="col-md-5" style="margin: 0px; padding: 0px;">
@@ -268,49 +268,52 @@
                         <div class="invalid-feedback">
                             Input paket bosz!
                         </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
+                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
 
                     <div class="col-4"  style="margin-right: -300px;">
+                    <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="form-group addOrder0" id="formQuantity">
-                        <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <label>Quantity </label>
                         <input data-type="number" id="quantityInput0 myInput" class="form-control col-md-5"  value="<?php echo e($itemi->quantity); ?>" onkeyup="sendQuantity($(this), 0)" >
                         <div class="invalid-feedback">
                             Input Quantity!
                         </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     </div>
                         <div class="col-4"  style="margin-right: -290px;">
+                            <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemii): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="form-group" id="formBiaya">
-                                <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemii): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <label>Biaya </label>
                                 <input type="text" class="form-control col-md-5" id="biayaInput0" value="<?php echo e($itemii->biaya); ?>" onkeyup="convertToRupiah(this);" >
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <br><br><br> <!-- pembatasan antara add order now -->
-                     </div>
-                     <div class="col-4"  style="margin-right: -520px;">
-                     <div style="margin-top: 65px;" class="form-group addOrder0" >
-                        <button type="button" class="login100-form-btn" name="add" id="hapusRow" style="background-color: red;" >
-                            <font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row
-                            </font>
-                        </button>
-                    </div>
                      </div>
 
                      <div class="col-1" style="margin-right: 80px;">
-                     <div class="form-group">
+                     <div class="form-group" id="addRow">
                         <button type="button" class="login100-form-btn" name="add" id="add">
                             <i class="fas fa-plus-circle"></i>&nbsp; Add Row
                         </button>
                     </div>
+                    <?php for($i = 1; $i < count($listTransaksi); $i++ ): ?>
+                     <div style="margin-top: 65px;" class="form-group addOrder0" >
+
+                        <button type="button" class="login100-form-btn" name="add" id="hapusRow" style="background-color: red;" >
+                            <font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row
+                            </font>
+
+                        </button>
+
+                    </div>
+                    <?php endfor; ?>
                 </div>
                 <!-- forline -->
 

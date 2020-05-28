@@ -123,7 +123,7 @@ class OrderController extends Controller
                     ->leftJoin('web_akuns', 'orders.order_id', 'web_akuns.order_id')
                     ->leftjoin('websites', 'orders.order_id', 'websites.order_id')
                     ->leftjoin('transaksi', 'orders.order_id', 'transaksi.order_id')
-                    ->first();
+                    ->get();
         $listTransaksi = Transaksi::where('order_id', $id)->get();
         $totalsemua = Transaksi::where('order_id', $id)->sum('total');
         $jumlah = Transaksi::where('order_id', $id)->count('transaksi_id');
@@ -177,7 +177,7 @@ class OrderController extends Controller
     public function delete(Request $request, $id) {
         $delete = Orders::where('order_id', $id)->update(['deleting' => true]);
         $deleteProgress = ProgressList::where('order_id', $id)->delete();
-        
+
         return response()->json($delete);
     }
 
