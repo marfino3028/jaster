@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\AdsAkun;
 use App\AdsCampaign;
 use App\AdsTransfer;
-
+use DB;
 class TransferController extends Controller
 {
     public function index() {
@@ -19,7 +19,9 @@ class TransferController extends Controller
     }
 
     public function show() {
-        $listCampaign = AdsCampaign::select('adscampaign_id', 'nama_customer')->get();
+        $listCampaign = AdsCampaign::select('adscampaign_id', 'nama_customer')
+                        ->join('ads_akuns', 'ads_campaigns.adsakun_id', 'ads_akuns.adsakun_id')
+                        ->get();
 
         return view('backend.pages.add-transfer', compact('listCampaign'));
     }
@@ -30,12 +32,12 @@ class TransferController extends Controller
             'tanggal_tf'    => 'required',
             'saldo'         => 'integer',
         ]);
-            
+
         $addTransfer = AdsTransfer::create([
             'adscampaign_id'   => $validateInput['nama_campaign'],
             'tanggal_transfer' => $validateInput['tanggal_tf'],
             'saldo_transfer'   => $validateInput['saldo'],
-        ]);            
+        ]);
 
         return redirect(route('listTransfer'));
     }

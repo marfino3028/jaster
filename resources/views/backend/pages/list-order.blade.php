@@ -29,7 +29,7 @@
                       <table id="ordertable" class="table table-striped">
                         <thead>
                           <tr>
-                            <th>No</th>
+                            <th>Nama</th>
                             <th>Order</th>
                             <th>Project</th>
                             <th>Tanggal Order</th>
@@ -38,10 +38,10 @@
                           </tr>
                         </thead>
                         <tbody>
-                            @php $no = 1; @endphp
+
                             @forelse ($order as $row)
                           <tr>
-                            <td align="center">{{ $no++ }}</td>
+                            <td align="center">{{ $row->nama }}</td>
                             <td align="center">JW{{ $row->order_id }}</td>
                             <td align="center">{{ $row->brand }}</td>
                             <td align="center">{{ $row->tanggal_order }}</td>
@@ -78,6 +78,18 @@
 <script src="{{ asset('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
 <script>
-    $("#ordertable").dataTable();
+    $(document).ready(function() {
+    $('#ordertable').DataTable( {
+        'paging' : true,
+        'lengthChange' : true,
+        'searching' : true,
+        'ordering' : [[ 0, "desc" ]],
+        'order': [[ 0, "desc" ]],
+        'autoWidth' : true,
+        'info' : true,
+        'scrollx' : true
+
+    } );
+} );
 </script>
 @endsection

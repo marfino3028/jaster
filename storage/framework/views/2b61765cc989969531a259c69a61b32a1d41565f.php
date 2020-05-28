@@ -1,14 +1,7 @@
 <?php $__env->startSection('title', 'Ringkasan Campaign'); ?>
 
 <?php $__env->startSection('csslibraries'); ?>
-<?php
-$totalsaldoA = DB::table('ads_campaigns')->where('adsakun_id','=', 1)->sum('saldo_adwords');
-$rumus = $totalsaldoA * 10/100;
-$totalfixsaldoA = $totalsaldoA + $rumus;
-$totalsaldoB = DB::table('ads_campaigns')->where('adsakun_id','=', 2)->sum('saldo_adwords');
-$rumus = $totalsaldoB * 10/100;
-$totalfixsaldoB = $totalsaldoB + $rumus;
-?>
+
 ##parent-placeholder-7b1b790aaa0be695520f3372cd9a85443b6faa1f##
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/datatables/datatables.min.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')); ?>">
@@ -29,32 +22,7 @@ $totalfixsaldoB = $totalsaldoB + $rumus;
 <div class="section-body">
   <h2 class="section-title">List Campaign</h2>
   <p class="section-lead">This page is just an example for you to create your own page.</p>
-  <div class="row">
-      <div class="col-12">
-            <div class="totals">
-                <span class="akuns">
-                    Akun A
-                </span>
-                <br>
-                <span class="digit">
-                    Rp. <?php echo e(number_format($totalfixsaldoA,0,',','.')); ?>-,
-                </span>
-                <br>
-                <p class="rumus"> Rp. <?php echo e(number_format($totalsaldoA,0,',','.')); ?>-, x 10%</p>
-            </div>
 
-            <div class="totals">
-                <span class="akuns">
-                    Akun B
-                </span><br>
-                <span class="digit">
-                    Rp. <?php echo e(number_format($totalfixsaldoB,0,',','.')); ?>-,
-                </span><br>
-                <p class="rumus">Rp. <?php echo e(number_format($totalsaldoB,0,',','.')); ?>-, x 10%</p>
-            </div>
-            
-        </div>
-      </div>
     <div class="col-12">
       <?php $__currentLoopData = $listCampaign; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $akun => $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <div class="card">
@@ -191,8 +159,8 @@ $totalfixsaldoB = $totalsaldoB + $rumus;
         'paging' : false,
         'lengthChange' : false,
         'searching' : false,
-        'ordering' : [[ 1, "asc" ]],
-        'order': [[ 1, "asc" ]],
+        'ordering' : [[ 1, "desc" ]],
+        'order': [[ 1, "desc" ]],
         'autoWidth' : false,
         'info' : false,
         'scrollx' : false

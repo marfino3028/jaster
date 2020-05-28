@@ -276,7 +276,7 @@
                     <div class="form-group addOrder0" id="formQuantity">
                         <?php $__currentLoopData = $listTransaksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itemi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <label>Quantity </label>
-                        <input data-type="number" id="quantityInput0" class="form-control col-md-5"  value="<?php echo e($itemi->quantity); ?>" onkeyup="sendQuantity($(this), 0)" >
+                        <input data-type="number" id="quantityInput0 myInput" class="form-control col-md-5"  value="<?php echo e($itemi->quantity); ?>" onkeyup="sendQuantity($(this), 0)" >
                         <div class="invalid-feedback">
                             Input Quantity!
                         </div>
@@ -412,23 +412,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    //setup before functions
-    var typingTimer;                //timer identifier
-    var doneTypingInterval = 3000;  //time in ms (5 seconds)
-
-    //on keyup, start the countdown
-    $('#myInput').keyup(function(){
-        console.log('adsa');
-        clearTimeout(typingTimer);
-        if ($('#myInput').val()) {
-            typingTimer = setTimeout(doneTyping, doneTypingInterval);
-        }
-    });
-
-    //user is "finished typing," do something
-    function doneTyping () {
-        console.log('coba 3 detik');
-    }
 
 
 
@@ -466,7 +449,7 @@
         var quantity = parseInt(iki.val());
 
         var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
-        console.log(biaya);
+        console.log(count);
         var splitBiaya = parseInt(biaya.split('.').join(""));
         var totalItem = quantity * biaya;
         var obj ={

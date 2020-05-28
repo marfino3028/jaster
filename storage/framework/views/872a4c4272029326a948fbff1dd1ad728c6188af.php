@@ -29,7 +29,7 @@
                       <table id="ordertable" class="table table-striped">
                         <thead>
                           <tr>
-                            <th>No</th>
+                            <th>Nama</th>
                             <th>Order</th>
                             <th>Project</th>
                             <th>Tanggal Order</th>
@@ -38,10 +38,10 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <?php $no = 1; ?>
+
                             <?php $__empty_1 = true; $__currentLoopData = $order; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                           <tr>
-                            <td align="center"><?php echo e($no++); ?></td>
+                            <td align="center"><?php echo e($row->nama); ?></td>
                             <td align="center">JW<?php echo e($row->order_id); ?></td>
                             <td align="center"><?php echo e($row->brand); ?></td>
                             <td align="center"><?php echo e($row->tanggal_order); ?></td>
@@ -78,7 +78,19 @@
 <script src="<?php echo e(asset('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/modules/jquery-ui/jquery-ui.min.js')); ?>"></script>
 <script>
-    $("#ordertable").dataTable();
+    $(document).ready(function() {
+    $('#ordertable').DataTable( {
+        'paging' : true,
+        'lengthChange' : true,
+        'searching' : true,
+        'ordering' : [[ 0, "desc" ]],
+        'order': [[ 0, "desc" ]],
+        'autoWidth' : true,
+        'info' : true,
+        'scrollx' : true
+
+    } );
+} );
 </script>
 <?php $__env->stopSection(); ?>
 
