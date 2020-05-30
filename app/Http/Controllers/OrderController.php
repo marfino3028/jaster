@@ -28,24 +28,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-            // $order= Orders::create([
-            //     'nama'          => $request->input('data.nama'),
-            //     'brand'         => $request->input('data.brand'),
-            //     'jabatan'       => $request->input('data.jabatan'),
-            //     'wa'            => $request->input('data.wa'),
-            //     'alamat'        => $request->input('data.alamat'),
-            //     'via'           => $request->input('data.via'),
-            //     'tau_dari'      => $request->input('data.tau_dari'),
-            //     'data_logo'     => $request->input('data.data_logo'),
-            //     'data_website'  => $request->input('data.data_website'),
-            //     'tipe_post'     => $request->input('data.tipe_post'),
-            //     'target'        => $request->input('data.target'),
-            //     'warna'         => $request->input('data.warna'),
-            //     'deadline'      => $request->input('data.deadline'),
-            //     'dp'            => $request->input('data.dp'),
-            //     'renewal'       => $request->input('data.renewal'),
-            //     'request'       => $request->input('data.request'),
-            // ]);
+
 
             $order = new Orders;
             $order->nama = $request->input('data.nama');
@@ -123,11 +106,12 @@ class OrderController extends Controller
                     ->leftJoin('web_akuns', 'orders.order_id', 'web_akuns.order_id')
                     ->leftjoin('websites', 'orders.order_id', 'websites.order_id')
                     ->leftjoin('transaksi', 'orders.order_id', 'transaksi.order_id')
-                    ->get();
+                    ->first();
         $listTransaksi = Transaksi::where('order_id', $id)->get();
         $totalsemua = Transaksi::where('order_id', $id)->sum('total');
         $jumlah = Transaksi::where('order_id', $id)->count('transaksi_id');
-        return view('backend.pages.edit-order', compact('edit', 'listTransaksi','jumlah','totalsemua'));
+
+        return view('backend.pages.edit-order', compact('edit', 'listTransaksi','jumlah','totalsemua', 'id'));
     }
 
 
@@ -152,6 +136,46 @@ class OrderController extends Controller
 
         ]);
 
+
+        $nengDB = Transaksi::where('order_id',$request->input("order_id"))->get();
+        foreach ($nengDB as $row) {
+            $deleted = true;
+            foreach ($request->input("transaksi_id") as $rows) {
+                if($row->transaksi_id == $rows) {
+
+                    $deleted = false;
+                }
+            }
+            if($deleted) {
+                Transaksi::where('transaksi_id', $row->transaksi_id)->delete();
+            }
+        }
+
+
+        for ($i=0; $i < count($request->input("quantity")); $i++) {
+
+            $dataTransaksi = [
+                'order_id' => $request->input('order_id'),
+                'quantity' => $request->input('quantity')[$i],
+                'biaya' => $request->input('biaya')[$i],
+                'paket' => $request->input('paket')[$i],
+                'total' => $request->input('biaya')[$i] * $request->input('quantity')[$i],
+            ];
+
+            if($request->input("transaksi_id")[$i] === "null") {
+                Transaksi::create($dataTransaksi);
+            } else {
+                Transaksi::where('transaksi_id',$request->input("transaksi_id")[$i])->update($dataTransaksi);
+            }
+
+        }
+
+
+
+
+        // dd($nengDB);
+        // die;
+
         $updateOrder = Orders::where('orders.order_id', $id)
                         ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')
                         ->join('transaksi', 'orders.order_id', 'transaksi.order_id')
@@ -171,6 +195,7 @@ class OrderController extends Controller
         $listTransaksi = Transaksi::where('order_id', $id)->get();
         $totalsemua = Transaksi::where('order_id', $id)->sum('total');
         $jumlah = Transaksi::where('order_id', $id)->count('transaksi_id');
+
         return redirect('/orders');
     }
 
