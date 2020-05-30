@@ -250,12 +250,12 @@
                     <div class="row" >
                        @csrf
                        <div class="col-4" style="margin-right: -300px;">
+                        @php $iteratePaket = 0; @endphp
                         @foreach ($listTransaksi as $item)
-                        <div class="form-group" id='formPaket'>
-
+                        <div class="form-group addOrder{{$iteratePaket}}" id='formPaket'>
                         <label>Paket </label>
                         <div class="col-md-5" style="margin: 0px; padding: 0px;">
-                        <select id="paketInput0" data-input="paket" data-hitung="0" class="form-control select2">
+                        <select id="paketInput{{$iteratePaket}}" data-input="paket" data-hitung="0" class="form-control select2">
                             <option value="">None</option>
                             <option value="Web & Apps" @if ($item->paket == "Web & Apps") {{ 'selected' }} @endif>Web & Apps</option>
                             <option value="Business Kit" @if ($item->paket == "Business Kit") {{ 'selected' }} @endif>Business Kit</option>
@@ -269,30 +269,35 @@
                             Input paket bosz!
                         </div>
                     </div>
+                    @php $iteratePaket++ @endphp
                     @endforeach
                     </div>
 
                     <div class="col-4"  style="margin-right: -300px;">
+                    @php $iterateQuantity = 0; @endphp
                     @foreach ($listTransaksi as $itemi)
-                    <div class="form-group addOrder0" id="formQuantity">
+                    <div class="form-group addOrder{{$iterateQuantity}}" id="formQuantity">
                         <label>Quantity </label>
-                        <input data-type="number" id="quantityInput0 myInput" class="form-control col-md-5"  value="{{ $itemi->quantity }}" onkeyup="sendQuantity($(this), 0)" >
+                        <input data-type="number" id="quantityInput{{$iterateQuantity}}" class="form-control col-md-5"  value="{{ $itemi->quantity }}" onkeyup="sendQuantity($(this), 0)" >
                         <div class="invalid-feedback">
                             Input Quantity!
                         </div>
                     </div>
+                    @php $iterateQuantity++ @endphp
                     @endforeach
 
                     </div>
                         <div class="col-4"  style="margin-right: -290px;">
+                            @php $iterateBiaya = 0; @endphp
                             @foreach ($listTransaksi as $itemii)
-                            <div class="form-group" id="formBiaya">
+                            <div class="form-group addOrder{{$iterateBiaya}}" id="formBiaya">
                                 <label>Biaya </label>
-                                <input type="text" class="form-control col-md-5" id="biayaInput0" value="{{ $itemii->biaya }}" onkeyup="convertToRupiah(this);" >
+                                <input type="text" class="form-control col-md-5" id="biayaInput{{$iterateBiaya}}" value="{{ $itemii->biaya }}" onkeyup="convertToRupiah(this);" >
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
                             </div>
+                            @php $iterateBiaya++ @endphp
                             @endforeach
                             <br><br><br> <!-- pembatasan antara add order now -->
                      </div>
@@ -421,7 +426,7 @@
     var totals = {};
     var totalHarga = {};
     $(document).ready(function () {
-        var counter = 1;
+        var counter = {{$iterateQuantity}};
         $("#add").on("click", function () {
             cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Web & Apps">Web & Apps</option><option value="Business Kit">Business Kit</option><option value="Digital Marketing">Digital Marketing</option><option value="Troubleshooting">Troubleshooting</option><option value="Advertising">Advertising</option><option value="Branding">Branding</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
             cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+ counter +')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';

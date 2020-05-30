@@ -27,25 +27,29 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>
+                        <thead align="left">
                           <tr>
-                            <th>Nama</th>
-                            <th>Order</th>
+                            <th>No</th>
                             <th>Project</th>
+                            <th>Order</th>
+                            <th>Nama</th>
                             <th>Tanggal Order</th>
                             <th>Deadline</th>
                             <th>Action</th>
                           </tr>
                         </thead>
-                        <tbody>
 
+                        <tbody>
+                          <?php $no = 1; ?>
                             <?php $__empty_1 = true; $__currentLoopData = $order; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+
                           <tr>
-                            <td align="center"><?php echo e($row->nama); ?></td>
-                            <td align="center">JW<?php echo e($row->order_id); ?></td>
-                            <td align="center"><?php echo e($row->brand); ?></td>
-                            <td align="center"><?php echo e($row->tanggal_order); ?></td>
-                            <td align="center"><?php echo e($row->deadline); ?></td>
+                          <td align="left"><?php echo e($no++); ?></td>
+                            <td align="left"><?php echo e($row->brand); ?></td>
+                            <td align="left">JW<?php echo e($row->order_id); ?></td>
+                            <td align="left"><?php echo e($row->nama); ?></td>
+                            <td align="left"><?php echo e($row->tanggal_order); ?></td>
+                            <td align="left"><?php echo e($row->deadline); ?></td>
                             <td align="center">
                                 <a href="<?php echo e(route('editOrder', ['id' => $row->order_id])); ?>" class="btn btn-outline-primary button-list-order">Edit</a>
                                 <a href="<?php echo e(route('showOrder', ['id' => $row->order_id])); ?>" class="btn btn-outline-primary button-list-order">View</a>
@@ -83,8 +87,8 @@
         'paging' : true,
         'lengthChange' : true,
         'searching' : true,
-        'ordering' : [[ 0, "desc" ]],
-        'order': [[ 0, "desc" ]],
+        'ordering' : [[ 0, "asc" ]],
+        'order': [[ 0, "asc" ]],
         'autoWidth' : true,
         'info' : true,
         'scrollx' : true

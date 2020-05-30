@@ -62,9 +62,6 @@
                             <div class="form-group">
                             <label>No Whatsapp </label>
                             <input type="number" class="form-control col-md-10" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="wa" value="{{$row->wa}}" disabled>
-                            <div class="invalid-feedback">
-                                Input No Whatsapp!
-                            </div>
                         </div>
                         </div>
                         <div class="col-6">

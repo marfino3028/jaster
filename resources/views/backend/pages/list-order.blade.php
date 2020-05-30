@@ -27,23 +27,27 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table id="ordertable" class="table table-striped">
-                        <thead>
+                        <thead >
                           <tr>
-                            <th>Nama</th>
-                            <th>Order</th>
+                            <th>No</th>
                             <th>Project</th>
+                            <th>Order</th>
+                            <th>Nama</th>
                             <th>Tanggal Order</th>
                             <th>Deadline</th>
                             <th>Action</th>
                           </tr>
                         </thead>
-                        <tbody>
 
+                        <tbody>
+                          @php $no = 1; @endphp
                             @forelse ($order as $row)
+
                           <tr>
-                            <td align="center">{{ $row->nama }}</td>
-                            <td align="center">JW{{ $row->order_id }}</td>
+                          <td align="center">{{ $no++ }}</td>
                             <td align="center">{{ $row->brand }}</td>
+                            <td align="center">JW{{ $row->order_id }}</td>
+                            <td align="center">{{ $row->nama }}</td>
                             <td align="center">{{ $row->tanggal_order }}</td>
                             <td align="center">{{ $row->deadline }}</td>
                             <td align="center">
@@ -83,8 +87,8 @@
         'paging' : true,
         'lengthChange' : true,
         'searching' : true,
-        'ordering' : [[ 0, "desc" ]],
-        'order': [[ 0, "desc" ]],
+        'ordering' : [[ 0, "asc" ]],
+        'order': [[ 0, "asc" ]],
         'autoWidth' : true,
         'info' : true,
         'scrollx' : true
