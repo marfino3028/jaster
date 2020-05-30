@@ -352,9 +352,6 @@
                             </div>
                             </div>
                             </div>
-
-
-
                     </div>
                   </div>
               </div>
@@ -498,8 +495,10 @@ var dataRequest;
 function sendRequest(){
     var editor = tinymce.get('notes');
     var content = editor.getContent();
+
    dataRequest = (content);
     $('#modalRequest').modal('hide');
+
 }
 function getFormData($form){
     var unindexed_array = $form.serializeArray();

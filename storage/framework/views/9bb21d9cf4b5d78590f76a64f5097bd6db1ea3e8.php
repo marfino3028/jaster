@@ -62,9 +62,6 @@
                             <div class="form-group">
                             <label>No Whatsapp </label>
                             <input type="number" class="form-control col-md-10" style="color: yellow; font-size:16px; font-weight:bold; background:#5C5A14;" name="wa" value="<?php echo e($row->wa); ?>" disabled>
-                            <div class="invalid-feedback">
-                                Input No Whatsapp!
-                            </div>
                         </div>
                         </div>
                         <div class="col-6">
@@ -391,7 +388,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Isi Request</h5>
+                <h3 class="modal-title">Isi Request</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -399,7 +396,7 @@
             <div class="modal-body">
 
                 <div class="form-group" id="modalRequest">
-                    <?php echo e($row->request); ?>
+                    <h5 class="modal-title"> <?php echo $row->request; ?> </h5>
 
                 </div>
             </div>
@@ -522,7 +519,6 @@ function sendRequest(){
     var editor = tinymce.get('notes');
     var content = editor.getContent();
    dataRequest = (content);
-   $
    $('#modalRequest').append('dataRequest');
     $('#modalRequest').modal('hide');
 

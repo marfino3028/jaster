@@ -388,7 +388,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Isi Request</h5>
+                <h3 class="modal-title">Isi Request</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -396,7 +396,8 @@
             <div class="modal-body">
 
                 <div class="form-group" id="modalRequest">
-                    {{$row->request}}
+                    <h5 class="modal-title"> {!! $row->request !!} </h5>
+
                 </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
@@ -518,7 +519,6 @@ function sendRequest(){
     var editor = tinymce.get('notes');
     var content = editor.getContent();
    dataRequest = (content);
-   $
    $('#modalRequest').append('dataRequest');
     $('#modalRequest').modal('hide');
 

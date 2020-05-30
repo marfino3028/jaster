@@ -250,12 +250,16 @@
                     <div class="row" >
                        @csrf
                        <div class="col-4" style="margin-right: -300px;">
+                       <input type="hidden" name="order_id" value="{{$edit->order_id}}">
+
                         @php $iteratePaket = 0; @endphp
                         @foreach ($listTransaksi as $item)
+                        <input type="hidden" class="addOrder{{$iteratePaket}}" name="transaksi_id[]" value="{{ $item->transaksi_id }}">
+
                         <div class="form-group addOrder{{$iteratePaket}}" id='formPaket'>
                         <label>Paket </label>
                         <div class="col-md-5" style="margin: 0px; padding: 0px;">
-                        <select id="paketInput{{$iteratePaket}}" data-input="paket" data-hitung="0" class="form-control select2">
+                        <select name="paket[]" id="paketInput{{$iteratePaket}}" data-input="paket" data-hitung="0" class="form-control select2">
                             <option value="">None</option>
                             <option value="Web & Apps" @if ($item->paket == "Web & Apps") {{ 'selected' }} @endif>Web & Apps</option>
                             <option value="Business Kit" @if ($item->paket == "Business Kit") {{ 'selected' }} @endif>Business Kit</option>
@@ -278,7 +282,7 @@
                     @foreach ($listTransaksi as $itemi)
                     <div class="form-group addOrder{{$iterateQuantity}}" id="formQuantity">
                         <label>Quantity </label>
-                        <input data-type="number" id="quantityInput{{$iterateQuantity}}" class="form-control col-md-5"  value="{{ $itemi->quantity }}" onkeyup="sendQuantity($(this), 0)" >
+                        <input data-type="number" name="quantity[]" id="quantityInput{{$iterateQuantity}}" class="form-control col-md-5"  value="{{ $itemi->quantity }}" onkeyup="sendQuantity($(this), 0)" >
                         <div class="invalid-feedback">
                             Input Quantity!
                         </div>
@@ -292,7 +296,7 @@
                             @foreach ($listTransaksi as $itemii)
                             <div class="form-group addOrder{{$iterateBiaya}}" id="formBiaya">
                                 <label>Biaya </label>
-                                <input type="text" class="form-control col-md-5" id="biayaInput{{$iterateBiaya}}" value="{{ $itemii->biaya }}" onkeyup="convertToRupiah(this);" >
+                                <input type="text" name="biaya[]" class="form-control col-md-5" id="biayaInput{{$iterateBiaya}}" value="{{ $itemii->biaya }}">
                                 <div class="invalid-feedback">
                                     Input Biaya
                                 </div>
@@ -309,9 +313,9 @@
                         </button>
                     </div>
                     @for ($i = 1; $i < count($listTransaksi); $i++ )
-                     <div style="margin-top: 65px;" class="form-group addOrder0" >
+                <div style="margin-top: 65px;" class="form-group addOrder{{$i}}" id="divHapus">
 
-                        <button type="button" class="login100-form-btn" name="add" id="hapusRow" style="background-color: red;" >
+                     <button type="button" class="login100-form-btn" name="add" data-id="{{$i}}" id="hapusRow" style="background-color: red;" >
                             <font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row
                             </font>
 
@@ -420,17 +424,19 @@
     </div>
 </div>
 <script type="text/javascript">
-
-
-
     var totals = {};
     var totalHarga = {};
     $(document).ready(function () {
+        $(document).on('click','#hapusRow',function(){
+                console.log('awokwako');
+                $('.addOrder'+ $(this).attr('data-id')).remove();
+        });
         var counter = {{$iterateQuantity}};
         $("#add").on("click", function () {
-            cols1 = '<div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Web & Apps">Web & Apps</option><option value="Business Kit">Business Kit</option><option value="Digital Marketing">Digital Marketing</option><option value="Troubleshooting">Troubleshooting</option><option value="Advertising">Advertising</option><option value="Branding">Branding</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
-            cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input type="number" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+ counter +')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
-            cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input type="text" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="convertToRupiah(this);sendHarga($(this), '+ counter +')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
+
+            cols1 = '<input type="hidden" name="transaksi_id[]" value="null"><div class="form-group addOrder'+ counter +'"><label>Paket </label><div class="col-md-5" style="margin: 0px; padding: 0px;"><select name="paket[]" data-input="paket" data-hitung="'+counter+'" class="form-control select2" id="paketInput'+ counter +'" required><option value="">None</option><option value="Web & Apps">Web & Apps</option><option value="Business Kit">Business Kit</option><option value="Digital Marketing">Digital Marketing</option><option value="Troubleshooting">Troubleshooting</option><option value="Advertising">Advertising</option><option value="Branding">Branding</option></select></div><div class="invalid-feedback">Input paket bosz!' + counter + '</div></div>';
+            cols2 = '<div class="form-group addOrder'+ counter +'"><label>Quantity </label><input name="quantity[]" type="number" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendQuantity($(this), '+ counter +')"><div class="invalid-feedback">Input Quantity!' + counter + '</div></div>';
+            cols3 = '<div class="form-group addOrder'+ counter +'"><label>Biaya </label><input name="biaya[]" type="text" id="quantityInput'+ counter +'" class="form-control col-md-5" onkeyup="sendHarga($(this), '+ counter +')"><div class="invalid-feedback">Input Biaya' + counter + '</div></div>';
             cols4 = '<div style="margin-top: 65px;" class="form-group addOrder'+ counter +'"><button type="button" class="login100-form-btn" name="add" data-id="'+ counter +'" id="hapusRow" style="background-color: red;"><font color="white"><i class="fas fa-minus-circle"></i>&nbsp;Delete Row</font></button></div>';
             $("#formPaket").after(cols1);
             $("#formQuantity").after(cols2);
@@ -451,125 +457,125 @@
         });
     });
     // function untuk kirim kuantitas
-    function sendQuantity(iki, count) {
-        console.log(iki,count);
-        var paket = $('#paketInput'+ count).val();
-        var quantity = parseInt(iki.val());
+    // function sendQuantity(iki, count) {
+    //     console.log(iki,count);
+    //     var paket = $('#paketInput'+ count).val();
+    //     var quantity = parseInt(iki.val());
 
-        var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
-        console.log(count);
-        var splitBiaya = parseInt(biaya.split('.').join(""));
-        var totalItem = quantity * biaya;
-        var obj ={
-            id: count,
-            paket: paket,
-            quantity: quantity,
-            harga: biaya,
-            totalItem: totalItem,
-        };
-        totalHarga[count] = totalItem;
-        // loop value in object and sum all
-        var totalSemua = 0;
-        for (const key in totalHarga) {
-            if (isNaN(totalHarga[key])) {
-                totalSemua = totalSemua + 0;
-            } else {
-                totalSemua += parseInt(totalHarga[key]);
-            }
-        }
-        totals[count] = obj;
-        //console.log(totals);
-        $('#totalOrder').text('Rp. '+totalSemua);
-    }
+    //     var biaya= $('.addOrder'+ count + ' > #biayaInput'+count).val();
+    //     console.log(count);
+    //     var splitBiaya = parseInt(biaya.split('.').join(""));
+    //     var totalItem = quantity * biaya;
+    //     var obj ={
+    //         id: count,
+    //         paket: paket,
+    //         quantity: quantity,
+    //         harga: biaya,
+    //         totalItem: totalItem,
+    //     };
+    //     totalHarga[count] = totalItem;
+    //     // loop value in object and sum all
+    //     var totalSemua = 0;
+    //     for (const key in totalHarga) {
+    //         if (isNaN(totalHarga[key])) {
+    //             totalSemua = totalSemua + 0;
+    //         } else {
+    //             totalSemua += parseInt(totalHarga[key]);
+    //         }
+    //     }
+    //     totals[count] = obj;
+    //     //console.log(totals);
+    //     $('#totalOrder').text('Rp. '+totalSemua);
+    // }
 
-    // function untuk kirim harga tiap row
-    function sendHarga(iki, count) {
-        var paket = $('#paketInput'+ count).val();
-        // get quantity
-        var quantity = parseInt($('.addOrder'+ count + ' > #quantityInput'+count).val());
-        // get biaya
-        var biaya= iki.val();
-        var splitBiaya = parseInt(biaya.split('.').join(""));
-        // quantity * biaya
-        var totalItem = quantity * splitBiaya
-        var obj ={
-            id: count,
-            paket: paket,
-            quantity: quantity,
-            harga: splitBiaya,
-            totalItem: totalItem,
-        };
-        totalHarga[count] = totalItem;
-        // loop value in object and sum all
-        var totalSemua = 0;
-        for (const key in totalHarga) {
-            if (isNaN(totalHarga[key])) {
-                totalSemua = totalSemua + 0;
-            } else {
-                totalSemua += parseInt(totalHarga[key]);
-            }
-        }
-        totals[count] = obj;
-        //console.log(totals);
-        $('#totalOrder').text('Rp. '+totalSemua);
-    }
-    var dataRequest;
-    function sendRequest(){
-        var editor = tinymce.get('notes');
-        var content = editor.getContent();
-       dataRequest = (content);
-        $('#modalRequest').modal('hide');
-    }
-    function getFormData($form){
-        var unindexed_array = $form.serializeArray();
-        var indexed_array = {};
-        $.map(unindexed_array, function(n, i){
-            indexed_array[n['name']] = n['value'];
-        });
-        return indexed_array;
-    }
-    </script>
-    <script>
-            $.ajaxSetup({
-              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-          });
-          $('.button--shikoba').click(function(){
-            var dataToSend = {};
-            $('#kirimData').submit(function (e) {
-                e.preventDefault();
-                dataToSend['data'] = getFormData($(this));
-                dataToSend.data['request'] = dataRequest;
-                dataToSend.data['transaksi'] = totals;
-               $.ajax({
-                    url:'{{ route('addOrder') }}',
-                    method:"POST",
-                    data:dataToSend,
-                    type:'json',
-                    success:function(data)
-                    {
-                        window.location.href = '{{route('listOrder')}}'
-                        // if(data.error){
-                        //     printErrorMsg(data.error);
-                        // }else{
-                        //    //window.location.href = 'orders'
-                        //    $('input').val("");
-                        // }
-                    }
-               });
-            })
-          });
-          function printErrorMsg (msg) {
-             $(".print-error-msg").find(".addOrder").html('');
-             $(".print-error-msg").css('display','block');
-             $(".print-success-msg").css('display','none');
-             $.each( msg, function( key, value ) {
-                $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
-             });
-          }
+    // // function untuk kirim harga tiap row
+    // function sendHarga(iki, count) {
+    //     var paket = $('#paketInput'+ count).val();
+    //     // get quantity
+    //     var quantity = parseInt($('.addOrder'+ count + ' > #quantityInput'+count).val());
+    //     // get biaya
+    //     var biaya= iki.val();
+    //     var splitBiaya = parseInt(biaya.split('.').join(""));
+    //     // quantity * biaya
+    //     var totalItem = quantity * splitBiaya
+    //     var obj ={
+    //         id: count,
+    //         paket: paket,
+    //         quantity: quantity,
+    //         harga: splitBiaya,
+    //         totalItem: totalItem,
+    //     };
+    //     totalHarga[count] = totalItem;
+    //     // loop value in object and sum all
+    //     var totalSemua = 0;
+    //     for (const key in totalHarga) {
+    //         if (isNaN(totalHarga[key])) {
+    //             totalSemua = totalSemua + 0;
+    //         } else {
+    //             totalSemua += parseInt(totalHarga[key]);
+    //         }
+    //     }
+    //     totals[count] = obj;
+    //     //console.log(totals);
+    //     $('#totalOrder').text('Rp. '+totalSemua);
+    // }
+    // var dataRequest;
+    // function sendRequest(){
+    //     var editor = tinymce.get('notes');
+    //     var content = editor.getContent();
+    //    dataRequest = (content);
+    //     $('#modalRequest').modal('hide');
+    // }
+    // function getFormData($form){
+    //     var unindexed_array = $form.serializeArray();
+    //     var indexed_array = {};
+    //     $.map(unindexed_array, function(n, i){
+    //         indexed_array[n['name']] = n['value'];
+    //     });
+    //     return indexed_array;
+    // }
+    // </script>
+    // <script>
+    //         $.ajaxSetup({
+    //           headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //           }
+    //       });
+    //       $('.button--shikoba').click(function(){
+    //         var dataToSend = {};
+    //         $('#kirimData').submit(function (e) {
+    //             e.preventDefault();
+    //             dataToSend['data'] = getFormData($(this));
+    //             dataToSend.data['request'] = dataRequest;
+    //             dataToSend.data['transaksi'] = totals;
+    //            $.ajax({
+    //                 url:'{{ route('addOrder') }}',
+    //                 method:"POST",
+    //                 data:dataToSend,
+    //                 type:'json',
+    //                 success:function(data)
+    //                 {
+    //                     window.location.href = '{{route('listOrder')}}'
+    //                     // if(data.error){
+    //                     //     printErrorMsg(data.error);
+    //                     // }else{
+    //                     //    //window.location.href = 'orders'
+    //                     //    $('input').val("");
+    //                     // }
+    //                 }
+    //            });
+    //         })
+    //       });
+    //       function printErrorMsg (msg) {
+    //          $(".print-error-msg").find(".addOrder").html('');
+    //          $(".print-error-msg").css('display','block');
+    //          $(".print-success-msg").css('display','none');
+    //          $.each( msg, function( key, value ) {
+    //             $(".print-error-msg").find(".addOrder").append('<li>'+value+'</li>');
+    //          });
+    //       }
 
-    </script>
+    // </script>
 
 
     <script>
