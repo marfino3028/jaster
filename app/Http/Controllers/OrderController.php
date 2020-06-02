@@ -172,8 +172,7 @@ class OrderController extends Controller
 
 
 
-        dd($nengDB);
-        die;
+       
 
         $updateOrder = Orders::where('orders.order_id', $id)
                         ->join('web_akuns', 'orders.order_id', 'web_akuns.order_id')
